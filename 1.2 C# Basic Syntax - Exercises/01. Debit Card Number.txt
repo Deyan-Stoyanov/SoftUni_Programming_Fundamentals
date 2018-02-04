@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Numerics;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var part1 = int.Parse(Console.ReadLine());
+            var part2 = int.Parse(Console.ReadLine());
+            var part3 = int.Parse(Console.ReadLine());
+            var part4 = int.Parse(Console.ReadLine());
+            Console.WriteLine($"{part1:d4} {part2:d4} {part3:d4} {part4:d4}");
+        }
+    }
+}

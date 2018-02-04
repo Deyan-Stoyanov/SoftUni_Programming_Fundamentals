@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string figure = Console.ReadLine().ToLower();
+            switch (figure)
+            {
+                case "circle":
+                    double radius = double.Parse(Console.ReadLine());
+                    Console.WriteLine($"{CircleArea(radius):f2}");
+                    break;
+                case "square":
+                    double side = double.Parse(Console.ReadLine());
+                    Console.WriteLine($"{SquareArea(side):f2}");
+                    break;
+                case "rectangle":
+                    double a = double.Parse(Console.ReadLine());
+                    double b = double.Parse(Console.ReadLine());
+                    Console.WriteLine($"{RectangleArea(a, b):f2}");
+                    break;
+                case "triangle":
+                    double a1 = double.Parse(Console.ReadLine());
+                    double a1h = double.Parse(Console.ReadLine());
+                    Console.WriteLine($"{TriangleArea(a1, a1h):f2}");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        static double TriangleArea(double a1, double a1h)
+        {
+            return (a1 * a1h) / 2;
+        }
+
+        static double RectangleArea(double a, double b)
+        {
+            return a * b;
+        }
+
+        static double SquareArea(double side)
+        {
+            return Math.Pow(side, 2);
+        }
+
+        static double CircleArea(double radius)
+        {
+            return Math.PI * Math.Pow(radius, 2);
+        }
+    }
+}

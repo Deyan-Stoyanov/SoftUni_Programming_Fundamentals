@@ -1,0 +1,57 @@
+3.
+
+package com.company;
+
+import java.util.Scanner;
+
+public class Main
+{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int hours = Integer.parseInt(scanner.nextLine());
+        int minutes = Integer.parseInt(scanner.nextLine());
+        int addedTime = 30;
+        int time = ((hours * 60) + minutes) + addedTime;
+        int newHours = time / 60;
+        int newMinutes = time % 60;
+        if (newHours > 23) {
+            newHours -= 24;
+        }
+        System.out.format("%d:%d", newHours, newMinutes);
+    }
+}
+
+
+5.
+
+
+
+package com.company;
+
+import java.util.Scanner;
+
+public class Main
+{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String country = scanner.nextLine();
+        String lang = "";
+        switch (country){
+            case "England":
+            case "USA":
+                lang = "English";
+                break;
+            case "Spain":
+            case "Mexico":
+            case "Argentina":
+                lang = "Spanish";
+                break;
+                default:
+                    lang = "unknown";
+                    break;
+        }
+        System.out.println(lang);
+    }
+}
+
+

@@ -1,0 +1,21 @@
+using System;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string name = Console.ReadLine();
+            Console.WriteLine(HelloString(name));
+        }
+        static string HelloString(string name)
+        {
+            string hello = $"Hello, {name}!";
+            return hello;
+        }
+    }
+}

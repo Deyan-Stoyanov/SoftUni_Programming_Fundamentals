@@ -1,0 +1,24 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine(GetTriangleArea());
+        }
+        static double GetTriangleArea(double a, double ha)
+        {
+            return (a * ha) / 2;
+        }
+        static double GetTriangleArea()
+        {
+            double side = double.Parse(Console.ReadLine());
+            double height = double.Parse(Console.ReadLine());
+            return GetTriangleArea(side, height);
+        }
+    }
+}

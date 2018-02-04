@@ -1,0 +1,33 @@
+using System;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int firstNum = int.Parse(Console.ReadLine());
+            int secondNum = int.Parse(Console.ReadLine());
+            int thirdNum = int.Parse(Console.ReadLine());
+            int maxOfFirstTwo = GetMax(firstNum, secondNum);
+            int maxTotal = GetMax(maxOfFirstTwo, thirdNum);
+            Console.WriteLine(maxTotal);
+        }
+        static int GetMax(int a, int b)
+        {
+            int max;
+            if (a > b)
+            {
+                max = a;
+            }
+            else
+            {
+                max = b;
+            }
+            return max;
+        }
+    }
+}

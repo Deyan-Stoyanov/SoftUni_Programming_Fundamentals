@@ -1,0 +1,32 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string input = (Console.ReadLine().ToLower());
+            bool isVowel = "aeiou".Contains(input);
+            try
+            {
+                Convert.ToInt32(input);
+                Console.WriteLine("digit");
+            }
+            catch (Exception)
+            {
+                if (isVowel)
+                {
+                    Console.WriteLine("vowel");
+
+                }
+                else
+                {
+                    Console.WriteLine("other");
+                }
+            }
+        }
+    }
+}

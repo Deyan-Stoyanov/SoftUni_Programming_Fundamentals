@@ -1,0 +1,64 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int group = int.Parse(Console.ReadLine());
+            string package = Console.ReadLine().ToLower();
+            string hall = "";
+            int hallPrice = 0;
+            int packPrice = 0;
+            double discount = 0.0;
+            bool noRoom = false;
+            if (group <= 50)
+            {
+                hall = "Small Hall";
+                hallPrice = 2500;
+            }
+            else if (group <= 100)
+            {
+                hall = "Terrace";
+                hallPrice = 5000;
+            }
+            else if (group <= 120)
+            {
+                hall = "Great Hall";
+                hallPrice = 7500;
+            }
+            else
+            {
+                noRoom = true;
+            }
+            switch (package)
+            {
+                case "normal":
+                    packPrice = 500;
+                    discount = 0.95;
+                    break;
+                case "gold":
+                    packPrice = 750;
+                    discount = 0.9;
+                    break;
+                case "platinum":
+                    packPrice = 1000;
+                    discount = 0.85;
+                    break;
+                default:
+                    break;
+            }
+            double total = ((hallPrice + packPrice) * discount) / group;
+            if (noRoom)
+            {
+                Console.WriteLine("We do not have an appropriate hall.");
+            }
+            else
+            {
+                Console.WriteLine($"We can offer you the {hall}");
+                Console.WriteLine($"The price per person is {total:f2}$");
+            }
+        }
+
+    }
+}

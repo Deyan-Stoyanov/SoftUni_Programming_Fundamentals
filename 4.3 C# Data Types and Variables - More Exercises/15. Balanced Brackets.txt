@@ -1,0 +1,48 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            int leftBracketSum = 0;
+            int rightBracketSum = 0;
+            string lastBracket = "";
+            bool fatalError = false;
+            bool notFirst = false;
+            for (int i = 0; i < n; i++)
+            {
+                string myString = Console.ReadLine();
+                if (myString == lastBracket && notFirst)
+                {
+                    fatalError = true;
+                    break;
+                }
+                if (myString == "(")
+                {
+                    leftBracketSum++;
+                    lastBracket = "(";
+                    notFirst = true;
+                }
+                else if (myString == ")")
+                {
+                    rightBracketSum++;
+                    lastBracket = ")";
+                    notFirst = true;
+                }
+            }
+            if (!fatalError && (leftBracketSum == rightBracketSum))
+            {
+                Console.WriteLine("BALANCED");
+            }
+            else
+            {
+                Console.WriteLine("UNBALANCED");
+            }
+        }
+    }
+}

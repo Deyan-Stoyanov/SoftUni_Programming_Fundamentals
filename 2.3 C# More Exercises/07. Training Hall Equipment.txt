@@ -1,0 +1,34 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double budget = double.Parse(Console.ReadLine());
+            int numItems = int.Parse(Console.ReadLine());
+            double subtotal = 0;
+            for (int i = 0; i < numItems; i++)
+            {
+                string item = Console.ReadLine();
+                double price = double.Parse(Console.ReadLine());
+                int quantity = int.Parse(Console.ReadLine());
+                if (quantity > 1)
+                {
+                    item += "s";
+                }
+                Console.WriteLine($"Adding {quantity} {item} to cart.");
+                subtotal += (price * quantity);
+            }
+            Console.WriteLine($"Subtotal: ${subtotal:f2}");
+            if ((budget - subtotal) > 0)
+            {
+                Console.WriteLine($"Money left: ${(budget - subtotal):f2}");
+            }
+            else
+            {
+                Console.WriteLine($"Not enough. We need ${(subtotal - budget):f2} more.");
+            }
+        }
+    }
+}

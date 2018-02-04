@@ -1,0 +1,42 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string type = Console.ReadLine().ToLower();
+            long minValue = 0;
+            long maxValue = 0;
+            switch (type)
+            {
+                case "sbyte":
+                    minValue = sbyte.MinValue;
+                    maxValue = sbyte.MaxValue;
+                    break;
+                case "byte":
+                    minValue = byte.MinValue;
+                    maxValue = byte.MaxValue;
+                    break;
+                case "int":
+                    minValue = int.MinValue;
+                    maxValue = int.MaxValue;
+                    break;
+                case "uint":
+                    minValue = uint.MinValue;
+                    maxValue = uint.MaxValue;
+                    break;
+                case "long":
+                    minValue = long.MinValue;
+                    maxValue = long.MaxValue;
+                    break;
+                default:
+                    break;
+            }
+            Console.WriteLine($"{maxValue}{Environment.NewLine}{minValue}");
+        }
+    }
+}

@@ -1,0 +1,43 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string unit = Console.ReadLine().ToLower();
+            double value = double.Parse(Console.ReadLine());
+            double initialValue = value;
+            string toUnit = "";
+            switch (unit)
+            {
+                case "miles":
+                    value *= 1.6;
+                    toUnit = "kilometers";
+                    break;
+                case "inches":
+                    value *= 2.54;
+                    toUnit = "centimeters";
+                    break;
+                case "feet":
+                    value *= 30;
+                    toUnit = "centimeters";
+                    break;
+                case "yards":
+                    value *= 0.91;
+                    toUnit = "meters";
+                    break;
+                case "gallons":
+                    value *= 3.8;
+                    toUnit = "liters";
+                    break;
+                default:
+                    break;
+            }
+            Console.WriteLine($"{initialValue} {unit} = {value:F2} {toUnit}");
+        }
+    }
+}

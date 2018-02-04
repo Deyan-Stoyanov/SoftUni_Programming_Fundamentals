@@ -1,0 +1,29 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int a = int.Parse(Console.ReadLine());
+            int b = int.Parse(Console.ReadLine());
+            int sbPrice = 0;
+            int intPrice = 0;
+            if (a <= sbyte.MaxValue)
+            {
+                intPrice = b;
+                sbPrice = a;
+            }
+            else
+            {
+                intPrice = a;
+                sbPrice = b;
+            }
+            long total = (4 * (long)sbPrice) + (10 * (long)intPrice);
+            Console.WriteLine(total);
+        }
+    }
+}

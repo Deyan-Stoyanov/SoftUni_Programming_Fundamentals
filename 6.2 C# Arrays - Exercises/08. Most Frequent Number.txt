@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        int[] one = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+        int mostFreq = 0;
+        int maxCount = 0;
+        int count;
+        bool isThere = true;
+        for (int i = 0; i < one.Length; i++)
+        {
+            int Freq = one[i];
+            count = 0;
+            for (int j = i; j < one.Length; j++)
+            {
+                if (Freq == one[j])
+                {
+                    count++;
+                }
+            }
+            if (count > maxCount)
+            {
+                maxCount = count;
+                mostFreq = Freq;
+            }
+        }
+        Console.WriteLine(mostFreq);
+    }
+}

@@ -1,0 +1,43 @@
+using System;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            BigInteger factoriel = Faktoriel(n);
+            Console.WriteLine(ZerosCount(factoriel));
+        }
+        static BigInteger Faktoriel(int n)
+        {
+            BigInteger factoriel = 1;
+            for (int i = 1; i <= n; i++)
+            {
+                factoriel *= i;
+            }
+            return factoriel;
+        }
+        static int ZerosCount(BigInteger num)
+        {
+            int zerosCount = 0;
+            while (true)
+            {
+                if (num % 10 == 0)
+                {
+                    zerosCount++;
+                }
+                else
+                {
+                    break;
+                }
+                num /= 10;
+            }
+            return zerosCount;
+        }
+    }
+}

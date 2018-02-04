@@ -1,0 +1,58 @@
+using System;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            long num = long.Parse(Console.ReadLine());
+            Console.WriteLine(EnglishName(num));
+        }
+        static string EnglishName(long num)
+        {
+            string englishNum = "";
+            long lastNum = Math.Abs(num) % 10;
+            switch (lastNum)
+            {
+                case 1:
+                    englishNum = "one";
+                    break;
+                case 2:
+                    englishNum = "two";
+                    break;
+                case 3:
+                    englishNum = "three";
+                    break;
+                case 4:
+                    englishNum = "four";
+                    break;
+                case 5:
+                    englishNum = "five";
+                    break;
+                case 6:
+                    englishNum = "six";
+                    break;
+                case 7:
+                    englishNum = "seven";
+                    break;
+                case 8:
+                    englishNum = "eight";
+                    break;
+                case 9:
+                    englishNum = "nine";
+                    break;
+                case 0:
+                    englishNum = "zero";
+                    break;
+                default:
+                    break;
+            }
+            return englishNum;
+        }
+        
+    }
+}

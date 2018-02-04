@@ -1,0 +1,38 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int startNumber = int.Parse(Console.ReadLine());
+            int endNumber = int.Parse(Console.ReadLine());
+            int magicNumber = int.Parse(Console.ReadLine());
+            int lastFirstNum = 0;
+            int lastSecondNum = 0;
+            int count = 0;
+            bool isFound = false;
+            for (int i = startNumber; i <= endNumber; i++)
+            {
+                for (int j = startNumber; j <= endNumber; j++)
+                {
+                    if (i + j == magicNumber)
+                    {
+                        lastFirstNum = i;
+                        lastSecondNum = j;
+                        isFound = true;
+                    }
+                    count++;
+                }
+            }
+            if (isFound)
+            {
+                Console.WriteLine($"Number found! {lastFirstNum} + {lastSecondNum} = {magicNumber}");
+            }
+            else
+            {
+                Console.WriteLine($"{count} combinations - neither equals {magicNumber}");
+            }
+        }
+    }
+}

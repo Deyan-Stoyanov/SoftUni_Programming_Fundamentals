@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        string[] array = Console.ReadLine().Split(' ');
+        int n = int.Parse(Console.ReadLine());
+        for (int i = 0; i < n; i++)
+        {
+            string[] command = Console.ReadLine().Split(' ');
+            if (command[0]== "Reverse")
+            {
+                Array.Reverse(array);
+            }
+            else if (command[0] == "Distinct")
+            {
+               array = Distinct(array);
+            }
+            else if (command[0] == "Replace")
+            {
+                int index = Convert.ToInt32(command[1]);
+                string toReplace = command[2];
+                Replace(array, index, toReplace);
+            }
+        }
+        StringBuilder a = new StringBuilder();
+        foreach (string s in array)
+        {
+            a.Append(s);
+            a.Append(", ");
+        }
+        a.Remove(a.Length - 2, 2);
+        Console.WriteLine(a);
+    }
+
+    private static void Replace(string[] array, int index, string toReplace)
+    {
+        array[index] = toReplace;
+    }
+
+    static string[] Distinct(string[] array)
+    {
+        return array.Distinct().ToArray();
+    }
+}

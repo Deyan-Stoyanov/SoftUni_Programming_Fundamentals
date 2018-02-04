@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        int[] one = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+        int bestIndex = 0;
+        int count = 1;
+        int bestCount = 0;
+        for (int i = 1; i < one.Length; i++)
+        {
+            if (one[i] == one[i - 1])
+            {
+                count++;
+            }
+            else
+            {
+                count = 1;
+            }
+            if (count > bestCount)
+            {
+                bestCount = count;
+                bestIndex = i - count + 1;
+            }
+        }
+        for (int i = bestIndex; i < bestIndex + bestCount; i++)
+        {
+            Console.Write(one[i] + " ");
+        }
+
+    }
+}

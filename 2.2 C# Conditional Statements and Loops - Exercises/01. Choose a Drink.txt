@@ -1,0 +1,29 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string proffesion = Console.ReadLine().ToLower();
+            string beverage = "";
+            switch (proffesion)
+            {
+                case "athlete":
+                    beverage = "Water";
+                    break;
+                case "businessman":
+                case "businesswoman":
+                    beverage = "Coffee";
+                    break;
+                case "softuni student":
+                    beverage = "Beer";
+                    break;
+                default:
+                    beverage = "Tea";
+                    break;
+            }
+            Console.WriteLine(beverage);
+        }
+    }
+}

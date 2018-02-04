@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        string[] goods = Console.ReadLine().Split(' ');
+        long[] quantity = Console.ReadLine().Split(' ').Select(long.Parse).ToArray();
+        decimal[] price = Console.ReadLine().Split(' ').Select(decimal.Parse).ToArray();
+        string[] product = Console.ReadLine().Split(' ');
+        while (product[0] != "done")
+        {
+            bool thereIs = false;
+            int index = 0;
+            long qtToOrder = long.Parse(product[1]);
+            for (int i = 0; i < goods.Length; i++)
+            {
+                if (goods[i] == product[0] && i < quantity.Length)
+                {
+                    if (quantity[i] >= qtToOrder)
+                    {
+                        index = i;
+                        thereIs = true;
+                        break;
+                    }
+                }
+            }
+            if (thereIs)
+            {
+                Console.WriteLine($"{product[0]} x {qtToOrder} costs {(price[index] * qtToOrder):F2}");
+                quantity[index] -= qtToOrder;
+            }
+            else
+            {
+                Console.WriteLine($"We do not have enough {product[0]}");
+            }
+            product = product = Console.ReadLine().Split(' ');
+        }
+    }
+}

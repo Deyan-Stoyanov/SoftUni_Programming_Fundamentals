@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        int[] array = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+        int[] array2 = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+        int[] maxArr = new int[Math.Max(array2.Length, array.Length)];
+        int[] newArr = new int[Math.Max(array2.Length, array.Length)];
+        if (array.Length < array2.Length)
+        {
+            maxArr = array2;
+            for (int i = 0; i < array2.Length; i++)
+            {
+                for (int j = 0; j < array.Length; j++)
+                {
+                    newArr[i] = array[i % array.Length];
+                    
+                }
+            }
+        }
+        else if (array.Length > array2.Length)
+        {
+            maxArr = array;
+            for (int i = 0; i < array.Length; i++)
+            {
+                for (int j = 0; j < array2.Length; j++)
+                {
+                    newArr[i] = array2[i % array2.Length];
+
+                }
+            }
+        }
+        else
+        {
+            maxArr = array;
+            newArr = array2;
+        }
+        int[] sum = new int[newArr.Length];
+        for (int i = 0; i < sum.Length; i++)
+        {
+            sum[i] = maxArr[i] + newArr[i];
+        }
+        Print(sum);
+    }
+
+    private static void Print(int[] newArr)
+    {
+        for (int i = 0; i < newArr.Length; i++)
+        {
+            Console.Write(newArr[i] + " ");
+        }
+        Console.WriteLine();
+    }
+}

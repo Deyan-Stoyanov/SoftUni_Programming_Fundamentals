@@ -1,0 +1,25 @@
+using System;
+using System.Numerics;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            int sum;
+            for (int i = 1; i <= n; i++)
+            {
+                sum = 0;
+                int newI = i;
+                while (newI > 0)
+                {
+                    sum += newI % 10;
+                    newI /= 10;
+                }
+                Console.WriteLine($"{i} -> {(sum == 5 || sum == 7 || sum == 11)}");
+            }
+        }
+    }
+}

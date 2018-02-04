@@ -1,0 +1,58 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            char firstBoat = char.Parse(Console.ReadLine());
+            char secondBoat = char.Parse(Console.ReadLine());
+            int n = int.Parse(Console.ReadLine());
+            int tilesOfFirstBoat = 0;
+            int tilesOfSecondBoat = 0;
+            char winner = 'a';
+            for (int i = 1; i <= n; i++)
+            {
+                string myString = Console.ReadLine();
+                if (myString == "UPGRADE")
+                {
+                    firstBoat = Convert.ToChar((Convert.ToInt32(firstBoat)) + 3);
+                    secondBoat = Convert.ToChar((Convert.ToInt32(secondBoat)) + 3);
+                }
+                else
+                {
+                    if (i % 2 == 0)
+                    {
+                        tilesOfSecondBoat += myString.Length;
+                    }
+                    else
+                    {
+                        tilesOfFirstBoat += myString.Length;
+                    }
+                }
+                if (tilesOfFirstBoat >= 50)
+                {
+                    winner = firstBoat;
+                    break;
+                }
+                else if (tilesOfSecondBoat >= 50)
+                {
+                    winner = secondBoat;
+                    break;
+                }
+            }
+            if (tilesOfFirstBoat > tilesOfSecondBoat)
+            {
+                winner = firstBoat;
+            }
+            else
+            {
+                winner = secondBoat;
+            }
+            Console.WriteLine(winner);
+        }
+    }
+}

@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        int[] array = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+        int stop = int.Parse(Console.ReadLine());
+        long sum = 0;
+        bool isFound = false;
+        for (int i = array.Length - 1; i >= 0; i--)
+        {
+            if (array[i] == stop) 
+            {
+                isFound = true;
+                for (int j = 0; j < i; j++)
+                {
+                    sum += array[j];
+                }
+                break;
+            }
+        }
+        if (isFound)
+        {
+            Console.WriteLine(sum);
+
+        }
+        else
+        {
+            Console.WriteLine("No occurrences were found!");
+        }
+    }
+
+    private static void Print(int[] newArr)
+    {
+        for (int i = 0; i < newArr.Length; i++)
+        {
+            Console.Write(newArr[i] + " ");
+        }
+        Console.WriteLine();
+    }
+}

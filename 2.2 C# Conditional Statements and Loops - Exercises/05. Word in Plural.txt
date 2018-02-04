@@ -1,0 +1,34 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string word = Console.ReadLine();
+            string[] suffix = { "o", "ch", "s", "sh", "x", "z" };
+            bool endsWith = false;
+            foreach (var suf in suffix)
+            {
+                if (word.EndsWith(suf))
+                {
+                    endsWith = true;
+                }
+            }
+            if (word.EndsWith("y"))
+            {
+                word = (word.Remove(word.Length - 1) + "ies");
+            }
+            else if (endsWith)
+            {
+                word += "es";
+            }
+            else
+            {
+                word += "s";
+            }
+            Console.WriteLine(word);
+        }
+
+    }
+}

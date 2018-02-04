@@ -1,0 +1,79 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            BigInteger num = BigInteger.Parse(Console.ReadLine());
+            bool sb = false; bool b = false;bool sh = false; bool ush = false;bool integer = false;bool uin = false; bool lon = false;
+            if (num <= sbyte.MaxValue && num >= sbyte.MinValue)
+            {
+                sb = true;
+            }
+            if (num <= byte.MaxValue && num >= byte.MinValue)
+            {
+                b = true;
+            }
+            if (num <= short.MaxValue && num >= short.MinValue)
+            {
+                sh = true;
+            }
+            if (num <= ushort.MaxValue && num >= ushort.MinValue)
+            {
+                ush = true;
+            }
+            if (num <= int.MaxValue && num >= int.MinValue)
+            {
+                integer = true;
+            }
+            if (num <= uint.MaxValue && num >= uint.MinValue)
+            {
+                uin = true;
+            }
+            if (num <= long.MaxValue && num >= long.MinValue)
+            {
+                lon = true;
+            }
+            if (!sb && !b && !sh && !ush && !integer && ! uin && !lon)
+            {
+                Console.WriteLine($"{num} can't fit in any type");
+            }
+            else
+            {
+                Console.WriteLine($"{num} can fit in:");
+                if (sb)
+                {
+                    Console.WriteLine("* sbyte");
+                }
+                if (b)
+                {
+                    Console.WriteLine("* byte");
+                }
+                if (sh)
+                {
+                    Console.WriteLine("* short");
+                }
+                if (ush)
+                {
+                    Console.WriteLine("* ushort");
+                }
+                if (integer)
+                {
+                    Console.WriteLine("* int");
+                }
+                if (uin)
+                {
+                    Console.WriteLine("* uint");
+                }
+                if (lon)
+                {
+                    Console.WriteLine("* long");
+                }
+            }
+        }
+    }
+}

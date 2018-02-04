@@ -1,0 +1,44 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string type = Console.ReadLine().ToLower();
+            int n = int.Parse(Console.ReadLine());
+            long closestNumber = long.MinValue;
+            for (int i = 0; i < n; i++)
+            {
+                long id = long.Parse(Console.ReadLine());
+                switch (type)
+                {
+                    case "sbyte":
+                        if (id > closestNumber && id <= sbyte.MaxValue)
+                        {
+                            closestNumber = id;
+                        }
+                        break;
+                    case "int":
+                        if (id > closestNumber && id <= int.MaxValue)
+                        {
+                            closestNumber = id;
+                        }
+                        break;
+                    case "long":
+                        if (id > closestNumber && id <= long.MaxValue)
+                        {
+                            closestNumber = id;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Console.WriteLine(closestNumber);
+        }
+    }
+}

@@ -1,0 +1,19 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            var name = Console.ReadLine();
+            var volume = double.Parse(Console.ReadLine());
+            var energyPer100Ml = double.Parse(Console.ReadLine());
+            var sugarPer100Ml = double.Parse(Console.ReadLine());
+            var energyTotal = energyPer100Ml / 100.0 * volume;
+            var sugarTotal = sugarPer100Ml / 100.0 * volume;
+            Console.WriteLine($"{volume}ml {name}:");
+            Console.WriteLine($"{energyTotal}kcal, {sugarTotal}g sugars");
+
+        }
+    }
+}

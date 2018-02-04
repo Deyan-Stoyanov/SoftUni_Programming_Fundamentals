@@ -1,0 +1,25 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int i = 0;
+            int count = 0;
+            while (true)
+            {
+                try
+                {
+                    i = int.Parse(Console.ReadLine());
+                    count++;
+                }
+                catch (Exception)
+                {
+                    break;
+                }
+            }
+            Console.WriteLine(count);
+        }
+    }
+}

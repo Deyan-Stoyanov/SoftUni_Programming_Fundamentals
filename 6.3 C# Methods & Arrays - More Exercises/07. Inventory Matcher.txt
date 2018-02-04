@@ -1,0 +1,28 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        string[] goods = Console.ReadLine().Split(' ');
+        long[] quantity = Console.ReadLine().Split(' ').Select(long.Parse).ToArray();
+        decimal[] price = Console.ReadLine().Split(' ').Select(decimal.Parse).ToArray();
+        string product = Console.ReadLine();
+        while (product != "done")
+        {
+            int index = 0;
+            for (int i = 0; i < goods.Length; i++)
+            {
+                if (goods[i] == product)
+                {
+                    index = i;
+                }
+            }
+            Console.WriteLine($"{product} costs: {price[index]}; Available quantity: {quantity[index]}");
+            product = Console.ReadLine();
+        }
+    }
+}

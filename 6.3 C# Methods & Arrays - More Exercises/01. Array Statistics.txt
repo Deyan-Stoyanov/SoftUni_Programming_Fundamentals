@@ -1,0 +1,32 @@
+using System;
+using System.Linq;
+
+public class SequenceOfCommands_broken
+{
+    public static void Main()
+    {
+        string nums = Console.ReadLine();
+        int[] array = nums.Split(new char[] { ' ' }).Select(int.Parse).ToArray();
+        int max = int.MinValue;
+        int min = int.MaxValue;
+        double middle = 0.0;
+        int sum = 0;
+        foreach (var number in array)
+        {
+            sum += number;
+            if (number > max)
+            {
+                max = number;
+            }
+            if (number < min)
+            {
+                min = number;
+            }
+        }
+        middle = (double)sum / array.Count();
+        Console.WriteLine($"Min = {min}");
+        Console.WriteLine($"Max = {max}");
+        Console.WriteLine($"Sum = {sum}");
+        Console.WriteLine($"Average = {middle}");
+    }
+}s

@@ -1,0 +1,50 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int numOfPhoto = int.Parse(Console.ReadLine());
+            int dayOfPhoto = int.Parse(Console.ReadLine());
+            int monthOfPhoto = int.Parse(Console.ReadLine());
+            int yearOfPhoto = int.Parse(Console.ReadLine());
+            int hourOfPhoto = int.Parse(Console.ReadLine());
+            int minuteOfPhoto = int.Parse(Console.ReadLine());
+            int sizeInBytes = int.Parse(Console.ReadLine());
+            int lengthOfPhoto = int.Parse(Console.ReadLine());
+            int widthOfPhoto = int.Parse(Console.ReadLine());
+
+            Console.WriteLine($"Name: DSC_{numOfPhoto:d4}.jpg");
+            Console.WriteLine($"Date Taken: {dayOfPhoto:d2}/{monthOfPhoto:d2}/{yearOfPhoto} {hourOfPhoto:d2}:{minuteOfPhoto:d2}");
+            string sizeOfPhoto = "";
+            if (sizeInBytes < 1000)
+            {
+                sizeOfPhoto = sizeInBytes + "B";
+            }
+            else if (sizeInBytes < 1000000)
+            {
+                sizeOfPhoto = (sizeInBytes / 1000.0) + "KB";
+            }
+            else
+            {
+                sizeOfPhoto = (sizeInBytes / 1000000.0) + "MB";
+            }
+            Console.WriteLine($"Size: {sizeOfPhoto}");
+            string orientation = "";
+            if (lengthOfPhoto > widthOfPhoto)
+            {
+                orientation = "landscape";
+            }
+            else if (widthOfPhoto > lengthOfPhoto)
+            {
+                orientation = "portrait";
+            }
+            else
+            {
+                orientation = "square";
+            }
+            Console.WriteLine($"Resolution: {lengthOfPhoto}x{widthOfPhoto} ({orientation})");
+        }
+    }
+}

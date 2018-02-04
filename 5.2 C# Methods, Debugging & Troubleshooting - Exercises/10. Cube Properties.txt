@@ -1,0 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double side = double.Parse(Console.ReadLine());
+            string action = Console.ReadLine().ToLower();
+            switch (action)
+            {
+                case "face":
+                    Console.WriteLine(SideDiagonal(side));
+                    break;
+                case "space":
+                    Console.WriteLine(SpaceDiagonal(side));
+                    break;
+                case "volume":
+                    Console.WriteLine(Volume(side));
+                    break;
+                case "area":
+                    Console.WriteLine(Area(side));
+                    break;
+                default:
+                    break;
+            }
+        }
+        static string SideDiagonal(double side)
+        {
+            double diagonal = Math.Sqrt(2 * Math.Pow(side, 2));
+            return $"{diagonal:f2}";
+        }
+        static string SpaceDiagonal(double side)
+        {
+            double sDiagonal = Math.Sqrt(3 * Math.Pow(side, 2));
+            return $"{sDiagonal:f2}";
+        }
+        static string Volume(double side)
+        {
+            double volume = Math.Pow(side, 3);
+            return $"{volume:f2}";
+
+        }
+        static string Area(double side)
+        {
+            double area = 6 * Math.Pow(side, 2);
+            return $"{area:f2}";
+        }
+    }
+}

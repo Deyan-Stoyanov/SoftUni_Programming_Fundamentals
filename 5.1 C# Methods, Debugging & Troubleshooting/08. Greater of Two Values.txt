@@ -1,0 +1,78 @@
+using System;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string type = Console.ReadLine().ToLower();
+            switch (type)
+            {
+                case "int":
+                    int firstNum = int.Parse(Console.ReadLine());
+                    int secondNum = int.Parse(Console.ReadLine());
+                    int maxInt = GetMax(firstNum, secondNum);
+                    Console.WriteLine(maxInt);
+                    break;
+                case "char":
+                    char firstChar = char.Parse(Console.ReadLine());
+                    char secondChar = char.Parse(Console.ReadLine());
+                    char maxChar = GetMax(firstChar, secondChar);
+                    Console.WriteLine(maxChar);
+                    break;
+                case "string":
+                    string firstString = Console.ReadLine();
+                    string secondString = Console.ReadLine();
+                    string maxString = GetMax(firstString, secondString);
+                    Console.WriteLine(maxString);
+                    break;
+                default:
+                    break;
+            }
+        }
+        static int GetMax(int a, int b)
+        {
+            int max;
+            if (a > b)
+            {
+                max = a;
+            }
+            else
+            {
+                max = b;
+            }
+            return max;
+        }
+        static char GetMax(char a, char b)
+        {
+            char max;
+            if (a > b)
+            {
+                max = a;
+            }
+            else
+            {
+                max = b;
+            }
+            return max;
+        }
+        static string GetMax(string a, string b)
+        {
+            string max;
+            if (a.CompareTo(b) > 0)
+            {
+                max = a;
+            }
+            else
+            {
+                max = b;
+            }
+            return max;
+        }
+        
+    }
+}

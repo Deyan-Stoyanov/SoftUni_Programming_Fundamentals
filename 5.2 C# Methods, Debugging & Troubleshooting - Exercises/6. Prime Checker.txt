@@ -1,0 +1,36 @@
+using System;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            long num = long.Parse(Console.ReadLine());
+            Console.WriteLine(PrimeChecker(num));
+        }
+        static bool PrimeChecker(long num)
+        {
+            bool isPrime = true;
+            if (num < 2)
+            {
+                isPrime = false;
+            }
+            else
+            {
+                for (int i = 2; i <= Math.Sqrt(num); i++)
+                {
+                    if (num % i == 0)
+                    {
+                        isPrime = false;
+                    }
+                }
+            }
+            return isPrime;
+        }
+
+    }
+}

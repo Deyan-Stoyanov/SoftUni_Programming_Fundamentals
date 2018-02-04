@@ -1,0 +1,29 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            StringBuilder output = new StringBuilder();
+            int n = int.Parse(Console.ReadLine());
+            for (char i = 'a'; i < 'a' + n; i++)
+            {
+                for (char j = 'a'; j < 'a' + n; j++)
+                {
+                    for (char k = 'a'; k < 'a' + n; k++)
+                    {
+                        string current = String.Format( $"{i}{j}{k}");
+                        output.AppendLine(current);
+
+                    }
+                }
+            }
+            Console.Write(output);
+
+        }
+    }
+}

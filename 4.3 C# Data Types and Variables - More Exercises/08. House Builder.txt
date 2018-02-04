@@ -1,0 +1,54 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string type = Console.ReadLine().ToLower();
+            int n = int.Parse(Console.ReadLine());
+            long closestNumber = long.MinValue;
+            long maxBoundary = 0;
+            switch (type)
+            {
+                case "sbyte":
+                    maxBoundary = sbyte.MaxValue;
+                    break;
+                case "int":
+                    maxBoundary = int.MaxValue;
+                    break;
+                case "long":
+                    maxBoundary = long.MaxValue;
+                    break;
+                default:
+                    break;
+            }
+            for (int i = 0; i < n; i++)
+            {
+                long id = long.Parse(Console.ReadLine());
+                if (id > closestNumber && id <= maxBoundary)
+                {
+                    closestNumber = id;
+                }
+            }
+            double sentence = 0;
+            if (closestNumber >= 0)
+            {
+                sentence = Math.Ceiling(closestNumber / (double)sbyte.MaxValue);
+            }
+            else
+            {
+                sentence = Math.Ceiling(closestNumber / (double)sbyte.MinValue);
+            }
+            string year = "year";
+            if (sentence != 1)
+            {
+                year +="s";
+            }
+            Console.WriteLine($"Prisoner with id {closestNumber} is sentenced to {sentence} {year}");
+        }
+    }
+}

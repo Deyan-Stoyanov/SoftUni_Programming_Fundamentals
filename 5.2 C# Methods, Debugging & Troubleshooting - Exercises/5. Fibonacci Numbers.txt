@@ -1,0 +1,29 @@
+using System;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            long num = long.Parse(Console.ReadLine());
+            Console.WriteLine(Fibonacci(num));
+        }
+        static long Fibonacci(long num)
+        {
+            long fibonacci = 0;
+            long a = 1;
+            for (int i = 1; i <= num; i++)
+            {
+                long temp = fibonacci;
+                fibonacci = a;
+                a += temp;
+            }
+            return a;
+        }
+
+    }
+}

@@ -1,0 +1,24 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            StringBuilder myString = new StringBuilder();
+            int start = int.Parse(Console.ReadLine());
+            int end = int.Parse(Console.ReadLine());
+            for (int i = start; i <= end; i++)
+            {
+                myString.Append(Convert.ToChar(i));
+                myString.Append(" ");
+            }
+            myString.Remove(myString.Length - 1, 1);
+            Console.WriteLine(myString);
+
+        }
+    }
+}

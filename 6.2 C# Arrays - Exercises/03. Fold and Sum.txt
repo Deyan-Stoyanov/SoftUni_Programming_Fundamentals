@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        int[] startArr = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+        int[] firstSmallArray = new int[startArr.Length / 4];
+        int[] secondSmallArray = new int[startArr.Length / 4];
+        for (int i = 0; i < startArr.Length / 4; i++)
+        {
+            firstSmallArray[i] = startArr[i];
+        }
+        Array.Reverse(startArr);
+        for (int i = 0; i < startArr.Length / 4; i++)
+        {
+            secondSmallArray[i] = startArr[i];
+        }
+        Array.Reverse(startArr);
+        Array.Reverse(firstSmallArray);
+        int[] arrOne = firstSmallArray.Concat(secondSmallArray).ToArray();
+        int[] arrTwo = new int[startArr.Length / 2];
+        for (int i = 0; i < arrTwo.Length; i++)
+        {
+            arrTwo[i] = startArr[i + firstSmallArray.Length];
+        }
+        int[] final = new int[arrOne.Length];
+        for (int i = 0; i < final.Length; i++)
+        {
+            final[i] = (arrOne[i] + arrTwo[i]);
+        }
+        for (int i = 0; i < final.Length; i++)
+        {
+            Console.Write(final[i] + " ");
+        }
+    }
+}

@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        char[] one = Console.ReadLine().Split(' ').Select(char.Parse).ToArray();
+        char[] two = Console.ReadLine().Split(' ').Select(char.Parse).ToArray();
+        bool neither = false;
+        if (one.Length < two.Length)
+        {
+            neither = true;
+            Print(one);
+            Print(two);
+        }
+        else if (one.Length > two.Length)
+        {
+            neither = true;
+            Print(two);
+            Print(one);
+
+        }
+        else
+        {
+            for (int i = 0; i < Math.Min(one.Length, two.Length); i++)
+            {
+                if (one[i] < two[i])
+                {
+                    Print(one);
+                    Print(two);
+                    neither = true;
+                    break;
+                }
+                else if (one[i] > two[i])
+                {
+                    Print(two);
+                    Print(one);
+                    neither = true;
+                    break;
+                }
+            }
+        }
+        if (neither == false)
+        {
+            Print(one);
+            Print(two);
+        }
+        
+    }
+
+    private static void Print(char[] one)
+    {
+        for (int i = 0; i < one.Length; i++)
+        {
+            Console.Write(one[i]);
+        }
+        Console.WriteLine();
+    }
+}

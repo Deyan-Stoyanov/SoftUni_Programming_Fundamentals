@@ -1,0 +1,25 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double bpm = double.Parse(Console.ReadLine());
+            double numberOfBeats = double.Parse(Console.ReadLine());
+            double bars = numberOfBeats / 4.0;
+            double time = Math.Floor(numberOfBeats / (bpm / 60));
+            double mins = 0;
+            double seconds = time;
+            while (seconds >= 60)
+            {
+                if (seconds >= 60)
+                {
+                    seconds -= 60;
+                    mins++;
+                }
+            }
+            Console.WriteLine($"{Math.Round(bars, 1)} bars - {mins}m {seconds}s");
+        }
+    }
+}

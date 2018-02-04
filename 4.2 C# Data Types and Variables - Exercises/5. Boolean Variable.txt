@@ -1,0 +1,27 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string a = Console.ReadLine().ToLower();
+            bool boolean = true;
+            if (a == "false")
+            {
+                boolean = false;
+            }
+            if (boolean)
+            {
+                Console.WriteLine("Yes");
+            }
+            else
+            {
+                Console.WriteLine("No");
+            }
+        }
+    }
+}

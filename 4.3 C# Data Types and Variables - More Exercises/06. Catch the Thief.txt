@@ -1,0 +1,36 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string num = Console.ReadLine();
+            string weather = "";
+            sbyte a = 0;
+            int b = 0;
+            long c = 0;
+            double d = 0;
+            if (SByte.TryParse(num, out a))
+            {
+                weather = "Sunny";
+            }
+            else if (Int32.TryParse(num, out b))
+            {
+                weather = "Cloudy";
+            }
+            else if (long.TryParse(num, out c))
+            {
+                weather = "Windy";
+            }
+            else if (Double.TryParse(num, out d))
+            {
+                weather = "Rainy";
+            }
+            Console.WriteLine(weather);
+        }
+    }
+}

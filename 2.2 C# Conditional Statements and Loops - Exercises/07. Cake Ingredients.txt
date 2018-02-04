@@ -1,0 +1,26 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int sum = 0;
+            while (true)
+            {
+                string ingredient = Console.ReadLine();
+                if (ingredient == "Bake!")
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"Adding ingredient {ingredient}.");
+                    sum++;
+                }
+            }
+            Console.WriteLine($"Preparing cake with {sum} ingredients.");
+
+        }
+    }
+}

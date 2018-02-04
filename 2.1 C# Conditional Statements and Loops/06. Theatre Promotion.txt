@@ -1,0 +1,77 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        private const int invalidPrice = -1;
+
+        static void Main(string[] args)
+        {
+            var day = Console.ReadLine().ToLower();
+            int age = int.Parse(Console.ReadLine());
+            var price = 0;
+            if (age >= 0 && age <= 18)
+            {
+                switch (day)
+                {
+                    case "weekday":
+                        price = 12;
+                        break;
+                    case "weekend":
+                        price = 15;
+                        break;
+                    case "holiday":
+                        price = 5;
+                        break;
+                    default:
+                        price = invalidPrice;
+                        break;
+                }
+            }
+            else if (age > 18 && age <= 64)
+            {
+                switch (day)
+                {
+                    case "weekday":
+                        price = 18;
+                        break;
+                    case "weekend":
+                        price = 20;
+                        break;
+                    case "holiday":
+                        price = 12;
+                        break;
+                    default:
+                        price = invalidPrice;
+                        break;
+                }
+            }
+            else if (age > 64 && age <= 122)
+            {
+                switch (day)
+                {
+                    case "weekday":
+                        price = 12;
+                        break;
+                    case "weekend":
+                        price = 15;
+                        break;
+                    case "holiday":
+                        price = 10;
+                        break;
+                    default:
+                        price = invalidPrice;
+                        break;
+                }
+            }
+            if (age >= 0 && age <= 122 && price != invalidPrice)
+            {
+                Console.WriteLine($"{price}$");
+            }
+            else
+            {
+                Console.WriteLine("Error!");
+            }
+        }
+    }
+}

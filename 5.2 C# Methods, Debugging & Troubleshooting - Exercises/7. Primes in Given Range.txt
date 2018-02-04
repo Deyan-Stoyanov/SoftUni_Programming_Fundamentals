@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int start = int.Parse(Console.ReadLine());
+            int end = int.Parse(Console.ReadLine());
+            List<int> primeNums = PrimeChecker(start, end);
+            string separatedList = string.Join(", ", primeNums);
+            Console.WriteLine(separatedList);
+        }
+        static List<int> PrimeChecker(int start, int end)
+        {
+            List<int> myList = new List<int>(',');
+            for (int i = start; i <= end; i++)
+            {
+                bool isPrime = true;
+                if (i < 2)
+                {
+                    isPrime = false;
+                }
+                for (int j = 2; j <= Math.Sqrt(i); j++)
+                {
+                    if (i % j == 0)
+                    {
+                        isPrime = false;
+                    }
+                }
+                if (isPrime)
+                {
+                    myList.Add(i);
+                }
+            }
+            return myList;
+        }
+    }
+}

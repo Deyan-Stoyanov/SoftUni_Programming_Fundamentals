@@ -1,0 +1,61 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            double studioPrice = 0.0;
+            double doublePrice = 0.0;
+            double suitePrice = 0.0;
+            string month = Console.ReadLine().ToLower();
+            int nights = int.Parse(Console.ReadLine());
+            switch (month)
+            {
+                case "may":
+                case "october":
+                    studioPrice = 50;
+                    doublePrice = 65;
+                    suitePrice = 75;
+                    if (nights > 7)
+                    {
+                        studioPrice *= 0.95;
+                    }
+                    break;
+                case "june":
+                case "september":
+                    studioPrice = 60;
+                    doublePrice = 72;
+                    suitePrice = 82;
+                    if (nights > 14)
+                    {
+                        doublePrice *= 0.9;
+                    }
+                    break;
+                case "july":
+                case "august":
+                case "december":
+                    studioPrice = 68;
+                    doublePrice = 77;
+                    suitePrice = 89;
+                    if (nights > 14)
+                    {
+                        suitePrice *= 0.85;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            double studioTotal = studioPrice * nights;
+            double doubleTotal = doublePrice * nights;
+            double suiteTotal = suitePrice * nights;
+            if (nights > 7 && (month == "september" || month == "october")
+            {
+                studioTotal -= studioPrice;
+            }
+            Console.WriteLine($"Studio: {studioTotal:f2} lv.");
+            Console.WriteLine($"Double: {doubleTotal:f2} lv.");
+            Console.WriteLine($"Suite: {suiteTotal:f2} lv.");
+        }
+    }
+}

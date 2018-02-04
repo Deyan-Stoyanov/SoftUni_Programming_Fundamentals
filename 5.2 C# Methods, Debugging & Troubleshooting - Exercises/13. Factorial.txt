@@ -1,0 +1,26 @@
+using System;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            BigInteger factoriel = Faktoriel(n);
+            Console.WriteLine(factoriel);
+        }
+        static BigInteger Faktoriel(int n)
+        {
+            BigInteger factoriel = 1;
+            for (int i = 1; i <= n; i++)
+            {
+                factoriel *= i;
+            }
+            return factoriel;
+        }
+    }
+}

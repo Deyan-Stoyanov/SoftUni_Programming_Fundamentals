@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        int[] array = Console.ReadLine().Split(' ').Select(int.Parse).ToArray();
+        int a = 0;
+        int sum = 0;
+        int index = 0;
+        int oldA = 0;
+        while (true)
+        {
+            try
+            {
+                oldA = a;
+                a = array[index + a];
+                index += oldA;
+            }
+            catch (Exception)
+            {
+                try
+                {
+                    oldA = a;
+                    a = array[index - a];
+                }
+                catch (Exception)
+                {
+                    break;
+                }
+                index -= oldA;
+
+            }
+            sum += a;
+        }
+        Console.WriteLine(sum);
+    }
+}

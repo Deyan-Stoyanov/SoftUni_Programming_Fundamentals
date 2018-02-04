@@ -1,0 +1,120 @@
+1.
+
+using System;
+using System.Linq;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] numbers = Console.ReadLine().Split(new char[] { ' ' }, 
+                StringSplitOptions.RemoveEmptyEntries).Select(int.Parse).ToArray();
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                Console.WriteLine(numbers[i]);
+            }
+        }        
+    }
+}
+
+
+
+
+2.
+
+using System;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string values = Console.ReadLine();
+            string[] inputValues = values.Split(new[] { ' ', '-', ',' }, StringSplitOptions.RemoveEmptyEntries);
+            int[] parsedValues = new int[inputValues.Length];
+            for (int i = 0; i < inputValues.Length; i++)
+            {
+                parsedValues[i] = int.Parse(inputValues[i]);
+            }
+            for (int i = 0; i < parsedValues.Length; i++)
+            {
+                Console.WriteLine(parsedValues[i]);
+            }
+        }        
+    }
+}
+
+
+
+3.
+
+using System;
+using System.Linq;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] array = { 1, 2, 3, 4 };
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] += 5;
+            }
+            Print(array);
+        }
+        static void Print(int[] array)
+        {
+            bool equalToFive = false;
+            foreach (var element in array)
+            {
+                if (element == 5)
+                {
+                    equalToFive = true;
+                    break;
+                }
+                Console.WriteLine(element);
+            }
+        }
+    }
+}
+
+
+
+
+4.
+
+
+using System;
+using System.Linq;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int[] array = { 1, 2, 3, 4 };
+            IncrementWithFive(array);
+            Console.WriteLine(Format(array));
+        }
+
+        static void IncrementWithFive(int[] array)
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] += 5;
+            }
+        }
+
+        static string Format(int[] array)
+        {
+            string format = $"[{string.Join(", ", array)}]";
+            return format;
+        }
+    }
+}

@@ -1,0 +1,43 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            StringBuilder myString = new StringBuilder();
+            char delimeter = char.Parse(Console.ReadLine());
+            string evenOrOdd = Console.ReadLine().ToLower();
+            byte n = byte.Parse(Console.ReadLine());
+            for (int i = 1; i <= n; i++)
+            {
+                string word = Console.ReadLine();
+                switch (evenOrOdd)
+                {
+                    case "even":
+                        if (i % 2 == 0)
+                        {
+                            myString.Append(word);
+                            myString.Append(delimeter);
+                        }
+                        break;
+                    case "odd":
+                        if (i % 2 != 0)
+                        {
+                            myString.Append(word);
+                            myString.Append(delimeter);
+                        }
+                        break;
+                    default:
+                        break;
+                }
+               
+            }
+            myString = myString.Remove((myString.Length - 1), 1);
+            Console.WriteLine(myString);
+        }
+    }
+}

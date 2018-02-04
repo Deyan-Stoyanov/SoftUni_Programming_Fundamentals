@@ -1,0 +1,27 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            sbyte a = sbyte.Parse(Console.ReadLine());
+            Console.WriteLine(a);
+            byte b = byte.Parse(Console.ReadLine());
+            Console.WriteLine(b);
+            short c = short.Parse(Console.ReadLine());
+            Console.WriteLine(c);
+            uint d = uint.Parse(Console.ReadLine());
+            Console.WriteLine(d);
+            ulong e = ulong.Parse(Console.ReadLine());
+            Console.WriteLine(e);
+            long g = long.Parse(Console.ReadLine());
+            Console.WriteLine(g);
+            BigInteger f = BigInteger.Parse(Console.ReadLine());
+            Console.WriteLine(f);
+        }
+    }
+}

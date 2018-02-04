@@ -1,0 +1,75 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+
+
+        static void Main(string[] args)
+        {
+            int number = int.Parse(Console.ReadLine());
+            for (int i = 1; i <= number; i++)
+            {
+                bool isPolyndrom = CheckPolyndrom(i);
+                bool isDivBySeven = DivBySeven(i);
+                bool hasEvenDigit = hasEvenDig(i);
+                if (isPolyndrom && isDivBySeven && hasEvenDigit)
+                {
+                    Console.WriteLine(i);
+                }
+            }
+        }
+
+        private static bool hasEvenDig(int i)
+        {
+            int number = i;
+            var reverse = 0;
+            while (i > 0)
+            {
+                int temp = i % 10;
+                reverse = reverse * 10 + temp;
+                i /= 10;
+            }
+            if (number == reverse)
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private static bool DivBySeven(int i)
+        {
+            int sum = 0;
+            while (i > 0)
+            {
+                sum += i % 10;
+                i /= 10;
+            }
+            if (sum % 7 == 0 )
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private static bool CheckPolyndrom(int i)
+        {
+            while (i > 0)
+            {
+                int digit = i % 10;
+                if (digit % 2 == 0)
+                {
+                    return true;
+                }
+                i /= 10;
+            }
+            return false;
+        }
+    }
+}

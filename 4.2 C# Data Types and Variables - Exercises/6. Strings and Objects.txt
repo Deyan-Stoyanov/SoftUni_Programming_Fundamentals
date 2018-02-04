@@ -1,0 +1,20 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            StringBuilder myString = new StringBuilder();
+            string a = "Hello ";
+            string b = "World";
+            myString.Append(a);
+            myString.Append(b);
+            string c = myString.ToString();
+            Console.WriteLine(c);
+        }
+    }
+}

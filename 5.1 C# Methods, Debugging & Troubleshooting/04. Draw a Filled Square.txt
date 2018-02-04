@@ -1,0 +1,43 @@
+using System;
+using System.Globalization;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int n = int.Parse(Console.ReadLine());
+            PrintFigure(n);
+        }
+        static void PrintTopAndBottomLines(int n)
+        {
+            Console.WriteLine(new string('-', 2 * n));
+        }
+        static string PrintV(int n)
+        {
+            string s = "";
+            for (int i = 0; i < n - 1; i++)
+            {
+                s += "\\/";
+            }
+            return s;
+        }
+        static void PrintMiddleRows(int n)
+        {
+            string vString = PrintV(n);
+            for (int i = 0; i < n - 2; i++)
+            {
+                Console.WriteLine($"-{vString}-");
+            }           
+        }
+        static void PrintFigure(int n)
+        {
+            PrintTopAndBottomLines(n);
+            PrintMiddleRows(n);
+            PrintTopAndBottomLines(n);
+        }
+    }
+}

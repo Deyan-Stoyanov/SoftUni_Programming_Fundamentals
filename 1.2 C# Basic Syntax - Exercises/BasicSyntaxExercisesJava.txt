@@ -1,0 +1,169 @@
+1.
+
+
+package com.company;
+import java.util.Scanner;
+public class Main {
+
+    public static void main(String[] args)
+    {
+        Scanner scanner = new Scanner(System.in);
+        int firstNum = Integer.parseInt(scanner.nextLine());
+        int secNum = Integer.parseInt(scanner.nextLine());
+        int thirdNum = Integer.parseInt(scanner.nextLine());
+        int fourthNum = Integer.parseInt(scanner.nextLine());
+        System.out.printf("%04d %04d %04d %04d",  firstNum, secNum, thirdNum, fourthNum);
+
+    }
+}
+
+
+
+
+2.
+
+
+package com.company;
+import java.util.Scanner;
+public class Main 
+{
+    public static void main(String[] args)
+    {
+        Scanner scanner = new Scanner(System.in);
+        double width = Double.parseDouble(scanner.nextLine());
+        double height = Double.parseDouble(scanner.nextLine());
+        double area = width * height;
+        System.out.printf("%.2f",  area);
+    }
+}
+
+
+
+
+
+3.
+
+
+package com.company;
+import java.util.Scanner;
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner scanner = new Scanner(System.in);
+        double miles = Double.parseDouble(scanner.nextLine());
+        double kilometers = miles * 1.60934;
+        System.out.printf("%.2f", kilometers);
+    }
+}
+
+
+
+
+
+4.
+
+
+package com.company;
+import java.text.DecimalFormat;
+import java.util.Scanner;
+public class Main
+{
+    public static void main(String[] args)
+    {
+        DecimalFormat df = new DecimalFormat("###.##");
+        Scanner scanner = new Scanner(System.in);
+        String name = scanner.nextLine();
+        double volume = Double.parseDouble(scanner.nextLine());
+        double energyPer100Ml = Double.parseDouble(scanner.nextLine());
+        double sugarPer100Ml = Double.parseDouble(scanner.nextLine());
+        double energyTotal = energyPer100Ml / 100.0 * volume;
+        double sugarTotal = sugarPer100Ml / 100.0 * volume;
+        System.out.printf((df.format(volume)) + "ml " + name + ":\n");
+        System.out.printf((df.format(energyTotal)) + "kcal, " + (df.format(sugarTotal)) + "g sugars");
+    }
+}
+
+
+
+
+
+5.
+
+
+
+
+package com.company;
+        import java.util.Scanner;
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner scanner = new Scanner(System.in);
+        String name = scanner.nextLine();
+        int currentHealth = Integer.parseInt(scanner.nextLine());
+        int maxHealth = Integer.parseInt(scanner.nextLine());
+        int currentEnergy = Integer.parseInt(scanner.nextLine());
+        int maxEnergy = Integer.parseInt(scanner.nextLine());
+        System.out.printf("Name: " + name + "\n");
+        System.out.printf("Health: |");
+        for (int i = 0; i < currentHealth; i++)
+        {
+            System.out.printf("|");
+        }
+        for (int i = 0; i < maxHealth - currentHealth; i++)
+        {
+            System.out.printf(".");
+        }
+        System.out.printf("|\n");
+        System.out.printf("Energy: |");
+        for (int i = 0; i < currentEnergy; i++)
+        {
+            System.out.printf("|");
+        }
+        for (int i = 0; i < maxEnergy - currentEnergy; i++)
+        {
+            System.out.printf(".");
+        }
+        System.out.printf("|");
+
+    }
+}
+
+
+----------------------------------------------------------------------------------
+
+
+5.1
+
+
+package com.company;
+import java.util.Scanner;
+public class Main
+{
+    public static void main(String[] args)
+    {
+        Scanner scanner = new Scanner(System.in);
+        String name = scanner.nextLine();
+        int currentHealth = Integer.parseInt(scanner.nextLine());
+        int maxHealth = Integer.parseInt(scanner.nextLine());
+        int currentEnergy = Integer.parseInt(scanner.nextLine());
+        int maxEnergy = Integer.parseInt(scanner.nextLine());
+        System.out.printf("Name: " + name + "\n");
+        System.out.printf("Health: |%s%s|\n", repeatStr("|", currentHealth),
+                repeatStr(".", maxHealth - currentHealth));
+        System.out.printf("Energy: |%s%s|\n", repeatStr("|", currentEnergy),
+                repeatStr(".", maxEnergy - currentEnergy));
+    }
+
+    public static String repeatStr(String stringToRepeat, int count)
+    {
+        String text = "";
+        for (int i = 0; i < count; i++) {
+            text += stringToRepeat;
+        }
+        return text;
+    }
+}
+
+

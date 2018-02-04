@@ -1,0 +1,22 @@
+using System;
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int hours = int.Parse(Console.ReadLine());
+            int minutes = int.Parse(Console.ReadLine());
+            int addedTime = 30;
+            int time = ((hours * 60) + minutes) + addedTime;
+            int newHours = time / 60;
+            int newMinutes = time % 60;
+            if (newHours > 23)
+            {
+                newHours -= 24;
+            }
+            string newTime = $"{newHours}:{newMinutes:d2}";
+            Console.WriteLine(newTime);
+        }
+    }
+}

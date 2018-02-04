@@ -1,0 +1,28 @@
+using System;
+using System.Numerics;
+using System.Text;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            byte capacity = 255;
+            byte n = byte.Parse(Console.ReadLine());
+            ushort sum = 0;
+            for (sbyte i = 0; i < n; i++)
+            {
+                ushort liters = ushort.Parse(Console.ReadLine());
+                sum += liters;
+                if (sum >= capacity)
+                {
+                    Console.WriteLine("Insufficient capacity!");
+                    sum -= liters;
+                    continue;
+                }
+            }
+            Console.WriteLine(sum);
+        }
+    }
+}
