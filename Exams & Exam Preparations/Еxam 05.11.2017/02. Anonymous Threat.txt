@@ -1,0 +1,90 @@
+using System;
+using System.Linq;
+using System.Text;
+using System.Numerics;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        List<string> input = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        while (true)
+        {
+            string stringOfCommands = Console.ReadLine();
+            if (stringOfCommands == "3:1")
+            {
+                break;
+            }
+            string[] command = stringOfCommands.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string toDO = command[0];
+            switch (toDO)
+            {
+                case "merge":
+                    int startIndex = int.Parse(command[1]); 
+                    int endIndex = int.Parse(command[2]);
+                    StringBuilder concatenatedStr = new StringBuilder();
+                    int count = 0;
+                    if (startIndex > input.Count)
+                    {
+                        continue;
+                    }
+                    for (int i = Math.Max(0, startIndex); i <= Math.Min(endIndex, input.Count - 1); i++)
+                    {
+                        concatenatedStr.Append(input[i]);
+                        count ++;
+                    }
+                    input.Insert(Math.Max(0, startIndex), concatenatedStr.ToString());
+                    input.RemoveRange(Math.Max(1, startIndex + 1), count);
+                    break;
+                case "divide":
+                    int index = int.Parse(command[1]);
+                    int partitions = int.Parse(command[2]);
+                    if (partitions > input[index].Length)
+                    {
+                        partitions = input[index].Length;
+                    }
+                    int length = input[index].Length / partitions;
+                    List<string> splittedStr = new List<string>();
+                    if (input[index].Length % partitions == 0)
+                    {
+                        for (int i = 0; i < partitions; i++)
+                        {
+                            splittedStr.Add(input[index].Substring(0, length));
+                            input[index] = input[index].Remove(0, length);
+                        }
+                    }
+                    else
+                    {
+                        int remainder = input[index].Length % partitions;
+                        for (int i = 0; i < partitions; i++)
+                        {
+                            if (i == partitions - 1)
+                            {
+                                splittedStr.Add(input[index].Substring(0, length + remainder));
+                                input[index] = input[index].Remove(0, length + remainder);
+                            }
+                            else
+                            {
+                                splittedStr.Add(input[index].Substring(0, length));
+                                input[index] = input[index].Remove(0, length);
+                            }
+                        }
+                    }
+                    input.RemoveAt(index);
+                    int j = index;
+                    foreach (var substring in splittedStr)
+                    {
+                        input.Insert(j, substring);
+                        j++;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        Console.WriteLine(string.Join(" ", input));
+    }
+}

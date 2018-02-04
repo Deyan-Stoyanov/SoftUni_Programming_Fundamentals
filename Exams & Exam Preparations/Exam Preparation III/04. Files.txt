@@ -1,0 +1,81 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    class Folders
+    {
+        public string Name { get; set; }
+        public Dictionary<string, long> FileAndSize { get; set; }
+    }
+    static void Main()
+    {
+        HashSet<Folders> listOfFolders = new HashSet<Folders>();
+        int n = int.Parse(Console.ReadLine());
+        for (int i = 0; i < n; i++)
+        {
+            var input = Console.ReadLine().Split(new char[] { ';', '\\' }, StringSplitOptions.RemoveEmptyEntries);
+            string root = input[0];
+            string file = input[input.Count() - 2];
+            long size = long.Parse(input[input.Count() - 1]);
+            bool there = false;
+            foreach (var singleFolder in listOfFolders)
+            {
+                if (singleFolder.Name == root)
+                {
+                    there = true;
+                    if (!singleFolder.FileAndSize.ContainsKey(file))
+                    {
+                        singleFolder.FileAndSize.Add(file, size);
+                    }
+                    else
+                    {
+                        singleFolder.FileAndSize[file] = size;
+                    }
+                }
+            }
+            if (!there)
+            {
+                Folders folder = new Folders
+                {
+                    Name = root,
+                    FileAndSize = new Dictionary<string, long>()
+                };
+                folder.FileAndSize.Add(file, size);
+                listOfFolders.Add(folder);
+            }
+        }
+        var whatToPrint = Console.ReadLine().Split(new char[] { ' ' },StringSplitOptions.RemoveEmptyEntries);
+        PrintResult(listOfFolders, whatToPrint);
+    }
+
+    static void PrintResult(HashSet<Folders> listOfFolders, string[] whatToPrint)
+    {
+        string extension = whatToPrint[0];
+        string rootToSearch = whatToPrint[2];
+        int counter = 0;
+        foreach (var folder in listOfFolders)
+        {
+            if (folder.Name == rootToSearch)
+            {
+                var sortedFiles = folder.FileAndSize.OrderByDescending(x => x.Value).ThenBy(x => x.Key);
+                foreach (var pair in sortedFiles)
+                {
+                    if (pair.Key.EndsWith("." + extension))
+                    {
+                        Console.WriteLine($"{pair.Key} - {pair.Value} KB");
+                        counter++;
+                    }
+                }
+            }
+        }
+        if (counter == 0)
+        {
+            Console.WriteLine("No");
+        }
+    }
+}

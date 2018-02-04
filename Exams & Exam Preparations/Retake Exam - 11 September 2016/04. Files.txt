@@ -1,0 +1,488 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    class Folders
+    {
+        public string Name { get; set; }
+        public Dictionary<string, long> FileAndSize { get; set; }
+    }
+    static void Main()
+    {
+        List<Folders> listOfFolders = new List<Folders>();
+        int n = int.Parse(Console.ReadLine());
+        for (int i = 0; i < n; i++)
+        {
+            var input = Console.ReadLine().Split(new char[] { ';', '\\' }, StringSplitOptions.RemoveEmptyEntries);
+            string root = input[0];
+            string file = input[input.Count() - 2];
+            long size = long.Parse(input[input.Count() - 1]);
+            bool there = false;
+            foreach (var singleFolder in listOfFolders)
+            {
+                if (singleFolder.Name == root)
+                {
+                    if (!singleFolder.FileAndSize.ContainsKey(file))
+                    {
+                        singleFolder.FileAndSize.Add(file, size);
+                    }
+                }
+                bool fileExists = false;
+                string fileToReplace = "";
+                foreach (var pair in singleFolder.FileAndSize)
+                {
+                    if (pair.Key == file)
+                    {
+                        fileExists = true;
+                        fileToReplace = pair.Key;
+                        there = true;
+                    }
+                }
+                if (fileExists)
+                {
+                    singleFolder.FileAndSize[fileToReplace] = size;
+                }
+            }
+            if (!there)
+            {
+                Folders folder = new Folders
+                {
+                    Name = root,
+                    FileAndSize = new Dictionary<string, long>()
+                };
+                folder.FileAndSize.Add(file, size);
+                listOfFolders.Add(folder);
+            }
+        }
+        var whatToPrint = Console.ReadLine().Split();
+        string extension = whatToPrint[0];
+        string rootToSearch = whatToPrint[2];
+        int counter = 0;
+        foreach (var folder in listOfFolders)
+        {
+            if (folder.Name == rootToSearch)
+            {
+                var sortedFiles = folder.FileAndSize.OrderByDescending(x => x.Value).ThenBy(x => x.Key);
+                foreach (var pair in sortedFiles)
+                {
+                    if (pair.Key.EndsWith(extension))
+                    {
+                        Console.WriteLine($"{pair.Key} - {pair.Value} KB");
+                        counter++;
+                    }
+                }
+            }
+        }
+        if (counter == 0)
+        {
+            Console.WriteLine("No");
+        }
+    }
+}
+
+
+    SoftUni Judge
+    Начало
+    Състезания
+    Решения
+    Обратна връзка
+
+    Здравей, deyan95!
+    Изход
+
+    Начало Решения 5399422 
+
+Решение №5399422 от deyan95 към задача 04. Files
+Нулев тест №1 (Верен отговор)
+Резултатът от нулевите тестове не се включва към крайния резултат.
+Използвано време: 0.033 s
+Използвана памет: 10.43 MB
+Нулев тест №2 (Верен отговор)
+Резултатът от нулевите тестове не се включва към крайния резултат.
+Използвано време: 0.031 s
+Използвана памет: 10.40 MB
+Тест №1 (Верен отговор)
+Използвано време: 0.031 s
+Използвана памет: 10.41 MB
+Тест №2 (Верен отговор)
+Използвано време: 0.021 s
+Използвана памет: 9.91 MB
+Тест №3 (Верен отговор)
+Използвано време: 0.020 s
+Използвана памет: 9.87 MB
+Тест №4 (Верен отговор)
+Използвано време: 0.030 s
+Използвана памет: 10.41 MB
+Тест №5 (Верен отговор)
+Използвано време: 0.030 s
+Използвана памет: 10.47 MB
+Тест №6 (Грешен отговор)
+Използвано време: 0.020 s
+Използвана памет: 9.86 MB
+Тест №7 (Верен отговор)
+Използвано време: 0.031 s
+Използвана памет: 10.82 MB
+Тест №8 (Верен отговор)
+Използвано време: 0.032 s
+Използвана памет: 10.79 MB
+Тест №9 (Верен отговор)
+Използвано време: 0.033 s
+Използвана памет: 10.85 MB
+Тест №10 (Верен отговор)
+Използвано време: 0.248 s
+Използвана памет: 17.24 MB
+Сорс код
+1
+
+using System;
+
+2
+
+using System.Collections.Generic;
+
+3
+
+using System.Globalization;
+
+4
+
+using System.Linq;
+
+5
+
+using System.Numerics;
+
+6
+
+using System.Text;
+
+7
+
+?
+
+8
+
+class ConsoleApp1
+
+9
+
+{
+
+10
+
+    class Folders
+
+11
+
+    {
+
+12
+
+        public string Name { get; set; }
+
+13
+
+        public Dictionary<string, long> FileAndSize { get; set; }
+
+14
+
+    }
+
+15
+
+    static void Main()
+
+16
+
+    {
+
+17
+
+        List<Folders> listOfFolders = new List<Folders>();
+
+18
+
+        int n = int.Parse(Console.ReadLine());
+
+19
+
+        for (int i = 0; i < n; i++)
+
+20
+
+        {
+
+21
+
+            var input = Console.ReadLine().Split(new char[] { ';', '\\' }, StringSplitOptions.RemoveEmptyEntries);
+
+22
+
+            string root = input[0];
+
+23
+
+            string file = input[input.Count() - 2];
+
+24
+
+            long size = long.Parse(input[input.Count() - 1]);
+
+25
+
+            bool there = false;
+
+26
+
+            foreach (var singleFolder in listOfFolders)
+
+27
+
+            {
+
+28
+
+                if (singleFolder.Name == root)
+
+29
+
+                {
+
+30
+
+                    if (!singleFolder.FileAndSize.ContainsKey(file))
+
+31
+
+                    {
+
+32
+
+                        singleFolder.FileAndSize.Add(file, size);
+
+33
+
+                    }
+
+34
+
+                }
+
+35
+
+                bool fileExists = false;
+
+36
+
+                string fileToReplace = "";
+
+37
+
+                foreach (var pair in singleFolder.FileAndSize)
+
+38
+
+                {
+
+39
+
+                    if (pair.Key == file)
+
+40
+
+                    {
+
+41
+
+                        fileExists = true;
+
+42
+
+                        fileToReplace = pair.Key;
+
+43
+
+                        there = true;
+
+44
+
+                    }
+
+45
+
+                }
+
+46
+
+                if (fileExists)
+
+47
+
+                {
+
+48
+
+                    singleFolder.FileAndSize[fileToReplace] = size;
+
+49
+
+                }
+
+50
+
+            }
+
+51
+
+            if (!there)
+
+52
+
+            {
+
+53
+
+                Folders folder = new Folders
+
+54
+
+                {
+
+55
+
+                    Name = root,
+
+56
+
+                    FileAndSize = new Dictionary<string, long>()
+
+57
+
+                };
+
+58
+
+                folder.FileAndSize.Add(file, size);
+
+59
+
+                listOfFolders.Add(folder);
+
+60
+
+            }
+
+61
+
+        }
+
+62
+
+        var whatToPrint = Console.ReadLine().Split();
+
+63
+
+        string extension = whatToPrint[0];
+
+64
+
+        string rootToSearch = whatToPrint[2];
+
+65
+
+        int counter = 0;
+
+66
+
+        foreach (var folder in listOfFolders)
+
+67
+
+        {
+
+68
+
+            if (folder.Name == rootToSearch)
+
+69
+
+            {
+
+70
+
+                var sortedFiles = folder.FileAndSize.OrderByDescending(x => x.Value).ThenBy(x => x.Key);
+
+71
+
+                foreach (var pair in sortedFiles)
+
+72
+
+                {
+
+73
+
+                    if (pair.Key.EndsWith(extension))
+
+74
+
+                    {
+
+75
+
+                        Console.WriteLine($"{pair.Key} - {pair.Value} KB");
+
+76
+
+                        counter++;
+
+77
+
+                    }
+
+78
+
+                }
+
+79
+
+            }
+
+80
+
+        }
+
+81
+
+        if (counter == 0)
+
+82
+
+        {
+
+83
+
+            Console.WriteLine("No");
+
+84
+
+        }
+
+85
+
+    }
+
+86
+
+}
+
+87
+
+?
+
+© 2011-2018 - Open Judge System (OJS) 1.5.20150729.95737d0 - running on Windows. Проект с отворен код.

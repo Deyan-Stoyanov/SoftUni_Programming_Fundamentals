@@ -1,0 +1,104 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        decimal totalWater = decimal.Parse(Console.ReadLine());
+        decimal[] bottles = Console.ReadLine().Split().Select(decimal.Parse).ToArray();
+        long capacity = long.Parse(Console.ReadLine());
+        List<long> remainingIndexes = new List<long>();
+        decimal moreWaterNeeded = 0;
+        bool notEnough = false;
+        if (totalWater % 2 == 0)
+        {
+            for (int i = 0; i < bottles.Length; i++)
+            {
+                while (bottles[i] < capacity)
+                {
+
+                    if (totalWater == 0)
+                    {
+                        for (int j = i; j < bottles.Length; j++)
+                        {
+                            if (bottles[j] < capacity)
+                            {
+                                notEnough = true;
+                                moreWaterNeeded += (capacity - bottles[j]);
+                                remainingIndexes.Add(j);
+                            }
+                        }
+                        break;
+                    }
+                    if (totalWater < (capacity - bottles[i]))
+                    {
+                        totalWater = 0;
+                        bottles[i] += totalWater;
+                    }
+                    else
+                    {
+                        totalWater -= (capacity - bottles[i]);
+                        bottles[i] = capacity;
+                    }
+                }
+                if (notEnough)
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            for (int i = bottles.Length - 1; i >= 0; i--)
+            {
+                while (bottles[i] < capacity)
+                {
+
+                    if (totalWater == 0)
+                    {
+                        for (int j = i; j >= 0; j--)
+                        {
+                            if (bottles[j] < capacity)
+                            {
+                                notEnough = true;
+                                moreWaterNeeded += (capacity - bottles[j]);
+                                remainingIndexes.Add(j);
+                            }
+                        }
+                        break;
+                    }
+                    if (totalWater < (capacity - bottles[i]))
+                    {
+                        totalWater = 0;
+                        bottles[i] += totalWater;
+                    }
+                    else
+                    {
+                        totalWater -= (capacity - bottles[i]);
+                        bottles[i] = capacity;
+                    }
+                }
+                if (notEnough)
+                {
+                    break;
+                }
+            }
+        }
+        if (!notEnough)
+        {
+            Console.WriteLine("Enough water!");
+            Console.WriteLine($"Water left: {totalWater}l.");
+        }
+        else
+        {
+            Console.WriteLine("We need more water!");
+            Console.WriteLine($"Bottles left: {remainingIndexes.Count()}");
+            Console.WriteLine($"With indexes: {string.Join(", ", remainingIndexes)}");
+            Console.WriteLine($"We need {moreWaterNeeded} more liters!");
+        }
+    }
+}

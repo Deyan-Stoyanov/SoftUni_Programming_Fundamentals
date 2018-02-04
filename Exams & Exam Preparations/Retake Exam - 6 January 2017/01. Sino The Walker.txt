@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    
+    static void Main()
+    {
+        var timeOfDeparture = Console.ReadLine().Split(new char[] {':' }).Select(int.Parse).ToList();
+        long steps = int.Parse(Console.ReadLine());
+        long secondsPerStep = int.Parse(Console.ReadLine());
+        long totalSecondsNeeded = steps * secondsPerStep;
+        long endSeconds = totalSecondsNeeded + timeOfDeparture[2];
+        int endMinutes = timeOfDeparture[1];
+        int endHours = timeOfDeparture[0];
+        while (endSeconds >= 60)
+        {
+            endMinutes += 1;
+            endSeconds -= 60;
+        }
+        while (endMinutes >= 60)
+        {
+            endHours += 1;
+            endMinutes -= 60;
+        }
+        while (endHours >= 24)
+        {
+            endHours -= 24;
+        }
+        StringBuilder time = new StringBuilder();
+        if (endHours < 10)
+        {
+            time.Append("0" + endHours.ToString() + ":");
+        }
+        else
+        {
+            time.Append(endHours.ToString() + ":");
+        }
+        if (endMinutes < 10)
+        {
+            time.Append("0" + endMinutes.ToString() + ":");
+        }
+        else
+        {
+            time.Append(endMinutes.ToString() + ":");
+        }
+        if (endSeconds < 10)
+        {
+            time.Append("0" + endSeconds.ToString());
+        }
+        else
+        {
+            time.Append(endSeconds.ToString());
+        }
+        Console.WriteLine($"Time Arrival: {time}");
+    }
+}

@@ -1,0 +1,106 @@
+using System;
+using System.Linq;
+using System.Text;
+using System.Numerics;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+public class ConsoleApp1
+{
+    class DataSet
+    {
+        public string Name { get; set; }
+        public Dictionary<string, long> KeyAndSize { get; set; }
+    }
+    class Cache
+    {
+        public string NameOfChache { get; set; }
+        public Dictionary<string, long> KeyAndSizeOfCache { get; set; }
+
+    }
+    public static void Main()
+    {
+        List<DataSet> listOfDataSets = new List<DataSet>();
+        List<Cache> listOfChaches = new List<Cache>();
+        while (true)
+        {
+            string line = Console.ReadLine();
+            if (line == "thetinggoesskrra")
+            {
+                break;
+            }
+            string[] data = line.Split(new char[] { ' ', '-', '>', '|' }, StringSplitOptions.RemoveEmptyEntries);
+            if (data.Count() == 1)
+            {
+                string dataSet = data[0];
+                DataSet thisDataSet = new DataSet()
+                {
+                    Name = dataSet,
+                    KeyAndSize = new Dictionary<string, long>()
+                };
+                foreach (var cache in listOfChaches)
+                {
+                    if (cache.NameOfChache == thisDataSet.Name)
+                    {
+                        foreach (var pair in cache.KeyAndSizeOfCache)
+                        {
+                            thisDataSet.KeyAndSize.Add(pair.Key, pair.Value);
+                        }
+                    }
+                }
+                if (!listOfDataSets.Contains(thisDataSet))
+                {
+                    listOfDataSets.Add(thisDataSet);
+                }
+            }
+            else
+            {
+                string dataKey = data[0];
+                long dataSize = long.Parse(data[1]);
+                string dataSet = data[2];
+                bool itExists = false;
+                foreach (var createdSet in listOfDataSets)
+                {
+                    if (createdSet.Name == dataSet)
+                    {
+                        itExists = true;
+                        createdSet.KeyAndSize.Add(dataKey, dataSize);
+                        break;
+                    }
+                }
+                if (!itExists)
+                {
+                    bool cacheExists = false;
+                    foreach (var c in listOfChaches)
+                    {
+                        if (c.NameOfChache == dataSet)
+                        {
+                            cacheExists = true;
+                            c.KeyAndSizeOfCache.Add(dataKey, dataSize);
+                        }
+                    }
+                    if (!cacheExists)
+                    {
+                        Cache cache = new Cache
+                        {
+                            NameOfChache = dataSet,
+                            KeyAndSizeOfCache = new Dictionary<string, long>()
+                        };
+                        cache.KeyAndSizeOfCache.Add(dataKey, dataSize);
+                        listOfChaches.Add(cache);
+                    }
+                }
+            }
+        }
+        if (listOfDataSets.Count > 0)
+        {
+            List<DataSet> orderedSets = listOfDataSets.OrderByDescending(x => x.KeyAndSize.Values.Sum()).ToList();
+            Console.WriteLine($"Data Set: {orderedSets[0].Name}, Total Size: {orderedSets[0].KeyAndSize.Values.Sum()}");
+            foreach (var pair in orderedSets[0].KeyAndSize)
+            {
+                Console.WriteLine($"$.{pair.Key}");
+            }
+        }
+    }
+}

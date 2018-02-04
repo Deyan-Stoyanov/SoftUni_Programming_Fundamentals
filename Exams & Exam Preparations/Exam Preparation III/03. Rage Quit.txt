@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string pattern = @"(?<chars>[^0-9]+)(?<count>[0-9]+)";
+        string input = Console.ReadLine();
+        MatchCollection matches = Regex.Matches(input, pattern);
+        StringBuilder result = new StringBuilder();
+        foreach (Match thisMatch in matches)
+        {
+            string strToRepeat = thisMatch.Groups["chars"].Value;
+            long count = int.Parse(thisMatch.Groups["count"].Value);
+            for (int i = 0; i < count; i++)
+            {
+                result.Append(strToRepeat.ToUpper());
+            }
+        }
+        long uniqueSymbols = result.ToString().Distinct().Count();
+        Console.WriteLine($"Unique symbols used: {uniqueSymbols}");
+        Console.WriteLine(result.ToString());
+    }
+}

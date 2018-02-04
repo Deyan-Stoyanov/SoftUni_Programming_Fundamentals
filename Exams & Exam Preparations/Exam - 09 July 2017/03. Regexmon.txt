@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        string bojoMatch = @"[a-zA-Z]+\-[a-zA-Z]+";
+        string didiMatch = @"[^a-zA-Z\-]+";
+        string input = Console.ReadLine();
+        while ( true)
+        {
+            if (input.IndexOf(Regex.Match(input, didiMatch).ToString()) != -1 && input.Length > 0)
+            {
+                string didi = Regex.Match(input, didiMatch).ToString();
+                if (didi == "")
+                {
+                    break;
+                }
+                Console.WriteLine(didi);
+                input = input.Substring(input.IndexOf(didi) + didi.Length, input.Length - (input.IndexOf(didi) + didi.Length));
+            }
+            else
+            {
+                break;
+            }
+            if (input.IndexOf(Regex.Match(input, bojoMatch).ToString()) != -1 && input.Length > 0)
+            {
+                string bojo = Regex.Match(input, bojoMatch).ToString();
+                if (bojo == "")
+                {
+                    break;
+                }
+                input = input.Substring(bojo.Length, input.Length - (input.IndexOf(bojo) + bojo.Length));
+                Console.WriteLine(bojo);
+            }
+            else
+            {
+                break;
+            }
+        }
+    }
+}

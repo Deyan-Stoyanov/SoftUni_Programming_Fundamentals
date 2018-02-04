@@ -1,0 +1,114 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        int[] array = Console.ReadLine()
+            .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .ToArray();
+        while (true)
+        {
+            string[] command = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).ToArray();
+            if (command[0] == "end")
+            {
+                break;
+            }
+            array = ProcessCommand(array, command);
+        }
+        Console.WriteLine($"[{String.Join(", ", array)}]");
+
+    }
+
+static bool IsValid(int startIndex, int enIndex)
+    {
+        return true;
+    }
+
+    static int[] ProcessCommand(int[] array, string[] command)
+    {
+        switch (command[0])
+        {
+            case "reverse":
+                array = ReversePartFromArray(command, array);
+                break;
+            case "sort":
+                array = SortArray(command, array);
+                break;
+            case "rollLeft":
+                RollLeft(command, array);
+                break;
+            case "rollRight":
+                RollRight(command, array);
+                break;
+            default:
+                break;
+        }
+
+        return array;
+    }
+
+    static int[] RollRight(string[] command, int[] array)
+    {
+        return array;
+    }
+
+    static int[] RollLeft(string[] command, int[] array)
+    {
+        return array;
+
+    }
+
+    static int[] SortArray(string[] command, int[] array)
+    {
+        int startIndex = int.Parse(command[2]);
+        int endIndex = int.Parse(command[4]) + startIndex;
+        List<int> newList = new List<int>();
+        try
+        {
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                newList.Add(array[i]);
+            }
+            var sorted = newList.OrderBy(x => x).ToList();
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                array[i] = sorted[i];
+            }
+            return array;
+        }
+        catch (Exception)
+        {
+            Console.WriteLine("Invalid input parameters.");
+            return array;
+        }
+
+    }
+
+    static int[] ReversePartFromArray(string[] command, int[] array)
+    {
+        int startIndex = int.Parse(command[2]);
+        int endIndex = int.Parse(command[4]) + startIndex;
+        int[] newArr = new int[int.Parse(command[4])];
+        int j = 0;
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            newArr[j] = array[i];
+            j++;
+        }
+        Array.Reverse(newArr);
+        int k = 0;
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            array[i] = newArr[k];
+            k++;
+        }
+        return array;
+    }
+}

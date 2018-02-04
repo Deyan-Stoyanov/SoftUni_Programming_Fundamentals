@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine());
+        decimal total = 0;
+        for (int i = 0; i < n; i++)
+        {
+            decimal pricePerCapsule = decimal.Parse(Console.ReadLine());
+            DateTime currentDate = DateTime.ParseExact(Console.ReadLine(), "d/M/yyyy", CultureInfo.InvariantCulture);
+            int capsulesCount = int.Parse(Console.ReadLine());
+            int daysInMonth = DateTime.DaysInMonth(currentDate.Year, currentDate.Month);
+            decimal priceOfThisOrder = (decimal)(capsulesCount) * daysInMonth * pricePerCapsule;
+            total += priceOfThisOrder;
+            Console.WriteLine($"The price for the coffee is: ${priceOfThisOrder:F2}");
+        }
+        Console.WriteLine($"Total: ${total:F2}");
+    }
+}

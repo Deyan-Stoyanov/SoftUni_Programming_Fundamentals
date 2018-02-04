@@ -1,0 +1,69 @@
+using System;
+using System.Linq;
+using System.Text;
+using System.Numerics;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+public class ConsoleApp1
+{
+    class Demon
+    {
+        public string Name { get; set; }
+        public decimal Health { get; set; }
+        public decimal Damage { get; set; }
+    }
+    public static void Main()
+    {
+        List<Demon> listOfDemons = new List<Demon>();
+        string patternForNumbers = @"(\+?\-?[0-9]+\.?([0-9]*)*)";
+        string patternForSymbols = @"[^0-9\.\+\-\*\/]";
+        string patternForSigns = @"[\*\/\-\+]";
+        string[] input = Console.ReadLine().Split(new char[] { ' ', ',' }, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var demon in input)
+        {
+            decimal health = 0;
+            decimal damage = 0;
+            MatchCollection numbers = Regex.Matches(demon, patternForNumbers);
+            MatchCollection signs = Regex.Matches(demon, patternForSigns);
+            foreach (char c in demon)
+            {
+                if (Regex.IsMatch(c.ToString(), patternForSymbols))
+                {
+                    health += (c + 0);
+                }
+            }
+            foreach (Match num in numbers)
+            {
+                damage += decimal.Parse(num.ToString());
+            }
+            foreach (Match sign in signs)
+            {
+                switch (sign.ToString())
+                {
+                    case "*":
+                        damage *= 2;
+                        break;
+                    case "/":
+                        damage /= 2;
+                        break;
+                    default:
+                        break;
+                }
+            }
+            Demon currentDemon = new Demon()
+            {
+                Name = demon,
+                Health = health,
+                Damage = damage
+            };
+            listOfDemons.Add(currentDemon);
+        }
+        var orderedDemons = listOfDemons.OrderBy(x => x.Name).ToList();
+        foreach (var demon in orderedDemons)
+        {
+            Console.WriteLine($"{demon.Name} - {demon.Health} health, {(demon.Damage):F2} damage ");
+        }
+    }
+}

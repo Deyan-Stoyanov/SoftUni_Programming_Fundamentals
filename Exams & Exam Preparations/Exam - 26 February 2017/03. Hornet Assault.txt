@@ -1,0 +1,54 @@
+using System;
+using System.Linq;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        long[] beeHives = Console.ReadLine().Split(' ').Select(long.Parse).ToArray();
+        long[] hornets = Console.ReadLine().Split(' ').Select(long.Parse).ToArray();
+        int j = 0;
+        long beehivesSum = beeHives.Sum();
+        long hornetsSum = hornets.Sum();
+        for (int i = 0; i < beeHives.Length; i++)
+        {
+            if (beehivesSum == 0 || hornetsSum == 0)
+            {
+                break;
+            }
+            if (beeHives[i] < hornetsSum)
+            {
+                beeHives[i] = 0;
+                beehivesSum = beeHives.Sum();
+            }
+            else
+            {
+                beeHives[i] -= hornetsSum;
+                hornets[j] = 0;
+                beehivesSum = beeHives.Sum();
+                hornetsSum = hornets.Sum();
+                j++;
+            }
+        }
+        if (beehivesSum == 0)
+        {
+            for (int i = 0; i < hornets.Length; i++)
+            {
+                if (hornets[i] != 0)
+                {
+                    Console.Write(hornets[i] + " ");
+                }
+            }
+        }
+        else
+        {
+            for(int i = 0; i < beeHives.Length; i++)
+            {
+                if (beeHives[i] != 0)
+                {
+                    Console.Write(beeHives[i] + " ");
+                }
+            }
+        }
+    }
+}

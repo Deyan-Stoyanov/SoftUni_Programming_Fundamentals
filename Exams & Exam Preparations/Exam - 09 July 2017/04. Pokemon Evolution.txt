@@ -1,0 +1,72 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class Program
+{
+    class Pokemon
+    {
+        public string Name { get; set; }
+        public List<string> Evolutions { get; set; }
+    }
+    static void Main(string[] args)
+    {
+        List<Pokemon> listOfPokemons = new List<Pokemon>();
+        while (true)
+        {
+            string command = Console.ReadLine();
+            if (command == "wubbalubbadubdub")
+            {
+                break;
+            }
+            string[] input = command.Split(new string[] { " -> " }, StringSplitOptions.RemoveEmptyEntries);
+            if (input.Length == 1)
+            {
+                foreach (var pokemon in listOfPokemons)
+                {
+                    if (pokemon.Name == command)
+                    {
+                        Console.WriteLine($"# {pokemon.Name}");
+                        foreach (var evol in pokemon.Evolutions)
+                        {
+                            Console.WriteLine(evol);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                bool noPikachu = true;
+                foreach (var pikachu in listOfPokemons)
+                {
+                    if (pikachu.Name == input[0])
+                    {
+                        noPikachu = false;
+                        pikachu.Evolutions.Add($"{input[1]} <-> {input[2]}");
+                    }
+                }
+                if (noPikachu)
+                {
+                    Pokemon pokemon = new Pokemon()
+                    {
+                        Name = input[0],
+                        Evolutions = new List<string>()
+                    };
+                    pokemon.Evolutions.Add(input[1] + " <-> " + input[2].ToString());
+                    listOfPokemons.Add(pokemon);
+                }
+            }
+        }
+        foreach (var pokemon in listOfPokemons)
+        {
+            Console.WriteLine($"# {pokemon.Name}");
+            var sortedEvolutions = pokemon.Evolutions.OrderByDescending(x => int.Parse(x.Split(new string[] { " <-> " }, StringSplitOptions.RemoveEmptyEntries)[1]));
+            foreach (var str in sortedEvolutions)
+            {
+                Console.WriteLine(str);
+            }
+        }
+    }
+}

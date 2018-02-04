@@ -1,0 +1,44 @@
+using System;
+using System.Linq;
+using System.Text;
+using System.Numerics;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        BigInteger webSitesDown = BigInteger.Parse(Console.ReadLine());
+        BigInteger securityKey = BigInteger.Parse(Console.ReadLine());
+        BigInteger securtyToken = PoweredNum(webSitesDown, securityKey);
+        decimal totalLoss = 0m;
+        List<string> affectedWebSites = new List<string>();
+        for (int i = 0; i < webSitesDown; i++)
+        {
+            string[] data = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string websiteName = data[0].Trim();
+            long visits = long.Parse(data[1]);
+            decimal pricePerVisit = decimal.Parse(data[2]);
+            decimal siteLoss = visits * pricePerVisit;
+            totalLoss += siteLoss;
+            affectedWebSites.Add(websiteName);
+        }
+        foreach (var website in affectedWebSites)
+        {
+            Console.WriteLine(website);
+        }
+        Console.WriteLine($"Total Loss: {totalLoss:F20}");
+        Console.WriteLine($"Security Token: {securtyToken}");
+    }
+    static BigInteger PoweredNum(BigInteger webSitesDown, BigInteger securityKey)
+    {
+        BigInteger result = securityKey;
+        for (int i = 1; i < webSitesDown; i++)
+        {
+            result = result * securityKey;
+        }
+        return result;
+    }
+}

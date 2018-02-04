@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+
+class ConsoleApp1
+{
+    
+    static void Main()
+    {
+        long days = long.Parse(Console.ReadLine());
+        long runners = long.Parse(Console.ReadLine());
+        long lapsPerRunner = long.Parse(Console.ReadLine());
+        long length = long.Parse(Console.ReadLine());
+        long trackCapacity = long.Parse(Console.ReadLine());
+        decimal moneyPerKm = decimal.Parse(Console.ReadLine());
+        long runnersTotal = 0;
+        decimal total = 0;
+        if (runners >= trackCapacity * days)
+        {
+            runnersTotal = trackCapacity * days;
+        }
+        else
+        {
+            runnersTotal = runners;
+        }
+        decimal metersTotal = (lapsPerRunner * length) / 1000m;
+        total = metersTotal * moneyPerKm * runnersTotal;
+        Console.WriteLine($"Money raised: {total:F2}");
+    }
+    
+}

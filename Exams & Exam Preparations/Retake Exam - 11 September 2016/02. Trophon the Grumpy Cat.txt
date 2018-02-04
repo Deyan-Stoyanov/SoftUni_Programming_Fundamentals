@@ -1,0 +1,134 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        List<long> items = Console.ReadLine()
+            .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(long.Parse)
+            .ToList();
+        int entryPoint = int.Parse(Console.ReadLine());
+        string typeOfObjects = Console.ReadLine();
+        string typeOfPrice = Console.ReadLine();
+        long sumLeft = 0;
+        long sumRight = 0;
+        for (int i = 0; i < entryPoint; i++)
+        {
+            if (typeOfObjects == "cheap")
+            {
+                if (items[i] < items[entryPoint])
+                {
+                    if (typeOfPrice == "positive")
+                    {
+                        if (items[i] > 0)
+                        {
+                            sumLeft += items[i];
+                        }
+                    }
+                    else if (typeOfPrice == "negative")
+                    {
+                        if (items[i] < 0)
+                        {
+                            sumLeft += items[i];
+                        }
+                    }
+                    else if (typeOfPrice == "all")
+                    {
+                        sumLeft += items[i];
+                    }
+                }
+
+            }
+            else if (typeOfObjects == "expensive")
+            {
+                if (items[i] >= items[entryPoint])
+                {
+                    if (typeOfPrice == "positive")
+                    {
+                        if (items[i] > 0)
+                        {
+                            sumLeft += items[i];
+                        }
+                    }
+                    else if (typeOfPrice == "negative")
+                    {
+                        if (items[i] < 0)
+                        {
+                            sumLeft += items[i];
+                        }
+                    }
+                    else if (typeOfPrice == "all")
+                    {
+                        sumLeft += items[i];
+                    }
+                }
+            }
+        }
+        for (int i = entryPoint + 1; i < items.Count; i++)
+        {
+            if (typeOfObjects == "cheap")
+            {
+                if (items[i] < items[entryPoint])
+                {
+                    if (typeOfPrice == "positive")
+                    {
+                        if (items[i] > 0)
+                        {
+                            sumRight += items[i];
+                        }
+                    }
+                    else if (typeOfPrice == "negative")
+                    {
+                        if (items[i] < 0)
+                        {
+                            sumRight += items[i];
+                        }
+                    }
+                    else if (typeOfPrice == "all")
+                    {
+                        sumRight += items[i];
+                    }
+                }
+
+            }
+            else if (typeOfObjects == "expensive")
+            {
+                if (items[i] >= items[entryPoint])
+                {
+                    if (typeOfPrice == "positive")
+                    {
+                        if (items[i] > 0)
+                        {
+                            sumRight += items[i];
+                        }
+                    }
+                    else if (typeOfPrice == "negative")
+                    {
+                        if (items[i] < 0)
+                        {
+                            sumRight += items[i];
+                        }
+                    }
+                    else if (typeOfPrice == "all")
+                    {
+                        sumRight += items[i];
+                    }
+                }
+            }
+        }
+        if (sumLeft >= sumRight)
+        {
+            Console.WriteLine($"Left - {sumLeft}");
+        }
+        else
+        {
+            Console.WriteLine($"Right - {sumRight}");
+        }
+    }
+}

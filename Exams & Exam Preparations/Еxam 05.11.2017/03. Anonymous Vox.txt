@@ -1,0 +1,40 @@
+using System;
+using System.Linq;
+using System.Text;
+using System.Numerics;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        string pattern = @"([a-zA-Z]+).*(\1)";
+        string text = Console.ReadLine();
+        string[] placeholder = Console.ReadLine().Split(new char[] { '{', '}' }, StringSplitOptions.RemoveEmptyEntries);
+        List<string> allStrings = new List<string>();
+        MatchCollection allMatches = Regex.Matches(text, pattern);
+        foreach (Match item in allMatches)
+        {
+            string v = item.Groups[1].Value.ToString();
+            allStrings.Add(v);
+        }
+        List<string> stringsToReplace = new List<string>();
+        foreach (var key in allStrings)
+        {
+            stringsToReplace.Add(text.Substring((text.IndexOf(key) + key.Length), (text.LastIndexOf(key) - text.IndexOf(key) - key.Length)));
+        }
+        int i = 0;
+        foreach (var strToRep in stringsToReplace)
+        {
+            if (placeholder.Count() == i)
+            {
+                --i;
+            }
+            text = text.Substring(0, text.IndexOf(allStrings[i]) + allStrings[i].Length) + placeholder[i] + text.Substring(text.LastIndexOf(allStrings[i]));
+            i++;
+        }
+        Console.WriteLine(text);
+    }
+}

@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        int initialPower = int.Parse(Console.ReadLine());
+        int half = (int)(initialPower / 2.0);
+        int distance = int.Parse(Console.ReadLine());
+        int quotient = int.Parse(Console.ReadLine());
+        int count = 0;
+        while (initialPower >= distance)
+        {
+            initialPower -= distance;
+            count++;
+            if (initialPower == half)
+            {
+                try
+                {
+                    initialPower /= quotient;
+                }
+                catch (Exception)
+                {
+                }
+            }
+        }
+        Console.WriteLine(initialPower);
+        Console.WriteLine(count);
+
+    }
+}

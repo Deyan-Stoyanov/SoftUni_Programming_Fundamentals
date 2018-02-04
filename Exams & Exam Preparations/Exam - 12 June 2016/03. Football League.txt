@@ -1,0 +1,126 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    class Team
+    {
+        public string Name { get; set; }
+        public int Goals { get; set; }
+        public int Points { get; set; }
+    }
+    static void Main()
+    {
+        List<Team> listOfTeams = new List<Team>();
+        string key = Console.ReadLine();
+        string input = Console.ReadLine();
+        while (input != "final")
+        {
+            string result = input.Substring(input.Length - 3, 3);
+            int firstGoals = (result[0] - 48);
+            int secondGoals = result[2] - 48;
+            int index = input.IndexOf(key);
+            int endIndex = input.IndexOf(key, index + 1);
+            string first = input.Substring(index + key.Length, endIndex - (index + key.Length));
+            index = input.IndexOf(key, endIndex + 1);
+            endIndex = input.IndexOf(key, index + 1);
+            string second = input.Substring(index + key.Length, endIndex - (index + key.Length));
+            string firstTeam = ReverseString(first);
+            string secondTeam = ReverseString(second);
+            int firstPoints = 0;
+            int secondPoints = 0;
+            if (firstGoals > secondGoals)
+            {
+                firstPoints = 3;
+            }
+            else if (firstGoals < secondGoals)
+            {
+                secondPoints = 3;
+            }
+            else
+            {
+                firstPoints = 1;
+                secondPoints = 1;
+            }
+
+            bool t1IsThere = false;
+            bool t2IsThere = false;
+            foreach (var t in listOfTeams)
+            {
+                if (t.Name == firstTeam)
+                {
+                    t1IsThere = true;
+                    t.Goals += firstGoals;
+                    t.Points += firstPoints;
+                }
+                else if (t.Name == secondTeam)
+                {
+                    t.Goals += secondGoals;
+                    t.Points += secondPoints;
+                    t2IsThere = true;
+                }
+            }
+           
+            if (!t1IsThere)
+            {
+                Team team1 = new Team();
+                team1.Name = firstTeam;
+                team1.Goals = new int();
+                team1.Goals = firstGoals;
+                team1.Points = new int();
+                team1.Points = firstPoints;
+                listOfTeams.Add(team1);
+            }
+            if (!t2IsThere)
+            {
+                Team team2 = new Team();
+                team2.Name = secondTeam;
+                team2.Goals = new int();
+                team2.Goals = secondGoals;
+                team2.Points = new int();
+                team2.Points = secondPoints;
+                listOfTeams.Add(team2);
+            }
+            input = Console.ReadLine();
+        }
+        PrintTeams(listOfTeams);
+    }
+
+    private static void PrintTeams(List<Team> listOfTeams)
+    {
+        var sortedPoints = listOfTeams.OrderByDescending(x => x.Points).ThenBy(x => x.Name);
+        int i = 1;
+        Console.WriteLine("League standings:");
+        foreach (var team in sortedPoints)
+        {
+            Console.WriteLine($"{i}. {team.Name} {team.Points}");
+            i++;
+        }
+        var sortedGoals = listOfTeams.OrderByDescending(x => x.Goals).ThenBy(x => x.Name);
+        int counter = 0;
+        Console.WriteLine("Top 3 scored goals:");
+        foreach (var point in sortedGoals)
+        {
+            Console.WriteLine($"- {point.Name} -> {point.Goals}");
+            counter++;
+            if (counter >= 3)
+            {
+                break;
+            }
+        }
+    }
+
+    static string ReverseString(string first)
+    {
+        StringBuilder a = new StringBuilder();
+        for (int i = first.Length - 1; i >= 0; i--)
+        {
+            a.Append(first.ToCharArray()[i]);
+        }
+        return a.ToString().ToUpper();
+    }
+}

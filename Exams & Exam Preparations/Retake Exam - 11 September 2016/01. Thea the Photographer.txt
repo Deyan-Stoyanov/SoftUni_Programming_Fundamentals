@@ -1,0 +1,32 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        long photosTaken = long.Parse(Console.ReadLine());
+        long secondsPerPhotoToFilter = long.Parse(Console.ReadLine());
+        long filteringTime = secondsPerPhotoToFilter * photosTaken;
+        double filterFaktor = double.Parse(Console.ReadLine());
+        long filteredPhotos = (long)(Math.Ceiling(photosTaken *(filterFaktor / 100.0)));
+        long uploadTime = long.Parse(Console.ReadLine());
+        long totalUploaTime = uploadTime * filteredPhotos;
+        long totalTime = totalUploaTime + filteringTime;
+        long seconds = totalTime % 60;
+        long minutes = totalTime / 60 % 60;
+        long hours = totalTime / 60 / 60 % 24;
+        long days = totalTime /60 /60 / 24;
+        StringBuilder time = new StringBuilder();
+        
+        time.Append(days + ":");
+        time.Append(hours > 9 ? hours + ":" : "0" + hours + ":");
+        time.Append(minutes > 9 ? minutes + ":" : "0" + minutes + ":");
+        time.Append(seconds > 9 ? seconds.ToString() : "0" + seconds.ToString());
+        Console.WriteLine(time);
+    }
+}

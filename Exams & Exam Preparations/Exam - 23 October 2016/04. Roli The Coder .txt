@@ -1,0 +1,100 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    class Event
+    {
+        public string Name { get; set; }
+        public string ID { get; set; }
+        public List<string> Participants { get; set; }
+        public int Counter { get; set; }
+    }
+    static void Main()
+    {
+        string input = Console.ReadLine();
+        List<Event> listOfEvents = new List<Event>();
+        while (input != "Time for Code")
+        {
+            var data = input.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            bool correct = false;
+            if (data.Length == 2)
+            {
+                correct = true;
+            }
+            else
+            {
+                for (int i = data.Length - 1; i >= 2; i--)
+                {
+                    if ((data[i].ToCharArray())[0] == '@')
+                    {
+                        correct = true;
+                    }
+                    else
+                    {
+                        correct = false;
+                        break;
+                    }
+                }
+            }
+            if ((data[1].ToCharArray())[0] == '#' && data.Length >= 2 && correct)
+            {
+                bool itExists = false;
+                foreach (var ev in listOfEvents)
+                {
+                    if (ev.ID == data[0])
+                    {
+                        if (ev.Name == data[1])
+                        {
+                            itExists = true;
+                            for (int i = data.Count() - 1; i >= 2; i--)
+                            {
+                                if (!ev.Participants.Contains(data[i]))
+                                {
+                                    ev.Participants.Add(data[i]);
+                                    ev.Counter++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            itExists = true;
+                        }
+                    }
+                }
+                if (!itExists)
+                {
+                    Event newEvent = new Event()
+                    {
+                        ID = data[0],
+                        Name = data[1],
+                        Participants = new List<string>(),
+                        Counter = 0
+                    };
+                    for (int i = data.Length - 1; i >= 2; i--)
+                    {
+                        newEvent.Participants.Add(data[i]);
+                        newEvent.Counter++;
+                    }
+                    listOfEvents.Add(newEvent);
+                }
+            }
+            input = Console.ReadLine();
+        }
+        var orderedEvents = listOfEvents.OrderByDescending(x => x.Participants.Count).ThenBy(x => x.Name);
+        foreach (var singleEvent in orderedEvents)
+        {
+            var trimmedName = singleEvent.Name.Remove(0, 1);
+            Console.WriteLine($"{trimmedName} - {singleEvent.Counter}");
+            var orderedParticipants = singleEvent.Participants.OrderBy(x => x);
+            foreach (var participant in orderedParticipants)
+            {
+                Console.WriteLine(participant);
+            }
+        }
+    }
+}

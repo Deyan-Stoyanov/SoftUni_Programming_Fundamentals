@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        long wingFlaps = long.Parse(Console.ReadLine());
+        decimal distance = decimal.Parse(Console.ReadLine());
+        long breakIndex = long.Parse(Console.ReadLine());
+        decimal distanceTravelled = (wingFlaps / 1000m) * distance;
+        decimal breaks = wingFlaps / breakIndex * 5;
+        decimal time = (wingFlaps / 100m) + breaks;
+        Console.WriteLine($"{distanceTravelled:F2} m.");
+        Console.WriteLine($"{time} s.");
+    }
+}

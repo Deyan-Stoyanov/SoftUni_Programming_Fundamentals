@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        decimal money = decimal.Parse(Console.ReadLine());
+        long guests = long.Parse(Console.ReadLine());
+        decimal bananaPrice = decimal.Parse(Console.ReadLine());
+        decimal eggsPrice = decimal.Parse(Console.ReadLine());
+        decimal berriesPrice = decimal.Parse(Console.ReadLine());
+        long portions = 0;
+        if (guests % 6 == 0)
+        {
+            portions = guests / 6;
+        }
+        else
+        {
+            portions = ((guests / 6) + 1);
+        }
+        decimal total = (2 * bananaPrice + 4 * eggsPrice + 0.2m * berriesPrice) * portions;
+        if (total > money)
+        {
+            Console.WriteLine($"Ivancho will have to withdraw money - he will need {total - money:F2}lv more.");
+        }
+        else
+        {
+            Console.WriteLine($"Ivancho has enough money - it would cost {total:F2}lv.");
+        }
+    }
+}

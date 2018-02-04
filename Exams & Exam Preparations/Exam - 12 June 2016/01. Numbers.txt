@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    
+    static void Main()
+    {
+        var input = Console.ReadLine().Split().Select(int.Parse);
+        double average = input.Average();
+        int count = 0;
+        var sortedNums = input.OrderByDescending(x => x);
+        List<int> biggestNums = new List<int>();
+        foreach (var n in sortedNums)
+        {
+            if (n > average)
+            {
+                biggestNums.Add(n);
+                count++;
+            }
+            if (count >= 5)
+            {
+                break;
+            }
+        }
+        if (biggestNums.Count == 0)
+        {
+            Console.WriteLine("No");
+        }
+        else
+        {
+            StringBuilder result = new StringBuilder();
+            foreach (var item in biggestNums)
+            {
+                result.Append(item + " ");
+            }
+            result.Remove(result.Length - 1, 1);
+            Console.WriteLine(result);
+        }
+    }
+}
