@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        List<long> train = new List<long>();
+        long locomotive = long.Parse(Console.ReadLine());
+        while (true)
+        {
+            string command = Console.ReadLine();
+            if (command == "All ofboard!")
+            {
+                break;
+            }
+            long wagon = long.Parse(command);
+            train.Add(wagon);
+            if (train.Sum() > locomotive)
+            {
+                long average = (long)train.Average();
+                long closest = long.MaxValue;
+                long wagonToRemove = 0;
+                for (int i = 0; i < train.Count; i++)
+                {
+                    if (Math.Abs(train[i] - average) < closest)
+                    {
+                        closest = Math.Abs(train[i] - average);
+                        wagonToRemove = train[i];
+                    }
+                }
+               train.Remove(wagonToRemove);
+            }
+        }
+        train.Reverse();
+        Console.WriteLine(string.Join(" ", train) + " " + locomotive.ToString());
+    }
+}

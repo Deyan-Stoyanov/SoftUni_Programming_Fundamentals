@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string pattern = @"[A-Za-z0-9]+ *-> *[a-zA-Z0-9]+ *-> *[0-9]+";
+        Dictionary<string, Dictionary<string, long>> countryAndSpies = new Dictionary<string, Dictionary<string, long>>();
+        while (true)
+        {
+            string input = Console.ReadLine();
+            if (input == "quit")
+            {
+                break;
+            }
+            if (!Regex.IsMatch(input, pattern))
+            {
+                continue;
+            }
+            string[] data = input.Split(new char[] { ' ', '-', '>' }, StringSplitOptions.RemoveEmptyEntries);
+            if (countryAndSpies.ContainsKey(data[0]))
+            {
+                if (countryAndSpies[data[0]].ContainsKey(data[1]))
+                {
+                    countryAndSpies[data[0]][data[1]] = long.Parse(data[2]);
+                }
+                else
+                {
+                    countryAndSpies[data[0]].Add(data[1], long.Parse(data[2]));
+                }
+            }
+            else
+            {
+                countryAndSpies.Add(data[0], new Dictionary<string, long>());
+                countryAndSpies[data[0]].Add(data[1], long.Parse(data[2]));
+            }
+        }
+        var orderedCountires = countryAndSpies.OrderByDescending(x => x.Value.Keys.Count());
+        foreach (var country in orderedCountires)
+        {
+            Console.WriteLine($"Country: {country.Key}");
+            var orderedSpies = country.Value.OrderByDescending(x => x.Value);
+            foreach (var spy in orderedSpies)
+            {
+                Console.WriteLine($"**{spy.Key} : {spy.Value}");
+
+            }
+        }
+    }
+}

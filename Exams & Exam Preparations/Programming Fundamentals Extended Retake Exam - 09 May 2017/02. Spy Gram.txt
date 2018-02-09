@@ -1,0 +1,58 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    class Messages
+    {
+        public string Name { get; set; }
+        public string Message { get; set; }
+    }
+    static void Main()
+    {
+        List<Messages> listOfMessages = new List<Messages>();
+        string pattern = @"TO: [A-Z]+; MESSAGE: .+;";
+        string privateKey = Console.ReadLine();
+        while (true)
+        {
+            string message = Console.ReadLine();
+            if (message == "END")
+            {
+                break;
+            }
+            string name = message.Substring(4, message.IndexOf(';') - 4);
+            char[] thisMessage = message.ToCharArray();
+            if (Regex.IsMatch(message, pattern))
+            {
+                int j = 0;
+                for (int i = 0; i < thisMessage.Count(); i++)
+                {
+                    if (j >= privateKey.Length)
+                    {
+                        j = 0;
+                    }
+                    thisMessage[i] = (char)(thisMessage[i] + (privateKey[j] - 48));
+                    j++;
+                }
+                string decrypted = string.Join("", thisMessage);
+                Messages singleMessage = new Messages
+                {
+                    Name = name,
+                    Message = decrypted
+                };
+                listOfMessages.Add(singleMessage);
+            }
+            
+        }
+        var sortedMessages = listOfMessages.OrderBy(x => x.Name).ToList();
+        foreach (var message in sortedMessages)
+        {
+            Console.WriteLine(message.Message);
+        }
+    }
+}

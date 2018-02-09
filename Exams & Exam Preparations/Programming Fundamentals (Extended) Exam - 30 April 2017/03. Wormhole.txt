@@ -1,0 +1,35 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        List<int> sequence = Console.ReadLine().Split().Select(int.Parse).ToList();
+        int counter = 0;
+        for (int i = 0;;)
+        {
+            if (i == sequence.Count)
+            {
+                break;
+            }
+            if (sequence[i] == 0)
+            {
+                counter++;
+                i++;
+            }
+            else
+            {
+                int num = sequence[i];
+                sequence[i] = 0;
+                i = num;
+
+            }
+        }
+        Console.WriteLine(counter);
+    }
+}

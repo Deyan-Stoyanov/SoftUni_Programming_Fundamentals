@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        decimal distance = decimal.Parse(Console.ReadLine());
+        decimal fuelCapacity = decimal.Parse(Console.ReadLine());
+        decimal milesInHeavyWinds = decimal.Parse(Console.ReadLine());
+        decimal otherMiles = distance - milesInHeavyWinds;
+        decimal fuelInHeavyWinds = (1.5m * 25m) * milesInHeavyWinds;
+        decimal otherFuel = 25m * otherMiles;
+        decimal totalFuelNeeded = (fuelInHeavyWinds + otherFuel) * 1.05m;
+        Console.WriteLine($"Fuel needed: {totalFuelNeeded:F2}L");
+        if (totalFuelNeeded <= fuelCapacity)
+        {
+            Console.WriteLine($"Enough with {(fuelCapacity - totalFuelNeeded):F2}L to spare!");
+        }
+        else
+        {
+            Console.WriteLine($"We need {(totalFuelNeeded - fuelCapacity):F2}L more fuel.");
+        }
+    }
+}

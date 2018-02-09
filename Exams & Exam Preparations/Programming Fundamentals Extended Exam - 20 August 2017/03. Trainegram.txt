@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string pattern = @"^\<\[[^a-zA-Z0-9]*\]\.(\.\[[a-zA-Z0-9]*\]\.)*$";
+        List<string> matchedTrains = new List<string>();
+        while (true)
+        {
+            string input = Console.ReadLine();
+            if (input == "Traincode!")
+            {
+                break;
+            }
+            if (Regex.IsMatch(input, pattern))
+            {
+                matchedTrains.Add(input);
+            }
+        }
+        foreach (var train in matchedTrains)
+        {
+            Console.WriteLine(train);
+        }
+    }
+}

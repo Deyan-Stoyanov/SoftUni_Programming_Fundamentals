@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        long numberOfPhoenixes = long.Parse(Console.ReadLine());
+        for (int i = 0; i < numberOfPhoenixes; i++)
+        {
+            decimal length = decimal.Parse(Console.ReadLine());
+            decimal width = decimal.Parse(Console.ReadLine());
+            int accuracy = 0;
+            if (width.ToString().Contains('.'))
+            {
+                accuracy = width.ToString().Substring(width.ToString().IndexOf('.')).Length;
+            }
+            decimal oneWingLength = decimal.Parse(Console.ReadLine());
+            decimal years = length * length * (width + (2 * oneWingLength));
+            if (years.ToString().Contains('.'))
+            {
+                string result = years.ToString().Substring(0, years.ToString().IndexOf('.') + accuracy);
+                Console.WriteLine(result);
+            }
+            else
+            {
+                Console.WriteLine(years);
+            }
+        }
+    }
+}

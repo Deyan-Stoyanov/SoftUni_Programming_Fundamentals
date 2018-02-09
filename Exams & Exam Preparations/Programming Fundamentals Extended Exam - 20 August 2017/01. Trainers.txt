@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    class Team
+    {
+        public string Name { get; set; }
+        public decimal Earnings { get; set; }
+    }
+    static void Main()
+    {
+        List<Team> teams = new List<Team>();
+        int n = int.Parse(Console.ReadLine());
+        for (int i = 0; i < n; i++)
+        {
+            decimal distanceInMeters = decimal.Parse(Console.ReadLine()) * 1600m;
+            decimal cargoInKgs = decimal.Parse(Console.ReadLine()) * 1000m;
+            decimal fuelConsumption = 0.7m * distanceInMeters * 2.5m;
+            decimal totalPrice = cargoInKgs * 1.5m;
+            string participant = Console.ReadLine();
+            decimal participantEarnedMoney = totalPrice - fuelConsumption;
+            foreach (var currentTeam in teams)
+            {
+                if (currentTeam.Name == participant)
+                {
+                    currentTeam.Earnings += participantEarnedMoney;
+                }
+            }
+            if (!teams.Any(x => x.Name == participant))
+            {
+                Team team = new Team
+                {
+                    Name = participant,
+                    Earnings = participantEarnedMoney
+                };
+                teams.Add(team);
+            }
+        }
+        List<Team> sortedListOfTeams = teams.OrderByDescending(x => x.Earnings).ThenBy(x => x.Name).ToList();
+        Console.WriteLine($"The {sortedListOfTeams[0].Name} Trainers win with ${(sortedListOfTeams[0].Earnings):F3}.");
+    }
+}

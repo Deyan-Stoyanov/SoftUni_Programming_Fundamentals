@@ -1,0 +1,70 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    class Team
+    {
+        public String Name { get; set; }
+        public Dictionary<string, long> WormAndPoints { get; set; }
+        public int Count { get; set; }
+    }
+    static void Main()
+    {
+        List<Team> teams = new List<Team>();
+        string input = Console.ReadLine();
+        while (input != "quit")
+        {
+            List<string> wormData = input.Split(new string[] { " -> " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            string wormName = wormData[0];
+            string teamName = wormData[1];
+            long wormScore = int.Parse(wormData[2]);
+            bool isAlreadyThere = false;
+            if (!(teams.Any(x => x.WormAndPoints.ContainsKey(wormName))))
+            {
+                foreach (var t in teams)
+                {
+                    if (t.Name == teamName)
+                    {
+                        isAlreadyThere = true;
+                        if (!t.WormAndPoints.ContainsKey(wormName))
+                        {
+                            t.WormAndPoints.Add(wormName, wormScore);
+                            t.Count++;
+                        }
+                    }
+                }
+                if (!isAlreadyThere)
+                {
+                    Team team = new Team
+                    {
+                        Name = teamName,
+                        WormAndPoints = new Dictionary<string, long>(),
+                        Count = 1
+                    };
+                    team.WormAndPoints.Add(wormName, wormScore);
+                    teams.Add(team);
+                }
+            }
+            input = Console.ReadLine();
+        }
+        var sortedTeams = teams
+            .OrderByDescending(x => x.WormAndPoints.Values.Sum())
+            .ThenByDescending(x => x.WormAndPoints.Values.Average());
+        int i = 1;
+        foreach (var team in sortedTeams)
+        {
+            Console.WriteLine($"{i}. Team: {team.Name} - {team.WormAndPoints.Values.Sum()}");
+            var sortedWorms = team.WormAndPoints.OrderByDescending(x => x.Value);
+            foreach (var pair in sortedWorms)
+            {
+                Console.WriteLine($"###{pair.Key} : {pair.Value}");
+            }
+            i++;
+        }
+    }
+}

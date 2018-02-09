@@ -1,0 +1,110 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        long[] positions = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries).Select(long.Parse).ToArray();
+        long initialIndex = long.Parse(Console.ReadLine());
+        long damage = 1;
+        while (true)
+        {
+            string command = Console.ReadLine();
+            if (command == "Supernova")
+            {
+                break;
+            }
+            string[] directionAndCount = command.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            string direction = directionAndCount[0];
+            long count = long.Parse(directionAndCount[1]);
+            switch (directionAndCount[0])
+            {
+                case "left":
+                    GoLeft(positions, ref initialIndex, ref damage, count);
+                    break;
+                case "right":
+                    GoRight(positions, ref initialIndex, ref damage, count);
+                    break;
+                default:
+                    break;
+            }
+        }
+        Console.WriteLine(String.Join(" ", positions));
+    }
+
+    static void GoRight(long[] positions, ref long initialIndex, ref long damage, long count)
+    {
+        initialIndex++;
+        int k = 0;
+        bool rightLoop = false;
+        for (int i = 0; i < count; i++)
+        {
+            if (initialIndex + k >= positions.Count())
+            {
+                rightLoop = true;
+                int remainingRight = (int)count - k;
+                k = 0;
+                damage++;
+                for (int n = 0; n < remainingRight; n++)
+                {
+                    if (k > positions.Count() - 1)
+                    {
+                        k = 0;
+                        damage++;
+                    }
+                    positions[k] -= damage;
+                    k++;
+                }
+                initialIndex = k - 1;
+                break;
+            }
+            positions[initialIndex + k] -= damage;
+            k++;
+        }
+        if (!rightLoop)
+        {
+            initialIndex += (count - 1);
+        }
+    }
+
+    static void GoLeft(long[] positions, ref long initialIndex, ref long damage, long count)
+    {
+        initialIndex--;
+        int j = 0;
+        bool loop = false;
+        for (int i = 0; i < count; i++)
+        {
+            if (initialIndex - j < 0)
+            {
+                loop = true;
+                int remaining = (int)count - j;
+                j = positions.Count() - 1;
+                damage++;
+                for (int m = 0; m < remaining; m++)
+                {
+                    if (j < 0)
+                    {
+                        j = positions.Count() - 1;
+                        damage++;
+                    }
+                    positions[j] -= damage;
+                    j--;
+                }
+                initialIndex = j + 1;
+                break;
+            }
+            positions[initialIndex - j] -= damage;
+            j++;
+        }
+        if (!loop)
+        {
+            initialIndex -= (count - 1);
+        }
+    }
+}

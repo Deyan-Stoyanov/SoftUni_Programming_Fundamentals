@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string input = Console.ReadLine();
+        string[] delimeters = new string[] { ",", ":", ";", "!", "?", "\\", "'", "\"", "/", "-", "." };
+        while (input != "Worm Ipsum")
+        {
+            if (input.Count(x => x == '.') <= 1)
+            {
+                List<string> words = input.Split().ToList();
+                for (int i = 0; i < words.Count; i++)
+                {
+                    if (words[i] != string.Join("", words[i].ToArray().Distinct()))
+                    {
+                        char searchedChar = ' ';
+                        int maxOccurrences = int.MinValue;
+                        foreach (char ch in words[i])
+                        {
+                            int occurrences = words[i].Count(x => x == ch);
+                            if (occurrences > maxOccurrences)
+                            {
+                                maxOccurrences = occurrences;
+                                searchedChar = ch;
+                            }
+                        }
+                        bool endsWithDelimeter = false;
+                        foreach (string d in delimeters)
+                        {
+                            if (words[i].EndsWith(d))
+                            {
+                                endsWithDelimeter = true;
+                                words[i] = new string(searchedChar, words[i].Length - 1) + d;
+                                break;
+                            }
+                            
+                        }
+                        if (!endsWithDelimeter)
+                        {
+                            words[i] = new string(searchedChar, words[i].Length);
+                        }
+                    }
+                }
+                Console.WriteLine(string.Join(" ", words));
+            }
+            input = Console.ReadLine();
+        }
+    }
+}

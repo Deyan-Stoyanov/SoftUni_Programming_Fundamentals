@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        decimal wormLength = (decimal.Parse(Console.ReadLine())) * 100;
+        decimal wormWidth = decimal.Parse(Console.ReadLine());
+        if (wormWidth == 0)
+        {
+            Console.WriteLine($"{(wormLength * wormWidth):F2}");
+        }
+        else if (wormLength % wormWidth ==  0)
+        {
+            Console.WriteLine($"{(wormLength * wormWidth):F2}");
+        }
+        else
+        {
+            Console.WriteLine($"{((wormLength / wormWidth) * 100):F2}%");
+        }
+    }
+}

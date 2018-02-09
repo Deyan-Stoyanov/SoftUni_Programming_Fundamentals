@@ -1,0 +1,145 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    class Train
+    {
+        public string Name { get; set; }
+        public Dictionary<string, long> WagonsAndPower { get; set; }
+    }
+    static void Main()
+    {
+        List<Train> trains = new List<Train>();
+        while (true)
+        {
+            string command = Console.ReadLine();
+            if (command == "It's Training Men!")
+            {
+                break;
+            }
+            if (command.Contains("->"))
+            {
+                if (command.Contains(":"))
+                {
+                    string[] input = command.Split(new string[] { " -> ", " : " }, StringSplitOptions.RemoveEmptyEntries);
+                    string trainName = input[0].Trim();
+                    string wagonName = input[1].Trim();
+                    long wagonPower = long.Parse(input[2].Trim());
+                    foreach (var tr in trains)
+                    {
+                        if (tr.Name == trainName)
+                        {
+                            if (!tr.WagonsAndPower.ContainsKey(wagonName))
+                            {
+                                tr.WagonsAndPower.Add(wagonName, wagonPower);
+                            }
+                            else
+                            {
+                                tr.WagonsAndPower[wagonName] = wagonPower;
+                            }
+                        }
+                    }
+                    if (!trains.Any(x => x.Name == trainName))
+                    {
+                        Train train = new Train
+                        {
+                            Name = trainName,
+                            WagonsAndPower = new Dictionary<string, long>()
+                        };
+                        train.WagonsAndPower.Add(wagonName, wagonPower);
+                        trains.Add(train);
+                    }
+                }
+                else
+                {
+                    string[] input = command.Split(new string[] { " -> "}, StringSplitOptions.RemoveEmptyEntries);
+                    string trainName = input[0].Trim();
+                    string otherTrainName = input[1].Trim();
+                    for (int otherTrain = 0; otherTrain < trains.Count; otherTrain++)
+                    {
+                        if (trains[otherTrain].Name == otherTrainName)
+                        {
+                            bool thereIsATrain = false;
+                            for (int thisTrain = 0; thisTrain < trains.Count; thisTrain++)
+                            {
+                                if (trains[thisTrain].Name == trainName)
+                                {
+                                    thereIsATrain = true;
+                                    foreach (var pair in trains[otherTrain].WagonsAndPower)
+                                    {
+                                        if (!trains[thisTrain].WagonsAndPower.ContainsKey(pair.Key))
+                                        {
+                                            trains[thisTrain].WagonsAndPower.Add(pair.Key, pair.Value);
+                                        }
+                                        else
+                                        {
+                                            trains[thisTrain].WagonsAndPower[pair.Key] = pair.Value;
+                                        }
+                                    }
+                                    trains.Remove(trains[otherTrain]);
+                                }
+                            }
+                            if (!thereIsATrain)
+                            {
+                                trains[otherTrain].Name = trainName;
+                            }
+                        }
+                    }
+                }
+            }
+            else if (command.Contains("="))
+            {
+                string[] input = command.Split(new string[] { " = " }, StringSplitOptions.RemoveEmptyEntries);
+                string trainName = input[0].Trim();
+                string otherTrainName = input[1].Trim();
+                for (int otherTrain = 0; otherTrain < trains.Count; otherTrain++)
+                {
+                    if (trains[otherTrain].Name == otherTrainName)
+                    {
+                        bool thereIsATrain = false;
+                        for (int thisTrain = 0; thisTrain < trains.Count; thisTrain++)
+                        {
+                            if (trains[thisTrain].Name == trainName)
+                            {
+                                thereIsATrain = true;
+                                trains[thisTrain].WagonsAndPower = new Dictionary<string, long>();
+                                foreach (var pair in trains[otherTrain].WagonsAndPower)
+                                {
+                                    trains[thisTrain].WagonsAndPower.Add(pair.Key, pair.Value);
+                                }
+                            }
+                        }
+                        if (!thereIsATrain)
+                        {
+                            Train train = new Train
+                            {
+                                Name = trainName,
+                                WagonsAndPower = new Dictionary<string, long>()
+                            };
+                            foreach (var pair in trains[otherTrain].WagonsAndPower)
+                            {
+                                train.WagonsAndPower.Add(pair.Key, pair.Value);
+                            }
+                            trains.Add(train);
+                        }
+                    }
+                }
+            }
+        }
+        var orderedTrains = trains.OrderByDescending(x => x.WagonsAndPower.Values.Sum()).ThenBy(x => x.WagonsAndPower.Count);
+        foreach (var train in orderedTrains)
+        {
+            Console.WriteLine($"Train: {train.Name}");
+            var orderedWagons = train.WagonsAndPower.OrderByDescending(x => x.Value);
+            foreach (var wagon in orderedWagons)
+            {
+                Console.WriteLine($"###{wagon.Key} - {wagon.Value}");
+            }
+        }
+    }
+}

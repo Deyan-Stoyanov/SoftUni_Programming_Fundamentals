@@ -1,0 +1,99 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    class Creature
+    {
+        public string Name { get; set; }
+        public HashSet<string> SquadMates { get; set; }
+        public long Count { get; set; }
+    }
+    static void Main()
+    {
+        List<Creature> creatures = new List<Creature>();
+        while (true)
+        {
+            string input = Console.ReadLine();
+            if (input == "Blaze it!")
+            {
+                break;
+            }
+            string[] data = input.Split(new char[] { ' ', '-', '>' }, StringSplitOptions.RemoveEmptyEntries);
+            string name = data[0];
+            string squadMate = data[1];
+            bool creatureExists = false;
+            foreach (var cr in creatures)
+            {
+                if (cr.Name == name)
+                {
+                    creatureExists = true;
+                    bool mateExists = false;
+                    foreach (var mate in cr.SquadMates)
+                    {
+                        if (mate == squadMate)
+                        {
+                            mateExists = true;
+                            break;
+                        }
+                    }
+                    if (!mateExists && squadMate != cr.Name)
+                    {
+                        cr.SquadMates.Add(squadMate);
+                        cr.Count++;
+                    }
+                }
+            }
+            if (!creatureExists)
+            {
+                Creature thisCreature = new Creature()
+                {
+                    Name = name,
+                    SquadMates = new HashSet<string>(),
+                    Count = 1
+                };
+                if (squadMate != name)
+                {
+                    thisCreature.SquadMates.Add(squadMate);
+                }
+                creatures.Add(thisCreature);
+            }
+        }
+        List<string> creaturesAlreadyChecked = new List<string>();
+        List<string> squadMatesAlreadyChecked = new List<string>();
+        foreach (var creature in creatures)
+        {
+            foreach (var squadMate in creature.SquadMates)
+            {
+                foreach (var secondCreature in creatures)
+                {
+                    foreach (var secondSquadMate in secondCreature.SquadMates)
+                    {
+                        if (squadMate == secondCreature.Name && secondSquadMate == creature.Name)
+                        {
+                            if ((!creaturesAlreadyChecked.Contains(creature.Name) || !creaturesAlreadyChecked.Contains(secondCreature.Name)) &&
+                                (!squadMatesAlreadyChecked.Contains(squadMate) || !squadMatesAlreadyChecked.Contains(squadMate)))
+                            {
+                                creature.Count--;
+                                secondCreature.Count--;
+                                creaturesAlreadyChecked.Add(creature.Name);
+                                creaturesAlreadyChecked.Add(secondCreature.Name);
+                                squadMatesAlreadyChecked.Add(squadMate);
+                                squadMatesAlreadyChecked.Add(secondSquadMate);
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+        var orderedCreatures = creatures.OrderByDescending(x => x.Count).ToList();
+        foreach (var creature in orderedCreatures)
+        {
+            Console.WriteLine($"{creature.Name} : {creature.Count}");
+        }
+    }
+}
