@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+
+class ConsoleApp1
+{
+    class Student
+    {
+        public string Name { get; set; }
+        public List<double> Grades { get; set; }
+        public double Average { get; set; }
+
+    }
+    static Student AddStudent()
+    {
+        List<string> line = Console.ReadLine().Split().ToList();
+        List<double> gr = new List<double>();
+        for (int i = 1; i < line.Count; i++)
+        {
+            gr.Add(double.Parse(line[i]));
+        }
+        Student student = new Student()
+        {
+            Name = line[0],
+            Grades = gr,
+            Average = gr.Average()
+        };
+        return student;
+    }
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine());
+        List<Student> studentsList = new List<Student>();
+        for (int i = 0; i < n; i++)
+        {
+            Student s = AddStudent();
+            if (s.Average >= 5.0)
+            {
+                studentsList.Add(s);
+            }
+        }
+        studentsList = studentsList
+            .OrderBy(x => x.Name)
+            .ThenByDescending(x => x.Average)
+            .ToList();
+        foreach (var item in studentsList)
+        {
+            Console.WriteLine($"{item.Name} -> {item.Average:F2}");
+        }
+    }
+}

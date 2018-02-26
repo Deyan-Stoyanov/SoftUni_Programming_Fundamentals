@@ -1,0 +1,66 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        List<string> words = Console.ReadLine().Split(new char[] { ',', ';', ':', '.', '!', '(', ')', '"', '\'', '\\', '/', '[', ']', ' ' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        List<string> lowerCase = new List<string>();
+        List<string> upperCase = new List<string>();
+        List<string> mixedCase = new List<string>();
+        bool upper = false;
+        bool lower = false;
+        foreach (var item in words)
+        {
+            for (int i = 0; i < item.Length; i++)
+            {
+                if (Convert.ToInt32(item[i]) >= 60 && Convert.ToInt32(item[i])<= 90)
+                {
+                    upper = true;
+                }
+                else
+                {
+                    upper = false;
+                    break;
+                }
+            }
+            for (int i = 0; i < item.Length; i++)
+            {
+                if (Convert.ToInt32(item[i]) >= 97 && Convert.ToInt32(item[i]) <= 122)
+                {
+                    lower = true;
+                }
+                else
+                {
+                    lower = false;
+                    break;
+                }
+            }
+            if (lower)
+            {
+                lowerCase.Add(item);
+            }
+            else if (upper)
+            {
+                upperCase.Add(item);
+            }
+            else
+            {
+                mixedCase.Add(item);
+            }
+        }
+        Print("Lower-case: ", lowerCase);
+        Print("Mixed-case: ", mixedCase);
+        Print("Upper-case: ", upperCase);
+    }
+
+    private static void Print(string s, List<string> myList)
+    {
+        Console.Write(s);
+        Console.Write(string.Join(", ", myList));
+        Console.WriteLine();
+    }
+}

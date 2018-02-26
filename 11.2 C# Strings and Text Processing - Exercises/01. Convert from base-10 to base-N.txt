@@ -1,0 +1,30 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        var input = Console.ReadLine().Split().ToArray();
+        BigInteger baseToConvert = BigInteger.Parse(input[0]);
+        BigInteger num = BigInteger.Parse(input[1]);
+        List<long> convertedNum = new List<long>();
+        while (num > 0)
+        {
+            long remainder = (long)(num % baseToConvert);
+            convertedNum.Add(remainder);
+            num /= baseToConvert;
+        }
+        StringBuilder result = new StringBuilder();
+        for (int i = convertedNum.Count - 1; i >= 0; i--)
+        {
+            result.Append(convertedNum[i].ToString());
+        }
+        Console.WriteLine(result);
+        
+    }
+}

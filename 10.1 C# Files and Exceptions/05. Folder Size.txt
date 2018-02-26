@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.IO;
+using System.Numerics;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string text = File.ReadAllText("E:\\Tech Module\\Programming Fundamentals" +
+            "\\10.1 C# Files and Exceptions\\Resources\\03. Word Count\\text.txt").ToLower();
+        string[] words = text.Split(new string[] { Environment.NewLine, ".", ",", " ", "!", "?", "-",
+            ":", "/", "\"", "\\", "\'", "…" }, StringSplitOptions.RemoveEmptyEntries);
+        Dictionary<string, int> wordsCount = new Dictionary<string, int>();
+        foreach (var word in words)
+        {
+            if (wordsCount.ContainsKey(word))
+            {
+                wordsCount[word]++;
+            }
+            else
+            {
+                wordsCount[word] = 1;
+            }
+        }
+        List<KeyValuePair<string, int>> result = wordsCount.OrderByDescending(wordCount => wordCount.Value).ToList();
+        IEnumerable<string> resultLines = result.Select(keyValue => keyValue.Key + " -> " + keyValue.Value).ToList();
+
+        
+        File.WriteAllLines("E:\\Tech Module\\Programming Fundamentals" +
+            "\\10.1 C# Files and Exceptions\\Resources\\03. Word Count\\results.txt", resultLines);
+
+        List<KeyValuePair<string, int>> orderedWords = result.Select(keyValue => keyValue).ToList();
+
+        File.WriteAllText("E:\\Tech Module\\Programming Fundamentals" +
+            "\\10.1 C# Files and Exceptions\\Resources\\03. Word Count\\words.txt", string.Join(" ", orderedWords));
+    }
+}

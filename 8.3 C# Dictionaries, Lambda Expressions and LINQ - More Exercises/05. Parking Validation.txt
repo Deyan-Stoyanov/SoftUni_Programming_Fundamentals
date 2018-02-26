@@ -1,0 +1,89 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        Dictionary<string, string> userAndLicenceNum = new Dictionary<string, string>();
+        int n = int.Parse(Console.ReadLine());
+        for (int i = 0; i < n; i++)
+        {
+            List<string> command = Console.ReadLine().Split(' ').ToList();
+            string action = command[0];
+            string user = command[1];
+            string licencePlate;
+            switch (action)
+            {
+                case "register":
+                    licencePlate = command[2];
+                    if (!CheckLicencePlateValidity(licencePlate))
+                    {
+                        Console.WriteLine($"ERROR: invalid license plate {licencePlate}");
+                    }
+                    else if (userAndLicenceNum.ContainsKey(user))
+                    {
+                        Console.WriteLine($"ERROR: already registered with plate number {licencePlate}");
+                    }
+                    else if (userAndLicenceNum.ContainsValue(licencePlate))
+                    {
+                        Console.WriteLine($"ERROR: license plate {licencePlate} is busy");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{user} registered {licencePlate} successfully");
+                        userAndLicenceNum.Add(user, licencePlate);
+                    }
+                    break;
+                case "unregister":
+                    if (!userAndLicenceNum.ContainsKey(user))
+                    {
+                        Console.WriteLine($"ERROR: user {user} not found");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"user {user} unregistered successfully");
+                        userAndLicenceNum.Remove(user);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        foreach (var pair in userAndLicenceNum)
+        {
+            Console.WriteLine($"{pair.Key} => {pair.Value}");
+        }
+    }
+
+    private static bool CheckLicencePlateValidity(string licencePlate)
+    {
+        List<char> licencePlateLetters = new List<char>();
+        List<char> licencePlateNums = new List<char>();
+        if (licencePlate.Length != 8)
+        {
+            return false;
+        }
+        for (int j = 0; j < licencePlate.Length; j++)
+        {
+            if (j <= 1 || j >= 6)
+            {
+                licencePlateLetters.Add(licencePlate[j]);
+            }
+            else
+            {
+                licencePlateNums.Add(licencePlate[j]);
+            }
+        }
+        for (int k = 0; k < licencePlateLetters.Count; k++)
+        {
+            if (Convert.ToInt32(licencePlateNums[k]) < 48 || Convert.ToInt32(licencePlateNums[k]) > 57 || Convert.ToInt32(licencePlateLetters[k]) < 65 || Convert.ToInt32(licencePlateLetters[k]) > 90)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+}

@@ -1,0 +1,57 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+
+class ConsoleApp1
+{
+    class Circle
+    {
+        public int X { set; get; }
+        public int Y { set; get; }
+        public int Radius { set; get; }
+    }
+    static Circle GetCircle()
+    {
+        List<int> data = Console.ReadLine().Split().Select(int.Parse).ToList();
+        Circle circle = new Circle()
+        {
+            X = data[0],
+            Y = data[1],
+            Radius = data[2]
+        };
+        return circle;
+    }
+    static void Main()
+    {
+        Circle circle1 = GetCircle();
+        Circle circle2 = GetCircle();
+        double distance = CalculateDistance(circle1, circle2);
+        if (Intersect(circle1, circle2, distance))
+        {
+            Console.WriteLine("Yes");
+        }
+        else
+        {
+            Console.WriteLine("No");
+        }
+    }
+
+    static bool Intersect(Circle circle1, Circle circle2, double d)
+    {
+        if (d <= (circle1.Radius + circle2.Radius))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    static double CalculateDistance(Circle a, Circle b)
+    {
+        return (Math.Sqrt(Math.Pow(a.X - b.X, 2) + Math.Pow(a.Y - b.Y, 2)));
+    }
+}

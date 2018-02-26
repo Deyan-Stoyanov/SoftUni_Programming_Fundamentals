@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        var input = Console.ReadLine().Split();
+        string first = input[0];
+        string second = input[1];
+        List<char> firstList = new List<char>();
+        List<char> secondList = new List<char>();
+        int firstCount = 0;
+        int secondCount = 0;
+        foreach (var charOne in first)
+        {
+            if (!firstList.Contains(charOne))
+            {
+                firstCount++;
+                firstList.Add(charOne);
+            }
+        }
+        foreach (var charTwo in second)
+        {
+            if (!secondList.Contains(charTwo))
+            {
+                secondCount++;
+                secondList.Add(charTwo);
+            }
+        }
+        if (firstCount == secondCount)
+        {
+            Console.WriteLine("true");
+        }
+        else
+        {
+            Console.WriteLine("false");
+        }
+    }
+}

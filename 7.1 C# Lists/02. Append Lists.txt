@@ -1,0 +1,24 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        List<string> numbers = Console.ReadLine().Split(new char[] { '|' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        numbers.Reverse();
+
+        foreach (var item in numbers)
+        {
+            for (int i = 0; i < item.Length; i++)
+            {
+                if (item[i] != ' ')
+                {
+                    Console.Write(item[i] + " ");
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        var input = Console.ReadLine().Split();
+        string first = input[0];
+        string second = input[1];
+        long sum = 0;
+        if (first.Length == second.Length)
+        {
+            for (int i = 0; i < first.Length; i++)
+            {
+                sum += (first[i] * second[i]);
+            }
+        }
+        else
+        {
+            int minimumLength = Math.Min(first.Length, second.Length);
+            for (int i = 0; i < minimumLength; i++)
+            {
+                sum += (first[i] * second[i]);
+            }
+            if (first.Length > second.Length)
+            {
+                for (int i = minimumLength; i < first.Length; i++)
+                {
+                    sum += first[i];
+                }
+            }
+            else
+            {
+                for (int i = minimumLength; i < second.Length; i++)
+                {
+                    sum += second[i];
+                }
+            }
+        }
+        Console.WriteLine(sum);
+    }
+}

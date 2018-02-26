@@ -1,0 +1,85 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        Dictionary<string, Dictionary<string, int>> database =
+            new Dictionary<string, Dictionary<string, int>>();
+        string line = Console.ReadLine();
+        while (line != "JOKER")
+        {
+            var commands = line.Split(':');
+            var name = commands[0];
+            var cards = commands[1].Trim().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (!database.ContainsKey(name))
+            {
+                database.Add(name, new Dictionary<string, int>());
+                AddCards(database[name], cards);
+            }
+            else
+            {
+                AddCards(database[name], cards);
+            }
+            line = Console.ReadLine();
+        }
+        PrintDictionary(database);
+    }
+
+    private static void AddCards(Dictionary<string, int> name, string[] cards)
+    {
+        foreach (var card in cards)
+        {
+            if (!name.ContainsKey(card))
+            {
+                name.Add(card, Calculate(card));
+            }
+        }
+
+    }
+
+    private static void PrintDictionary(Dictionary<string, Dictionary<string, int>> database)
+    {
+        foreach (var pair in database)
+        {
+            Console.WriteLine($"{pair.Key}: {pair.Value.Values.ToList().Sum()}");
+        }
+    }
+
+    private static int Calculate(string card)
+    {
+        Dictionary<string, int> power = new Dictionary<string, int>();
+        Dictionary<string, int> multiplier = new Dictionary<string, int>();
+        switch (card[card.Length - 1])
+        {
+            case 'S':
+                multiplier.Add("S", 4);
+                break;
+            case 'H':
+                multiplier.Add("H", 3);
+
+                break;
+            case 'D':
+                multiplier.Add("D", 2);
+
+                break;
+            case 'C':
+                multiplier.Add("C", 1);
+                break;
+            default:
+                break;
+        }
+        if (card[0] == '1')
+        {
+            power.Add(card[0].ToString() , 10);
+        }
+        else
+        {
+            power.Add(card[0].ToString(), (int)(card[0] - 48));
+        }
+        return (multiplier[card[card.Length - 1].ToString()]) * (power[card[0].ToString()]);
+    }
+}

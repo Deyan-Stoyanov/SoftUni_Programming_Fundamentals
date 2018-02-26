@@ -1,0 +1,39 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string patternForStartKey = @"\b[a-zA-Z]+[\<\\\|]";
+        string patternForEndKey = @"[\<\\\|][a-zA-Z]+\b";
+        string keyString = Console.ReadLine();
+        string startKey = Regex.Match(keyString, patternForStartKey).ToString();
+        startKey = startKey.Remove(startKey.Length - 1);
+        string endKey = Regex.Match(keyString, patternForEndKey).ToString();
+        endKey = endKey.Remove(0, 1);
+        string input = Console.ReadLine();
+        bool empty = true;
+        StringBuilder result = new StringBuilder();
+        while (input.IndexOf(startKey) != -1 && input.IndexOf(endKey) != -1 )
+        {
+            empty = false;
+            int startIndex = input.IndexOf(startKey);
+            int endIndex = input.IndexOf(endKey);
+            string word = input.Substring(startIndex + startKey.Length, endIndex - startIndex - startKey.Length);
+            result.Append(word);
+            input = input.Remove(0, endIndex + endKey.Length);
+        }
+        if (empty)
+        {
+            Console.WriteLine("Empty result");
+        }
+        else
+        {
+            Console.WriteLine(result);
+        }
+    }
+}

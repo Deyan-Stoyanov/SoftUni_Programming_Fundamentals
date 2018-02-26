@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        var line = Console.ReadLine()
+            .ToLower()
+            .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .ToList();
+
+        var firstList = line.Take(line.Count / 4);
+        var secLine = line.Skip(line.Count * 3 / 4).Take(line.Count / 4);
+        var upperList = firstList.Concat();
+
+        Console.WriteLine(string.Join(", ", result));
+    }
+}

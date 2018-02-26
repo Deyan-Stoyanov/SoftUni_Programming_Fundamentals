@@ -1,0 +1,27 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string pattern = @"\<[A-Za-z][A-Za-z]\>";
+        string thisString = Console.ReadLine();
+        var matches = Regex.Matches(thisString, pattern);
+        char[] bombedString = thisString.ToCharArray();
+        foreach (Match bomb in matches)
+        {
+            int blast = Math.Abs(bomb.ToString()[1] - bomb.ToString()[2]);
+            for (int i = Math.Max(0, thisString.IndexOf(bomb.ToString()) - blast); i < Math.Min(thisString.IndexOf(bomb.ToString()) + blast + bomb.ToString().Length, thisString.Length); i++)
+            {
+                bombedString[i] = '_';
+            }
+        }
+        Console.WriteLine(string.Join("", bombedString));
+    }
+}

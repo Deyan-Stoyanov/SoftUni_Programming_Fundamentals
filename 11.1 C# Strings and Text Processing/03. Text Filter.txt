@@ -1,0 +1,25 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    
+    static void Main()
+    {
+        string[] bannedWords = Console.ReadLine().Split(new char[] { ',', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        string text = Console.ReadLine();
+        foreach (var banned in bannedWords)
+        {
+            if (text.Contains(banned))
+            {
+                text = text.Replace(banned, new string('*', banned.Length));
+            }
+        }
+        Console.WriteLine(text);
+        
+    }
+}

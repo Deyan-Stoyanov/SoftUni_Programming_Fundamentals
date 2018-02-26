@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.IO;
+using System.Numerics;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string[] lines = File.ReadAllLines("E:\\Tech Module\\Programming Fundamentals\\10.1 C# Files and Exceptions\\Resources\\01. Odd Lines\\Input.txt");
+        for (int i = 0; i < lines.Length; i++)
+        {
+            if (i % 2 != 0)
+            {
+
+                File.AppendAllText("E:\\Програмиране\\СофтУни\\Tech Module\\Programming Fundamentals\\10.1 C# Files and Exceptions\\Resources\\01. Odd Lines\\output.txt", lines[i]);
+            }
+        }
+    }
+}

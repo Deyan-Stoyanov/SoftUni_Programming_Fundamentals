@@ -1,0 +1,23 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string word = Console.ReadLine();
+        string input = Console.ReadLine();
+        string pattern = @"\b[A-Z]([A-Za-z]+)?[^a-zA-Z0-9](\,?\-?\s?[a-zA-Z0-9]?)+[.!?]";
+        MatchCollection matchedEmails = Regex.Matches(input, pattern);
+        foreach (Match match in matchedEmails)
+        {
+            if (match.Value.Contains(" " + word + " "))
+            {
+                Console.WriteLine(match.ToString().Remove(match.Length - 1, 1));
+            }
+        }
+    }
+}

@@ -1,0 +1,118 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+class ConsoleApp1
+{
+    class Customer
+    {
+        public string Name { set; get; }
+        public Dictionary<string, int> ShoppingList { set; get; }
+        public decimal Bill { set; get; }
+    }
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine());
+        var priceList = new Dictionary<string, decimal>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] line = Console.ReadLine().Split(new char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+            if (priceList.ContainsKey(line[0]))
+            {
+                priceList[line[0]] = decimal.Parse(line[1]);
+            }
+            else
+            {
+                priceList.Add(line[0], decimal.Parse(line[1]));
+            }
+        }
+        string order = Console.ReadLine();
+        var listOfCustomers = new List<Customer>();
+        decimal total = 0;
+        while (!order.Equals("end of clients"))
+        {
+            bool add = false;
+            Customer customer = AddCustomer(order, priceList);
+            foreach (var item in customer.ShoppingList)
+            {
+                if (priceList.ContainsKey(item.Key))
+                {
+                    add = true;
+                    
+                }
+            }
+            foreach (var cust in listOfCustomers)
+            {
+                if (cust.Name.Equals(customer.Name))
+                {
+                    foreach (var pair in customer.ShoppingList)
+                    {
+                        string[] currLine = order.Split(new char[] { ' ', '-', ',' }, StringSplitOptions.RemoveEmptyEntries);
+                        if (priceList.ContainsKey(currLine[1]))
+                        {
+                            if (cust.ShoppingList.ContainsKey(currLine[1]))
+                            {
+                                cust.ShoppingList[currLine[1]] += int.Parse(currLine[2]);
+                                cust.Bill += priceList[currLine[1]] * int.Parse(currLine[2]);
+                            }
+                            else
+                            {
+                                cust.ShoppingList.Add(currLine[1], int.Parse(currLine[2]));
+                                cust.Bill += priceList[currLine[1]] * int.Parse(currLine[2]);
+                            }
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
+                    add = false;
+                    break;
+                }
+                else
+                {
+                    add = true;
+                }
+            }
+            if (add && customer.Bill != 0)
+            {
+                listOfCustomers.Add(customer);
+            }
+            order = Console.ReadLine();
+        }
+        foreach (var c in listOfCustomers)
+        {
+            total += c.Bill;
+        }
+        var orderedCustomers = listOfCustomers.OrderBy(x => x.Name);
+        foreach (var customer in orderedCustomers)
+        {
+            Console.WriteLine(customer.Name);
+            foreach (var item in customer.ShoppingList)
+            {
+                Console.WriteLine($"-- {item.Key} - {item.Value}");
+            }
+            Console.WriteLine($"Bill: {customer.Bill:F2}");
+        }
+        Console.WriteLine($"Total bill: {total:F2}");
+
+
+    }
+    static Customer AddCustomer(string a, Dictionary<string, decimal> priceList)
+    {
+        string[] line = a.Split(new char[] { ' ', '-', ',' }, StringSplitOptions.RemoveEmptyEntries);
+        Customer customer = new Customer
+        {
+            Name = line[0],
+            ShoppingList = new Dictionary<string, int>(),
+            Bill = new decimal()
+        };
+        customer.ShoppingList.Add(line[1], int.Parse(line[2]));
+        if (priceList.ContainsKey(line[1]))
+        {
+            customer.Bill += (decimal.Parse(line[2])) * priceList[line[1]];
+        }
+        return customer;
+    }
+}

@@ -1,0 +1,49 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string input = Console.ReadLine();
+        string pattern = @"<p>(.[^\/]+)<\/p>";
+        string symbolPattern = @"[a-z0-9]";
+        string firstPartPattern = @"[a-m]";
+        string secondPartPattern = @"[n-z]";
+        var matchCollection = Regex.Matches(input, pattern);
+        string [] matches = matchCollection.Cast<Match>().Select(x => x.Value.Substring(3, x.Value.Length - 7)).ToArray();
+        StringBuilder ready = new StringBuilder();
+        for (int i = 0; i < matches.Length; i++)
+        {
+            for (int j = 0; j < matches[i].Length; j++)
+            {
+                if (!Regex.IsMatch(matches[i][j].ToString(), symbolPattern))
+                {
+                    ready.Append(" ");
+                }
+                else
+                {
+                    if (Regex.IsMatch(matches[i][j].ToString(), firstPartPattern))
+                    {
+                        ready.Append((char)(matches[i][j] + 13));
+                    }
+                    else if (Regex.IsMatch(matches[i][j].ToString(), secondPartPattern))
+                    {
+                        ready.Append((char)(matches[i][j] - 13));
+                    }
+                    else
+                    {
+                        ready.Append(matches[i][j].ToString());
+                    }
+                }
+            }
+        }
+        string decrypted = string.Join(" ", ready.ToString().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries));
+        Console.WriteLine(decrypted);
+    }
+}

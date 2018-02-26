@@ -1,0 +1,33 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        List<double> numbers = Console.ReadLine().Split(' ').Select(double.Parse).ToList();
+        List<double> positiveNums = new List<double>();
+        foreach (var n in numbers)
+        {
+            if (n > 0)
+            {
+                positiveNums.Add(n);
+            }
+        }
+        positiveNums.Reverse();
+        if (positiveNums.Count > 0)
+        {
+            for (int i = 0; i < positiveNums.Count; i++)
+            {
+                Console.Write(positiveNums[i] + " ");
+            }
+            Console.WriteLine();
+        }
+        else
+        {
+            Console.WriteLine("empty");
+        }
+    }
+}

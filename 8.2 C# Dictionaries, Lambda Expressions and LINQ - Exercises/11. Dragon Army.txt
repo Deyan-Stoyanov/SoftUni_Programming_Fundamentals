@@ -1,0 +1,61 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        Dictionary<string, Dictionary<string, int[]>> dragonData =
+            new Dictionary<string, Dictionary<string, int[]>>();
+        int n = int.Parse(Console.ReadLine());
+        for (int i = 0; i < n; i++)
+        {
+            var line = Console.ReadLine().Split(' ');
+            string type = line[0];
+            string name = line[1];
+            int damage = 45;
+            int health = 250;
+            int armor = 10;
+            if (line[2] != "null")
+            {
+                damage = int.Parse(line[2]);
+            }
+            if (line[3] != "null")
+            {
+                health = int.Parse(line[3]);
+            }
+            if (line[4] != "null")
+            {
+                armor = int.Parse(line[4]);
+            }
+            if (!dragonData.ContainsKey(type))
+            {
+                dragonData.Add(type, new Dictionary<string, int[]>());
+            }
+            if (!dragonData[type].ContainsKey(name))
+            {
+                dragonData[type].Add(name, new int[] { damage, health, armor });
+            }
+            else
+            {
+                dragonData[type][name] = new int[] { damage, health, armor };
+            }
+        }
+        var orderedTypes = dragonData.OrderBy(x => dragonData.Values);
+        foreach (var dragonType in orderedTypes)
+        {
+            double averageDamage = dragonType.Value.Select(x => x.Value[0]).Average();
+            double averageHealth = dragonType.Value.Select(x => x.Value[1]).Average();
+            double averageArmor = dragonType.Value.Select(x => x.Value[2]).Average();
+            Console.WriteLine($"{dragonType.Key}::({averageDamage:f2}/{averageHealth:f2}/{averageArmor:f2})");
+            var orderedDragons = dragonType.Value.OrderBy(x => x.Key);
+            foreach (var pair in orderedDragons)
+            {
+                Console.WriteLine($"-{pair.Key} -> damage: {pair.Value[0]}, " +
+                    $"health: {pair.Value[1]}, armor: {pair.Value[2]}");
+            }
+        }
+    }
+}

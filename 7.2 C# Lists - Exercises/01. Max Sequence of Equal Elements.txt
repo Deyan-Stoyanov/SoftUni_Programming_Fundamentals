@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+
+        List<int> list = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+        int maxStart = 0;
+        int maxEnd = 0;
+        int currentStart = 0;
+        int currentEnd = 0;
+        int maxCount = int.MinValue;
+        int count = 0;
+        for (int i = 0; i < list.Count - 1; i++)
+        {
+            count = 0;
+            for (int j = i; j < list.Count; j++)
+            {
+                if (list[i] == list[j])
+                {
+                    currentStart = i;
+                    currentEnd = j;
+                    count++;
+                }
+            }
+            if (count > maxCount)
+            {
+                maxCount = count;
+                maxStart = currentStart;
+                maxEnd = currentEnd;
+            }
+        }
+       
+        for (int i = maxStart; i <= maxEnd; i++)
+        {
+            Console.Write(list[i] + " ");
+        }
+    }
+}

@@ -1,0 +1,36 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string input = Console.ReadLine();
+        string pattern = Console.ReadLine();
+        while (true)
+        {
+            if (pattern.Length == 0 && pattern.Length < input.Length)
+            {
+                Console.WriteLine("No shake.");
+                break;
+            }
+            int index = input.IndexOf(pattern);
+            int lastIndex = input.LastIndexOf(pattern);
+            if (index != -1 && lastIndex != -1 && index != lastIndex && index + pattern.Length <= lastIndex)
+            {
+                input = input.Remove(index, pattern.Length).Remove(lastIndex - pattern.Length, pattern.Length);
+                Console.WriteLine("Shaked it.");
+                pattern = pattern.Remove(pattern.Length / 2, 1);
+            }
+            else
+            {
+                Console.WriteLine("No shake.");
+                break;
+            }
+        }
+        Console.WriteLine(input);
+    }
+}

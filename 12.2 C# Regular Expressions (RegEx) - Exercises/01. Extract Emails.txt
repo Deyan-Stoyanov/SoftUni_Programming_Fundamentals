@@ -1,0 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string input = Console.ReadLine();
+        string pattern = @"\s(([a-z]+)\.?\-?_?([0-9]+)?([a-z]+)?)\@([a-z]+\-?([a-z]+)?\.(\.?([a-z]+)?)+)\b";
+        MatchCollection matchedEmails = Regex.Matches(input, pattern);
+        foreach (Match match in matchedEmails)
+        {
+            Console.WriteLine(match);
+        }
+    }
+}

@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        Dictionary<string, string> emails = new Dictionary<string, string>();
+        while (true)
+        {
+            string name = Console.ReadLine();
+            if (name == "stop")
+            {
+                break;
+            }
+            string email = Console.ReadLine();
+            PickEmails(emails, name, email);
+        }
+        foreach (var pair in emails)
+        {
+            Console.WriteLine($"{pair.Key} -> {pair.Value}");
+        }
+    }
+
+    private static void PickEmails(Dictionary<string, string> emails, string name, string email)
+    {
+        if (email[email.Length - 2] != 'u' && (email[email.Length - 2] != 's' || email[email.Length - 2] != 'k'))
+        {
+            emails.Add(name, email);
+        }
+    }
+}

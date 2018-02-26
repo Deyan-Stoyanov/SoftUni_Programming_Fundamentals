@@ -1,0 +1,16 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.IO;
+using System.Numerics;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string[] content = File.ReadAllLines("E:\\Tech Module\\Programming Fundamentals" +
+            "\\10.1 C# Files and Exceptions\\Files and Exceptions.txt");
+        Console.WriteLine(content[5]);
+    }
+}

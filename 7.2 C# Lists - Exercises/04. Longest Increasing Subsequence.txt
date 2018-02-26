@@ -1,0 +1,56 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        List<int> nums = Console.ReadLine()
+            .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .Select(int.Parse)
+            .ToList();
+
+        Console.WriteLine(string.Join(" ", LongestIncreasingSubseries(nums)));
+    }
+    public static List<int> LongestIncreasingSubseries(List<int> input)
+    {
+        List<int> longest = new List<int>();
+        int maxLen = int.MinValue;
+        for (int i = 0; i < input.Count; i++)
+        {
+            List<int> temp = new List<int>();
+            temp.Add(input[i]);
+            int count = 0;
+            bool a = false;
+            for (int j = i; j < input.Count; j++)
+            {
+                for (int k = 0; k < temp.Count; k++)
+                {
+                    if (input[j] > temp[k])
+                    {
+                        a = true;
+                    }
+                    else
+                    {
+                        a = false;
+                        continue;
+                    }
+                }
+                if (a)
+                {
+                    temp.Add(input[j]);
+                    count++;
+                }
+            }
+            if (count >= maxLen)
+            {
+                longest = temp;
+                maxLen = count;
+            }
+            
+        }
+        return longest;
+    }
+}

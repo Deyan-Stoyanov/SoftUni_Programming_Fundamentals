@@ -1,0 +1,6 @@
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\2. Index of Letters\bin\Debug\_2.Index_of_Letters.exe.config
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\2. Index of Letters\bin\Debug\_2.Index_of_Letters.exe
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\2. Index of Letters\bin\Debug\_2.Index_of_Letters.pdb
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\2. Index of Letters\obj\Debug\2. Index of Letters.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\2. Index of Letters\obj\Debug\_2.Index_of_Letters.exe
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\2. Index of Letters\obj\Debug\_2.Index_of_Letters.pdb

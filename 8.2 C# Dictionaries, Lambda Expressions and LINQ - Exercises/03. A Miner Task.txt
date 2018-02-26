@@ -1,0 +1,34 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        Dictionary<string, long> sums = new Dictionary<string, long>();
+        while (true)
+        {
+            string material = Console.ReadLine();
+            if (material == "stop")
+            {
+                break;
+            }
+            long count = long.Parse(Console.ReadLine());
+            if (!sums.ContainsKey(material))
+            {
+                sums.Add(material, count);
+            }
+            else
+            {
+                long oldCount = sums[material];
+                sums[material] = oldCount + count;
+            }
+        }
+        foreach (var pair in sums)
+        {
+            Console.WriteLine($"{pair.Key} -> {pair.Value}");
+        }
+    }
+}

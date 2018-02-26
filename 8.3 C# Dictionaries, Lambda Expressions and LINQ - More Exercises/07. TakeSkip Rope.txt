@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        string encryptedMessage = Console.ReadLine();
+        List<char> charList = new List<char>();
+        List<int> numsList = new List<int>();
+        for (int i = 0; i < encryptedMessage.Length; i++)
+        {
+            if (Convert.ToInt32(encryptedMessage.ToList()[i]) >= 48 && Convert.ToInt32(encryptedMessage.ToList()[i]) <= 57)
+            {
+                numsList.Add(encryptedMessage.ToList()[i]);
+            }
+            else
+            {
+                charList.Add(encryptedMessage.ToList()[i]);
+            }
+        }
+        List<int> takeList = new List<int>();
+        List<int> skipList = new List<int>();
+        for (int j = 0; j < numsList.Count; j++)
+        {
+            if (j % 2 == 0)
+            {
+                takeList.Add(numsList[j] - 48);
+            }
+            else
+            {
+                skipList.Add(numsList[j] - 48);
+            }
+        }
+        StringBuilder decryptedMessage = new StringBuilder();
+        int skipCount = 0;
+        for (int k = 0; k < skipList.Count; k++)
+        {
+
+            var decr = (charList.Skip(skipCount).Take(takeList[k]));
+            //decr = charList.Take(takeList[k]);
+            skipCount += (skipList[k] + takeList[k]);
+            foreach (var item in decr)
+            {
+                decryptedMessage.Append(item);
+            }
+        }
+        Console.WriteLine(decryptedMessage);
+
+    }
+}

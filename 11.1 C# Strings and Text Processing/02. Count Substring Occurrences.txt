@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    
+    static void Main()
+    {
+        string text = Console.ReadLine().ToLower();
+        string word = Console.ReadLine().ToLower();
+        int counter = 0;
+        int index = -1;
+        while (true)
+        {
+            index = text.IndexOf(word, index + 1);
+            if (index == -1)
+            {
+                break;
+            }
+            else
+            {
+                counter++;
+            }
+        }
+        Console.WriteLine(counter);
+    }
+}

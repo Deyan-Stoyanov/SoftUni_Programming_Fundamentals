@@ -1,0 +1,6 @@
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\3. Equal Sums\bin\Debug\_3.Equal_Sums.exe.config
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\3. Equal Sums\bin\Debug\_3.Equal_Sums.exe
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\3. Equal Sums\bin\Debug\_3.Equal_Sums.pdb
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\3. Equal Sums\obj\Debug\3. Equal Sums.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\3. Equal Sums\obj\Debug\_3.Equal_Sums.exe
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\3. Equal Sums\obj\Debug\_3.Equal_Sums.pdb

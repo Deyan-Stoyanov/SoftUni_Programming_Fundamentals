@@ -1,0 +1,90 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        Dictionary<string, Dictionary<string, long>> srpskoDatabase = new Dictionary<string, Dictionary<string, long>>();
+        string line = Console.ReadLine();
+        while (line != "End")
+        {
+            var data = line.Split(' ');
+            bool wrong = false;
+            try
+            {
+                int.Parse(data[data.Count() - 1]);
+                int.Parse(data[data.Count() - 2]);
+            }
+            catch (Exception)
+            {
+                wrong = true;
+            }
+            bool noVenue = true;
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (data[i].StartsWith("@"))
+                {
+                    if (data[i].Length > 1)
+                    {
+                        noVenue = false;
+                    }
+                }
+            }
+            if (data.Count() < 4 || wrong || noVenue)
+            {
+                line = Console.ReadLine();
+                continue;
+            }
+            int people = int.Parse(data[data.Length - 1]);
+            int price = int.Parse(data[data.Length - 2]);
+            int totalMoney = people * price;
+            string place = "";
+            string singer = "";
+            int whereToContinue = 0;
+            for (int i = 0; i < data.Length; i++)
+            {
+                if (!data[i].StartsWith("@"))
+                {
+                    singer += $"{data[i]} ";
+                    whereToContinue++;
+                }
+                else
+                {
+                    break;
+                }
+            }
+            for (int j = whereToContinue; j < data.Count() - 2; j++)
+            {
+                place += $"{data[j]} ";
+            }
+            string venue = place.Replace("@", "");
+            if (!srpskoDatabase.ContainsKey(venue))
+            {
+                srpskoDatabase.Add(venue, new Dictionary<string, long>());
+            }
+            if (!srpskoDatabase[venue].ContainsKey(singer))
+            {
+                srpskoDatabase[venue].Add(singer, totalMoney);
+            }
+            else
+            {
+                srpskoDatabase[venue][singer] += totalMoney;
+            }
+            line = Console.ReadLine();
+        }
+        var srpskoOrdered = srpskoDatabase.OrderByDescending(x => x);
+        foreach (var concertVenue in srpskoDatabase)
+        {
+            Console.WriteLine(concertVenue.Key.Remove(concertVenue.Key.Length - 1, 1));
+            var orderedVenues = concertVenue.Value.OrderByDescending(x => x.Value);
+            foreach (var pair in orderedVenues)
+            {
+                Console.WriteLine($"#  {pair.Key}-> {pair.Value}");
+
+            }
+        }
+    }
+}

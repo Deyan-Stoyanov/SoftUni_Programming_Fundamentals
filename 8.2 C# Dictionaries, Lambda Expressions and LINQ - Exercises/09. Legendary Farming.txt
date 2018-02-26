@@ -1,0 +1,97 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        Dictionary<string, int> material = new Dictionary<string, int>();
+        {
+            material["shards"] = 0;
+            material["fragments"] = 0;
+            material["motes"] = 0;
+        }
+        Dictionary<string, int> junk = new Dictionary<string, int>();
+        bool shadowmourneObtained = false;
+        bool valanyrObtained = false;
+        bool dragonwrathObtained = false;
+        while (!shadowmourneObtained && !valanyrObtained && !dragonwrathObtained)
+        {
+            var line = Console.ReadLine().Split(' ');
+            List<string> obtainedThings = new List<string>();
+            List<int> quantity = new List<int>();
+            for (int i = 0; i < line.Length; i++)
+            {
+                if (i % 2 != 0)
+                {
+                    obtainedThings.Add(line[i].ToLower());
+                }
+                else
+                {
+                    quantity.Add(int.Parse(line[i]));
+                }
+            }
+            for (int j = 0; j < obtainedThings.Count; j++)
+            {
+
+                if (obtainedThings[j] == "shards" || obtainedThings[j] == "fragments" || obtainedThings[j] == "motes")
+                {
+                    material[obtainedThings[j]] += quantity[j];
+                }
+                else
+                {
+                    if (!junk.ContainsKey(obtainedThings[j]))
+                    {
+                        junk.Add(obtainedThings[j], quantity[j]);
+                    }
+                    else
+                    {
+                        junk[obtainedThings[j]] += quantity[j];
+                    }
+                }
+                if (material["shards"] >= 250)
+                {
+                    shadowmourneObtained = true;
+                    material["shards"] -= 250;
+                    break;
+                }
+                else if (material["fragments"] >= 250)
+                {
+                    valanyrObtained = true;
+                    material["fragments"] -= 250;
+                    break;
+                }
+                else if (material["motes"] >= 250)
+                {
+                    dragonwrathObtained = true;
+                    material["motes"] -= 250;
+                    break;
+                }
+            }
+        }
+        if (dragonwrathObtained)
+        {
+            Console.WriteLine("Dragonwrath obtained!");
+        }
+        else if (valanyrObtained)
+        {
+            Console.WriteLine("Valanyr obtained!");
+        }
+        else if (shadowmourneObtained)
+        {
+            Console.WriteLine("Shadowmourne obtained!");
+        }
+        var sortedMaterials = material.OrderByDescending(x => x.Value).ThenBy(x => x.Key);
+        foreach (var pairMaterials in sortedMaterials)
+        {
+            Console.WriteLine($"{pairMaterials.Key}: {pairMaterials.Value}");
+        }
+        var sortedJunk = junk.OrderBy(x => x.Key);
+        foreach (var pairJunk in sortedJunk)
+        {
+            Console.WriteLine($"{pairJunk.Key}: {pairJunk.Value}");
+        }
+    }
+}

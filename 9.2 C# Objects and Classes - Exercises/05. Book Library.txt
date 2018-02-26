@@ -1,0 +1,59 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+class ConsoleApp1
+{
+    class Library
+    {
+        public string Name { get; set; }
+        public List<Book> Books { get; set; }
+    }
+    public class Book
+    {
+        public string Name { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public DateTime PublishingDate { get; set; }
+        public string Isbn { get; set; }
+        public Decimal Price { get; set; }
+    }
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine());
+        Dictionary<string, decimal> bookAuthorPrice = new Dictionary<string, decimal>();
+        for (int i = 0; i < n; i++)
+        {
+            string[] line = Console.ReadLine().Split();
+            Book book = AddBook(line);
+            if (!bookAuthorPrice.ContainsKey(book.Author))
+            {
+                bookAuthorPrice.Add(book.Author, book.Price);
+            }
+            else
+            {
+                bookAuthorPrice[book.Author] += book.Price;
+            }
+        }
+        IOrderedEnumerable<KeyValuePair<string, decimal>> sortedBooksPriceList = bookAuthorPrice.OrderByDescending(x => x.Value).ThenBy(x => x.Key);
+        foreach (var bookPrice in sortedBooksPriceList)
+        {
+            Console.WriteLine($"{bookPrice.Key} -> {bookPrice.Value:F2}");
+        }
+    }
+
+    static Book AddBook(string[] line)
+    {
+        Book book = new Book
+        {
+            Name = line[0],
+            Author = line[1],
+            Publisher = line[2],
+            PublishingDate = DateTime.ParseExact(line[3], "dd.MM.yyyy", CultureInfo.InvariantCulture),
+            Isbn = line[4],
+            Price = Convert.ToDecimal(line[5])
+        };
+        return book;
+    }
+}

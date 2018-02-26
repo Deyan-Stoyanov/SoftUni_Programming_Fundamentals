@@ -1,0 +1,38 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        List<string> line = Console.ReadLine().Split(' ').ToList();
+        List<string> code = new List<string>();
+        foreach (var item in line)
+        {
+            if (item.Length == 2)
+            {
+                code.Add(item);
+            }
+        }
+        List<string> revList = new List<string>();
+        foreach (var item in code)
+        {
+            StringBuilder a = new StringBuilder();
+
+            a.Append(item[1]);
+            a.Append(item[0]);
+            
+            revList.Add(a.ToString());
+
+        }
+        revList.Reverse();
+        StringBuilder message = new StringBuilder();
+        foreach (var character in revList)
+        {
+            message.Append(Convert.ToChar(Convert.ToInt16(character, 16)));
+        }
+        Console.WriteLine(message);
+    }
+}

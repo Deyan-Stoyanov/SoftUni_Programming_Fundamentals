@@ -1,0 +1,41 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string input = Console.ReadLine();
+        int length = 0;
+        int index = 0;
+        while (true)
+        {
+            string[] command = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            char symbolSearched = char.Parse(command[0]);
+            int lengthSearched = int.Parse(command[1]);
+            
+            int indexOfThisChar = input.IndexOf(new string(symbolSearched, lengthSearched));
+            if (indexOfThisChar != -1)
+            {
+                index = indexOfThisChar;
+                for (int i = indexOfThisChar; i < input.Length; i++)
+                {
+                    if (input[i] == symbolSearched)
+                    {
+                        length++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        Console.WriteLine($"Hideout found at index {index} and it is with size {length}!");
+    }
+}

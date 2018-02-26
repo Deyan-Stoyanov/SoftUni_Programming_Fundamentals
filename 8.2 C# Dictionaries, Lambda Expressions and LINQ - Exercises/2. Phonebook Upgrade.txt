@@ -1,0 +1,52 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        SortedDictionary<string, string> nameAndPhoneNumber = new SortedDictionary<string, string>();
+        List<string> data = Console.ReadLine().Split(' ').ToList();
+        while (data[0] != "END")
+        {
+            string command = data[0];
+            switch (command)
+            {
+                case "A":
+                    string name = data[1];
+                    string phoneNumber = data[2];
+                    if (nameAndPhoneNumber.ContainsKey(name))
+                    {
+                        nameAndPhoneNumber[name] = phoneNumber;
+                    }
+                    else
+                    {
+                        nameAndPhoneNumber.Add(name, phoneNumber);
+                    }
+                    break;
+                case "S":
+                    string name1 = data[1];
+                    if (nameAndPhoneNumber.ContainsKey(name1))
+                    {
+                        Console.WriteLine($"{name1} -> {nameAndPhoneNumber[name1]}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Contact {name1} does not exist.");
+                    }
+                    break;
+                case "ListAll":
+                    foreach (var pair in nameAndPhoneNumber)
+                    {
+                        Console.WriteLine($"{pair.Key} -> {pair.Value}");
+                    }
+                    break;
+                default:
+                    break;
+            }
+            data = Console.ReadLine().Split(' ').ToList();
+        }
+    }
+}

@@ -1,0 +1,64 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+class ConsoleApp1
+{
+    class Library
+    {
+        public string Name { get; set; }
+        public List<Book> Books { get; set; }
+    }
+    public class Book
+    {
+        public string Name { get; set; }
+        public string Author { get; set; }
+        public string Publisher { get; set; }
+        public DateTime PublishingDate { get; set; }
+        public string Isbn { get; set; }
+        public Decimal Price { get; set; }
+    }
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine());
+        Dictionary<string, DateTime> bookAuthorPrice = new Dictionary<string, DateTime>();
+        List<string> data = new List<string>(); 
+        for (int i = 0; i < n; i++)
+        {
+            string line1 = Console.ReadLine();
+            data.Add(line1);
+        }
+        DateTime firstDate = DateTime.ParseExact(Console.ReadLine(), "dd.MM.yyyy", CultureInfo.InvariantCulture);
+        for (int i = 0; i < data.Count; i++)
+        {
+            string[] line = data[i].Split();
+            Book book = AddBook(line);
+            int compare = DateTime.Compare(firstDate, book.PublishingDate);
+            if (compare < 0)
+            {
+                bookAuthorPrice.Add(book.Name, book.PublishingDate);
+            }
+        }
+        string format = "dd.MM.yyyy";
+        IOrderedEnumerable<KeyValuePair<string, DateTime>> orderedBookDate = bookAuthorPrice.OrderBy(x => x.Value).ThenBy(x => x.Key);
+        foreach (KeyValuePair<string, DateTime> bookDatePair in orderedBookDate)
+        {
+            Console.WriteLine($"{bookDatePair.Key} -> {bookDatePair.Value.ToString(format)}");
+        }
+    }
+
+    static Book AddBook(string[] line)
+    {
+        Book book = new Book
+        {
+            Name = line[0],
+            Author = line[1],
+            Publisher = line[2],
+            PublishingDate = DateTime.ParseExact(line[3], "dd.MM.yyyy", CultureInfo.InvariantCulture),
+            Isbn = line[4],
+            Price = Convert.ToDecimal(line[5])
+        };
+        return book;
+    }
+}

@@ -1,0 +1,7 @@
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\9. Book Library\bin\Debug\_9.Book_Library.exe.config
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\9. Book Library\bin\Debug\_9.Book_Library.exe
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\9. Book Library\bin\Debug\_9.Book_Library.pdb
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\9. Book Library\obj\Debug\9. Book Library.csprojResolveAssemblyReference.cache
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\9. Book Library\obj\Debug\9. Book Library.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\9. Book Library\obj\Debug\_9.Book_Library.exe
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\9. Book Library\obj\Debug\_9.Book_Library.pdb

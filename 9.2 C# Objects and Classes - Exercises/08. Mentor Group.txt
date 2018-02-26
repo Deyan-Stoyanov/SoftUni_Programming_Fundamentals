@@ -1,0 +1,79 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+
+class ConsoleApp1
+{
+    class Attendant
+    {
+        public string Name { set; get; }
+        public List<string> Comments { set; get; }
+        public List<DateTime> Dates { set; get; }
+    }
+    static void Main()
+    {
+        string nameAndDates = Console.ReadLine();
+        List<Attendant> listOfStudents = new List<Attendant>();
+        while (nameAndDates != "end of dates")
+        {
+            var data = nameAndDates.Split(new char[] { ',', ' ' });
+            bool alreadyThere = false;
+            foreach (var att in listOfStudents)
+            {
+                if (data[0] == att.Name)
+                {
+                    alreadyThere = true;
+                    for (int i = 1; i < data.Length; i++)
+                    {
+                        att.Dates.Add(DateTime.ParseExact(data[i], "dd/MM/yyyy", CultureInfo.InvariantCulture));
+                    }
+                }
+            }
+            if (!alreadyThere)
+            {
+                Attendant attendant = new Attendant
+                {
+                    Name = data[0],
+                    Dates = new List<DateTime>(),
+                    Comments = new List<string>()
+                };
+                for (int i = 1; i < data.Length; i++)
+                {
+                    attendant.Dates.Add(DateTime.ParseExact(data[i], "dd/MM/yyyy", CultureInfo.InvariantCulture));
+                }
+                listOfStudents.Add(attendant);
+            }
+            nameAndDates = Console.ReadLine();
+        }
+        string comments = Console.ReadLine();
+        while (comments != "end of comments")
+        {
+            var commList = comments.Split(new char[] { '-' });
+            foreach (var att in listOfStudents)
+            {
+                if (att.Name == commList[0])
+                {
+                    att.Comments.Add(commList[1]);
+                }
+            }
+            comments = Console.ReadLine();
+        }
+        var orderedAttendants = listOfStudents.OrderBy(x => x.Name);
+        foreach (var attendant in orderedAttendants)
+        {
+            Console.WriteLine(attendant.Name);
+            Console.WriteLine("Comments:");
+            foreach (var comment in attendant.Comments)
+            {
+                Console.WriteLine($"- {comment}");
+            }
+            Console.WriteLine("Dates attended:");
+            var orderedDates = attendant.Dates.OrderBy(x => x.Date);
+            foreach (var date in orderedDates)
+            {
+                Console.WriteLine($"-- {date.ToString("dd'/'MM'/'yyyy")}");
+            }
+        }
+    }
+}

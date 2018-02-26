@@ -1,0 +1,22 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string pattern = @"\b(?<day>\d{2})([\.\-\/])(?<month>[A-Z][a-z]{2})\1(?<year>\d{4})\b";
+        string dates = Console.ReadLine();
+        MatchCollection matchedDates = Regex.Matches(dates, pattern);
+        foreach (Match d in matchedDates)
+        {
+            var day = d.Groups["day"].Value;
+            var month = d.Groups["month"].Value;
+            var year = d.Groups["year"].Value;
+            Console.WriteLine($"Day: {day}, Month: {month}, Year: {year}");
+        }
+        
+    }
+}

@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        Dictionary<string, Dictionary<string, long>> data = new Dictionary<string, Dictionary<string, long>>();
+        while (true)
+        {
+            List<string> line = Console.ReadLine().Split('|').ToList();
+            if (line[0] == "report")
+            {
+                break;
+            }
+            string city = line[0];
+            string country = line[1];
+            long population = long.Parse(line[2]);
+            if (!data.ContainsKey(country))
+            {
+                data.Add(country, new Dictionary<string, long>());
+            }
+            if (!data[country].ContainsKey(city))
+            {
+                data[country].Add(city, population);
+            }
+        }
+
+        var result = data.OrderByDescending(x => x.Value.Values.ToList().Sum());
+
+        foreach (KeyValuePair<string, Dictionary<string, long>> key in result)
+        {
+            Console.WriteLine($"{key.Key} (total population: {key.Value.Values.ToList().Sum()})");
+            foreach (KeyValuePair<string, long> pair in key.Value)
+            {
+                Console.Write($"=>{string.Join("=>", key.Value.OrderByDescending(x => x.Value).Select(x => $"{x.Key}: {x.Value}\r\n"))}");
+                break;
+            }
+        }
+
+    }
+}

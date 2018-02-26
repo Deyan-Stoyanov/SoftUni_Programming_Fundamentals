@@ -1,0 +1,48 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        Dictionary<string, Dictionary<double, int>> storeDB = new Dictionary<string, Dictionary<double, int>>();
+        List<string> command = Console.ReadLine().Split(' ').ToList();
+        while (command[0] != "stocked")
+        {
+            string productName = command[0];
+            double pr = double.Parse(command[1]);
+            int qt = int.Parse(command[2]);
+            Dictionary<double, int> priceAndQt = new Dictionary<double, int>();
+            if (!storeDB.ContainsKey(productName))
+            {
+                priceAndQt.Add(pr, qt);
+                storeDB.Add(productName, priceAndQt);
+            }
+            else if (storeDB.ContainsKey(productName))
+            {
+                Dictionary<double, int> oldData = storeDB[productName];
+                double oldPrice = oldData.Keys.ToList()[0];
+                int oldQt = oldData[oldPrice];
+                priceAndQt.Add(pr, oldQt + qt);
+                storeDB[productName] = priceAndQt;
+            }
+            if (!storeDB[productName].ContainsKey(pr))
+            {
+                storeDB[productName].Add(pr, 0);
+            }
+            command = Console.ReadLine().Split(' ').ToList();
+        }
+        double grandTotal = 0;
+        foreach (KeyValuePair<string, Dictionary<double, int>> pair in storeDB)
+        {
+            Console.WriteLine($"{pair.Key}: ${(pair.Value.Keys.ToList()[0]):F2} " +
+                $"* {pair.Value.Values.ToList()[0]} = ${(pair.Value.Keys.ToList()[0]) * (pair.Value.Values.ToList()[0]):F2}");
+            grandTotal += (pair.Value.Keys.ToList()[0]) * (pair.Value.Values.ToList()[0]);
+        }
+        Console.WriteLine(new string('-', 30));
+        Console.WriteLine($"Grand Total: ${grandTotal:F2}");
+
+    }
+}

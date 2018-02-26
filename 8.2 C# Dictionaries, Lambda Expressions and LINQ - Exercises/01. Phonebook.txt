@@ -1,0 +1,45 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        Dictionary<string, string> nameAndPhoneNumber = new Dictionary<string, string>();
+        List<string> data = Console.ReadLine().Split(' ').ToList();
+        while (data[0] != "END")
+        {
+            string command = data[0];
+            string name = data[1];
+            switch (command)
+            {
+                case "A":
+                    string phoneNumber = data[2];
+                    if (nameAndPhoneNumber.ContainsKey(name))
+                    {
+                        nameAndPhoneNumber[name] = phoneNumber;
+                    }
+                    else
+                    {
+                        nameAndPhoneNumber.Add(name, phoneNumber);
+                    }
+                    break;
+                case "S":
+                    if (nameAndPhoneNumber.ContainsKey(name))
+                    {
+                        Console.WriteLine($"{name} -> {nameAndPhoneNumber[name]}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Contact {name} does not exist.");
+                    }
+                    break;
+                default:
+                    break;
+            }
+            data = Console.ReadLine().Split(' ').ToList();
+        }
+    }
+}

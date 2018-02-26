@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string first = Console.ReadLine();
+        long second = long.Parse(Console.ReadLine());
+        bool isNegative = false;
+        if (second < 0)
+        {
+            second *= -1;
+            isNegative = true;
+        }
+        StringBuilder result = new StringBuilder();
+        long remainder = 0;
+        long num = 0;
+        long sum = 0;
+        for (int i = first.Length - 1; i >= 0; i--)
+        {
+            sum = (first[i] - 48) * second  + remainder;
+            num = sum % 10;
+            remainder = sum / 10;
+            result.Append(num);
+            if (i == 0 && remainder > 0)
+            {
+                result.Append(remainder);
+            }
+        }
+        if (isNegative)
+        {
+            Console.Write("-");
+        }
+        Console.WriteLine(new string(result.ToString().TrimEnd('0').ToCharArray().Reverse().ToArray()));
+    }
+}

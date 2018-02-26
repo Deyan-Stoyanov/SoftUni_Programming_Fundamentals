@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        
+        string karate = Console.ReadLine();
+        int start = 0;
+        while (true)
+        {
+            int index = karate.IndexOf('>', start);
+            if (index == -1)
+            {
+                break;
+            }
+            int count = karate[index + 1] - 48;
+            karate = karate.Remove(index + 1, count);
+            start = index + 1;
+        }
+        Console.WriteLine(karate);
+    }
+}

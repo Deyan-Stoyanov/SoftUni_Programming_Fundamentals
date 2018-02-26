@@ -1,0 +1,16 @@
+using System;
+using System.Numerics;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        int n = int.Parse(Console.ReadLine());
+        BigInteger factorial = 1;
+        for (BigInteger i = 2; i <= n; i++)
+        {
+            factorial *= i;
+        }
+        Console.WriteLine(factorial);
+    }
+}

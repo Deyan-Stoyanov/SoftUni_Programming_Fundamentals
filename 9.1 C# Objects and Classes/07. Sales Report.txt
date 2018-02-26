@@ -1,0 +1,53 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Numerics;
+
+class ConsoleApp1
+{
+    class Sales
+    {
+        public string City { get; set; }
+        public string Product { get; set; }
+        public decimal Price { get; set; }
+        public decimal Quantity { get; set; }
+    }
+    static Sales ReadSale()
+    {
+        List < string > myList = Console.ReadLine().Split().ToList();
+        return new Sales
+        {
+            City = myList[0],
+            Product = myList[1],
+            Price = decimal.Parse(myList[2]),
+            Quantity = decimal.Parse(myList[3])
+        };
+    }
+    static void Main()
+    {
+        int n = int.Parse(Console.ReadLine());
+        SortedDictionary<string, decimal> newDict = new SortedDictionary<string, decimal>();
+        List<Sales> newList = new List<Sales>();
+        for (int i = 0; i < n; i++)
+        {
+            newList.Add(ReadSale());
+            
+        }
+        foreach (var item in newList)
+        {
+            if (!newDict.ContainsKey(item.City))
+            {
+                newDict.Add(item.City, (item.Price * item.Quantity));
+            }
+            else
+            {
+                newDict[item.City] += (item.Price * item.Quantity);
+            }
+        }
+        foreach (var item in newDict)
+        {
+            Console.WriteLine($"{item.Key} -> {item.Value:F2}");
+        }
+        
+    }
+}

@@ -1,0 +1,96 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
+
+class ConsoleApp1
+{
+    class Student
+    {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public DateTime AdmissionDate { get; set; }
+    }
+    class Town
+    {
+        public string Name { get; set; }
+        public int Places { get; set; }
+        public List<Student> StudentsInTown { get; set; }
+    }
+    class Group
+    {
+        public string Town { get; set; }
+        public List<Student> StudentsInAGroup { get; set; }
+    }
+    static void Main()
+    {
+        string line = Console.ReadLine();
+        List<Town> listOfTowns = new List<Town>();
+        while (line != "End")
+        {
+            if (line.Contains("=>"))
+            {
+                var townData = line.Split(new string[] { " ", "=>" }, StringSplitOptions.RemoveEmptyEntries);
+                Town town = new Town();
+                if (townData.Length == 4)
+                {
+                    town.Name = townData[0] + " " + townData[1];
+                    town.Places = int.Parse(townData[2]);
+                    town.StudentsInTown = new List<Student>();
+                }
+                else
+                {
+                    town.Name = townData[0];
+                    town.Places = int.Parse(townData[1]);
+                    town.StudentsInTown = new List<Student>();
+                }
+                if (!listOfTowns.Contains(town))
+                {
+                    listOfTowns.Add(town);
+                }
+            }
+            else
+            {
+                var studentData = line.Split(new char[] { ' ', '|' }, StringSplitOptions.RemoveEmptyEntries);
+                Student student = new Student();
+                student.Name = studentData[0] + " " + studentData[1];
+                student.Email = studentData[2];
+                student.AdmissionDate = DateTime.ParseExact(studentData[3], "d'-'MMM'-'yyyy", CultureInfo.InvariantCulture);
+                if (!listOfTowns[listOfTowns.Count - 1].StudentsInTown.Contains(student))
+                {
+                    listOfTowns[listOfTowns.Count - 1].StudentsInTown.Add(student);
+                }
+            }
+            line = Console.ReadLine();
+        }
+        List<Group> listOfGroups = new List<Group>();
+        foreach (var town in listOfTowns)
+        {
+            while (town.StudentsInTown.Any())
+            {
+                Group group = new Group();
+                group.Town = town.Name;
+                var orderedStudentsInTown = town.StudentsInTown.OrderBy(x => x.AdmissionDate).ThenBy(x => x.Name).ThenBy(x => x.Email);
+                group.StudentsInAGroup = orderedStudentsInTown.Take(town.Places).ToList();
+                town.StudentsInTown = orderedStudentsInTown.Skip(town.Places).ToList();
+                listOfGroups.Add(group);
+            }
+        }
+        var orderedGroups = listOfGroups.OrderBy(x => x.Town);
+        Console.WriteLine($"Created {listOfGroups.Count} groups in {listOfTowns.Count} towns:");
+        foreach (var item in orderedGroups)
+        {
+            Console.Write($"{item.Town} => ");
+            var orderedStudents = item.StudentsInAGroup.OrderBy(x => x.AdmissionDate).ThenBy(x => x.Name).ThenBy(x => x.Email);
+            StringBuilder s = new StringBuilder();
+            foreach (var student in orderedStudents)
+            {
+                s.Append( student.Email);
+                s.Append(", ");
+            }
+            s = s.Remove(s.Length - 2, 2);
+            Console.WriteLine(s);
+        }
+    }
+}

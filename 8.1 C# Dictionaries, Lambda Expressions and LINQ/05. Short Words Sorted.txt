@@ -1,0 +1,21 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        List<string> line = Console.ReadLine()
+            .ToLower()
+            .Split(new char[] { '.', ',', ':', ';', '(', ')', '[', ']', '"', '\'', '\\', '/', '!', '?', ' ' }, StringSplitOptions.RemoveEmptyEntries)
+            .ToList();
+
+        var result = line
+            .Where(x => x.Length < 5)
+            .OrderBy(x => x)
+            .Distinct();
+
+        Console.WriteLine(string.Join(", ", result));
+    }
+}

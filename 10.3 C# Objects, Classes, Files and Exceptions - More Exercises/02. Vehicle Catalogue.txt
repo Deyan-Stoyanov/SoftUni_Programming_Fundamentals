@@ -1,0 +1,85 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.IO;
+using System.Text;
+
+public class ConsoleApp1
+{
+    class Vehicle
+    {
+        public string Type { get; set; }
+        public string Model { get; set; }
+        public string Color { get; set; }
+        public double Horsepower { get; set; }
+    }
+
+    public static void Main()
+    {
+        string input = Console.ReadLine();
+        List<Vehicle> catalogue = new List<Vehicle>();
+        int trucksCount = 0;
+        int carsCount = 0;
+        double trucksHp = 0.0;
+        double carsHp = 0.0;
+        double trucksAverage = 0.0;
+        double carsAverage = 0.0;
+        while (input != "End")
+        {
+            var line = input.Split();
+            string type = "";
+            if (line[0].ToLower() == "truck")
+            {
+                type = "Truck";
+            }
+            else if (line[0].ToLower() == "car")
+            {
+                type = "Car";
+            }
+            Vehicle vehicle = new Vehicle()
+            {
+                Type = type,
+                Model = line[1],
+                Color = line[2],
+                Horsepower = double.Parse(line[3])
+            };
+            catalogue.Add(vehicle);
+            if (vehicle.Type.ToLower() == "truck")
+            {
+                trucksCount++;
+                trucksHp += vehicle.Horsepower;
+            }
+            else
+            {
+                carsCount++;
+                carsHp += vehicle.Horsepower;
+            }
+            input = Console.ReadLine();
+        }
+        if (trucksCount > 0)
+        {
+            trucksAverage = trucksHp / trucksCount;
+        }
+        if (carsCount > 0)
+        {
+            carsAverage = carsHp / carsCount;
+        }
+        string models = Console.ReadLine();
+        while (models != "Close the Catalogue")
+        {
+            foreach (var vehicle in catalogue)
+            {
+                if (vehicle.Model == models)
+                {
+                    Console.WriteLine($"Type: {vehicle.Type}");
+                    Console.WriteLine($"Model: {vehicle.Model}");
+                    Console.WriteLine($"Color: {vehicle.Color}");
+                    Console.WriteLine($"Horsepower: {vehicle.Horsepower}");
+                }
+            }
+            models = Console.ReadLine();
+        }
+        Console.WriteLine($"Cars have average horsepower of: {carsAverage:F2}.");
+        Console.WriteLine($"Trucks have average horsepower of: {trucksAverage:F2}.");
+    }
+}

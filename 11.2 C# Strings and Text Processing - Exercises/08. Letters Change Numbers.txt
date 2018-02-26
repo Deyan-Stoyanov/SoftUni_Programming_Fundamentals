@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        var allStrings = Console.ReadLine().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+        decimal sum = 0;
+        foreach (var item in allStrings)
+        {
+            char firstLetter = item[0];
+            char lastLetter = item[item.Length - 1];
+            decimal number = decimal.Parse((item.Skip(1).Take(item.Length - 2)).ToString());
+            if (firstLetter + 0 >= 65 && firstLetter + 0 <= 90 )
+            {
+                number /= firstLetter - 65;
+            }
+            else if (firstLetter + 0 >= 97 && firstLetter + 0 <= 122)
+            {
+                number *= firstLetter - 97;
+            }
+            if (lastLetter + 0 >= 65 && lastLetter + 0 <= 90)
+            {
+                number -= lastLetter - 65;
+            }
+            else if (lastLetter + 0 >= 97 && lastLetter + 0 <= 122)
+            {
+                number += firstLetter - 97;
+            }
+            sum += number;
+        }
+        Console.WriteLine($"{sum:F2}");
+
+    }
+}

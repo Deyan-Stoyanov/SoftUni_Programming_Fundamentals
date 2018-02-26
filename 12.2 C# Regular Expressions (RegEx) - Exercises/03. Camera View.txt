@@ -1,0 +1,42 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        int[] commands = Console.ReadLine().Split().Select(int.Parse).ToArray();
+        int digitsToSkip = commands[0];
+        int digitsToTake = commands[1];
+        var input = Console.ReadLine();
+        List<string> words = new List<string>();
+        int counter = 0;
+        for (int i = 0; i < input.Length - 2; i++)
+        {
+            if (input[i] == '|')
+            {
+                if (input[i + 1] == '<')
+                {
+                    counter++;
+                }
+            }
+        }
+        for (int i = 0; i < counter; i++)
+        {
+            int indexOfCamera = input.IndexOf("|<");
+            input = input.Remove(0, indexOfCamera + digitsToSkip + 2);
+            if (input.IndexOf("|<") != -1)
+            {
+                words.Add(input.Substring(0, Math.Min(digitsToTake, input.IndexOf("|<"))));
+            }
+            else
+            {
+                words.Add(input.Substring(0, Math.Min(digitsToTake, input.Length)));
+            }
+        }
+        Console.WriteLine(string.Join(", ", words));
+    }
+}

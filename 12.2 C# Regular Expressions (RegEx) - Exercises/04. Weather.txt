@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    class Town
+    {
+        public string Name { get; set; }
+        public double Temp { get; set; }
+        public string Weather { get; set; }
+    }
+    static void Main()
+    {
+        string pattern = @"(?<city>[A-Z][A-Z])(?<temp>[0-9]+\.[0-9]+)(?<weather>[a-zA-Z]+\|)";
+        List<Town> forecasts = new List<Town>();
+        string input = Console.ReadLine();
+        while (input != "end")
+        {
+            MatchCollection matchedWeather = Regex.Matches(input, pattern);
+            foreach (Match match in matchedWeather)
+            {
+                var city = match.Groups["city"].Value;
+                double temp = double.Parse(match.Groups["temp"].Value);
+                var weather = match.Groups["weather"].Value;
+                Town town = new Town
+                {
+                    Name = city,
+                    Temp = temp,
+                    Weather = weather.Remove(weather.Length - 1, 1)
+                };
+                bool isThere = false;
+                foreach (var t in forecasts)
+                {
+                    if (t.Name == city)
+                    {
+                        t.Temp = temp;
+                        t.Weather = weather.Remove(weather.Length - 1, 1);
+                        isThere = true;
+
+                    }
+                }
+                if (!isThere)
+                {
+                    forecasts.Add(town);
+                }
+            }
+            input = Console.ReadLine();
+        }
+        
+        var orderedTowns = forecasts.OrderBy(x => x.Temp);
+        foreach (var town in orderedTowns)
+        {
+            StringBuilder a = new StringBuilder();
+            a.Append(town.Name + " => " + $"{town.Temp:F2}" + " => " + town.Weather);
+            Console.WriteLine(a);
+        }
+        
+    }
+}

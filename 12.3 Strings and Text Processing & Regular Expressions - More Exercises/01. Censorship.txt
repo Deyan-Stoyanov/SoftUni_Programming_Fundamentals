@@ -1,0 +1,46 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+using System.Text.RegularExpressions;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string word = Console.ReadLine();
+        var sentence = Console.ReadLine().Split();
+        var signs = new char[] { '!', '.', ',', '\\', '/', '\'', '\"', ';', ':', '*', '-' };
+        for (int i = 0; i < sentence.Count(); i++)
+        {
+            bool doesntEndWith = false;
+
+            if (sentence[i] == word)
+            {
+                foreach (var sign in signs)
+                {
+                    if (sentence[i].EndsWith(sign.ToString()))
+                    {
+                        sentence[i] = new string('*', word.Length - 1) + sign.ToString();
+                        doesntEndWith = true;
+                    }
+                }
+                if (!doesntEndWith)
+                {
+                    sentence[i] = new string('*', word.Length);
+                }
+
+            }
+            else if (sentence[i].Contains(word))
+            {
+                for (int j = sentence[i].IndexOf(word); j <= sentence[i].IndexOf(word) + word.Length; j++)
+                {
+                    sentence[i] = sentence[i].Replace(sentence[i][j], '*');
+                }
+            }
+        }
+        Console.WriteLine(string.Join(" ", sentence));
+    }
+}

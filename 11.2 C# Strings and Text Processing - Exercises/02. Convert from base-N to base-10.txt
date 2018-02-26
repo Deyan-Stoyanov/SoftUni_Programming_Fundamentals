@@ -1,0 +1,29 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+using System.Text;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        var input = Console.ReadLine().Split().ToArray();
+        long baseToConvert = long.Parse(input[0]);
+        var num = input[1];
+        List<long> numbers = new List<long>();
+        for(int n = 0; n < num.Length;n++)
+        {
+            numbers.Add(num[n] - 48);
+        }
+        BigInteger sum = 0;
+        long a = 0;
+        for (int i = numbers.Count - 1; i >= 0; i--)
+        {
+            sum += numbers[i] * (BigInteger)Math.Pow(baseToConvert, a);
+            a++;
+        }
+        Console.WriteLine(sum);
+    }
+}

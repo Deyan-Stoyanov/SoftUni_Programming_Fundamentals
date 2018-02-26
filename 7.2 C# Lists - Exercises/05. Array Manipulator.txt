@@ -1,0 +1,121 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        List<int> nums = Console.ReadLine().Split(' ').Select(int.Parse).ToList();
+        List<string> command = Console.ReadLine().Split(' ').ToList();
+        while (command[0] != "print")
+        {
+            string toDo = command[0];
+            switch (toDo)
+            {
+                case "add":
+                    int indexAdd = int.Parse(command[1]);
+                    int elemAdd = int.Parse(command[2]);
+                    nums.Insert(indexAdd, elemAdd);
+                    break;
+                case "addMany":
+                    int indexAddMany = int.Parse(command[1]);
+                    for (int i =command.Count - 1; i >= 2; i--)
+                    {
+                        int elemMany = int.Parse(command[i]);
+                        nums.Insert(indexAddMany, elemMany);
+                    }
+                    break;
+                case "contains":
+                    int contElem = int.Parse(command[1]);
+                    Contains(nums, contElem);
+                    break;
+                case "remove":
+                    int removeInd = int.Parse(command[1]);
+                    Remove(nums, removeInd);
+                    break;
+                case "shift":
+                    int shiftPos = int.Parse(command[1]);
+                    nums = ShiftLeft(nums, shiftPos);
+                    break;
+                case "sumPairs":
+                    nums = SumPairs(nums);
+                    break;
+                default:
+                    break;
+            }
+            command = Console.ReadLine().Split(' ').ToList();
+        }
+        Console.WriteLine($"[{ string.Join(", ", nums)}]");
+
+    }
+
+    private static List<int> ShiftLeft(List<int> nums, int shiftPos)
+    {
+        List<int> list = new List<int>();
+        while (shiftPos > nums.Count)
+        {
+            shiftPos -= nums.Count;
+        }
+        for (int i = 0; i < nums.Count; i++)
+        {
+
+            if (i < nums.Count - shiftPos)
+            {
+                list.Insert(i, nums[i + shiftPos]) ;
+            }
+            else
+            {
+                list.Insert(i, nums[(Math.Abs(nums.Count - i - shiftPos))]);
+            }
+
+        }
+        return list;
+    }
+
+    private static List<int> SumPairs(List<int> nums)
+    {
+        List<int> result = new List<int>();
+        for (int i = 0; i < nums.Count - 1; i += 2)
+        {
+            result.Add(nums[i] + nums[i + 1]);
+        }
+        if (nums.Count % 2 != 0)
+        {
+            result.Add(nums[nums.Count - 1]);
+        }
+        nums.Clear();
+        nums = result;
+        return nums;
+    }
+
+    private static void Contains(List<int> nums, int contElem)
+    {
+        bool no = false;
+        for (int i = 0; i < nums.Count; i++)
+        {
+            if (nums[i] == contElem)
+            {
+                Console.WriteLine(i);
+                no = true;
+                break;
+            }
+        }
+        if (!no)
+        {
+            Console.WriteLine(-1);
+        }
+    }
+
+    private static void Remove(List<int> nums, int removeInd)
+    {
+        for (int i = 0; i < nums.Count; i++)
+        {
+            if (i == removeInd)
+            {
+                nums.RemoveAt(i);
+            }
+        }
+    }
+}

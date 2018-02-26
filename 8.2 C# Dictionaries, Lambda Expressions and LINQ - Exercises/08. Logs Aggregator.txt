@@ -1,0 +1,44 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+public class ConsoleApp1
+{
+    public static void Main()
+    {
+        SortedDictionary<string, SortedDictionary<string, int>> userLogs = new SortedDictionary<string, SortedDictionary<string, int>>();
+        int n = int.Parse(Console.ReadLine());
+        for (int i = 0; i < n; i++)
+        {
+            string[] line = Console.ReadLine().Split(' ');
+            string ip = line[0];
+            string username = line[1];
+            int duration = int.Parse(line[2]);
+            if (!userLogs.ContainsKey(username))
+            {
+                userLogs.Add(username, new SortedDictionary<string, int>());
+            }
+            if (!userLogs[username].ContainsKey(ip))
+            {
+                userLogs[username].Add(ip, duration);
+            }
+            else
+            {
+                userLogs[username][ip] += duration;
+            }
+        }
+        foreach (var user in userLogs)
+        {
+            Console.Write($"{user.Key}: ");
+            Console.Write($"{user.Value.Values.ToList().Sum()} [");
+            StringBuilder pairs = new StringBuilder();
+            foreach (var pair in user.Value)
+            {
+                pairs.Append(pair.Key + ", ");
+            }
+            pairs.Remove(pairs.Length - 2, 2);
+            Console.WriteLine($"{pairs}]");
+        }
+    }
+}

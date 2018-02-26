@@ -1,0 +1,17 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.IO;
+using System.Numerics;
+
+class ConsoleApp1
+{
+    static void Main()
+    {
+        string content = File.ReadAllText("E:\\Tech Module\\Programming Fundamentals" +
+            "\\9.2 C# Objects and Classes - Exercises\\Objects and Classes - Exercises.txt");
+        var lines = content.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
+        Console.WriteLine(lines[15]);
+    }
+}

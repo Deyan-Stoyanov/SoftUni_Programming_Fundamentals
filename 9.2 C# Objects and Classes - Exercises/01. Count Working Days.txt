@@ -1,0 +1,40 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Numerics;
+
+class ConsoleApp1
+{
+    
+    static void Main()
+    {
+        DateTime startDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+        DateTime endDate = DateTime.ParseExact(Console.ReadLine(), "dd-MM-yyyy", CultureInfo.InvariantCulture);
+        List<int> days = new List<int>() { 1, 3, 1, 6, 24, 6, 22, 1, 24, 25, 26 };
+        List<int> months = new List<int>() { 1, 3, 5, 5, 5, 9, 9, 11, 12, 12, 12 };
+        bool isHoliday = false;
+        int count = 0;
+        for (var i = startDate; i <= endDate; i = i.AddDays(1))
+        {
+            isHoliday = false;
+            for (int j = 0; j < days.Count; j++)
+            {
+                if (i.Day == (days[j]) && i.Month == (months[j]))
+                {
+                    isHoliday = true;
+                }
+            }
+            if (i.DayOfWeek.ToString().Equals("Saturday") || i.DayOfWeek.ToString().Equals("Sunday"))
+            {
+                isHoliday = true;
+            }
+            if (!isHoliday)
+            {
+                count++;
+            }
+        }
+        Console.WriteLine(count);
+
+    }
+}

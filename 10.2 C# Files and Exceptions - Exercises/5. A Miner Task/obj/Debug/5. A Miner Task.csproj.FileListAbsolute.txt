@@ -1,0 +1,6 @@
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\5. A Miner Task\bin\Debug\_5.A_Miner_Task.exe.config
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\5. A Miner Task\bin\Debug\_5.A_Miner_Task.exe
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\5. A Miner Task\bin\Debug\_5.A_Miner_Task.pdb
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\5. A Miner Task\obj\Debug\5. A Miner Task.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\5. A Miner Task\obj\Debug\_5.A_Miner_Task.exe
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\5. A Miner Task\obj\Debug\_5.A_Miner_Task.pdb

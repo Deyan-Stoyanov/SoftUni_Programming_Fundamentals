@@ -1,0 +1,6 @@
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\10. Book Library Modification\bin\Debug\_10.Book_Library_Modification.exe.config
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\10. Book Library Modification\bin\Debug\_10.Book_Library_Modification.exe
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\10. Book Library Modification\bin\Debug\_10.Book_Library_Modification.pdb
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\10. Book Library Modification\obj\Debug\10. Book Library Modification.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\10. Book Library Modification\obj\Debug\_10.Book_Library_Modification.exe
+C:\Users\ASUS\Desktop\Files and Exceptions - Exercises\10. Book Library Modification\obj\Debug\_10.Book_Library_Modification.pdb
